@@ -67,7 +67,7 @@ h2.display{font-size:clamp(40px,6vw,84px)}
 .lang{display:inline-flex;padding:3px;border:1px solid var(--line-2);border-radius:var(--r-pill)}
 .lang button{border:0;background:none;padding:5px 10px;border-radius:var(--r-pill);font-size:12.5px;font-weight:600;color:var(--muted)}
 .lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
-@media (max-width:980px){.nav{display:none}.hdr .lang{margin-left:auto}}
+@media (max-width:980px){.nav{display:none}.hdr .lang{margin-left:auto}.hdr .hdr-demo+.lang{margin-left:0}}
 @media (max-width:520px){.hdr .btn{display:none}}
 
 /* ---------- hero ---------- */
@@ -77,7 +77,8 @@ h2.display{font-size:clamp(40px,6vw,84px)}
 .hero h1{font-size:clamp(54px,8.6vw,128px)}
 .hero .lead{font-size:clamp(18px,1.6vw,21px);color:var(--ink-2);max-width:40ch}
 .hero .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.soon{display:inline-flex;align-items:center;gap:12px;padding:10px 16px 10px 12px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--line);font-size:15px;color:var(--ink-2);text-align:left;width:max-content;max-width:100%}
+.soon{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px 16px 10px 12px;border-radius:18px;background:var(--surface);border:1px solid var(--line);font-size:15px;color:var(--ink-2);text-align:left;width:fit-content;max-width:100%}
+.soon>span{flex:1 1 180px}
 .soon .ph-fill{font-size:20px;color:var(--accent)}
 .soon b{color:var(--ink);font-weight:600}
 .soon button{border:0;background:none;padding:0;color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
@@ -93,7 +94,7 @@ h2.display{font-size:clamp(40px,6vw,84px)}
 @keyframes spin{to{background-position:0 208px}}
 .pole-note{position:absolute;left:18px;right:18px;bottom:18px;display:flex;justify-content:space-between;gap:12px;color:#C9CDD3;font-size:14px}
 .pole-note b{color:#fff;font-weight:600}
-@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.pole-wrap{min-height:300px}.pole{height:72%}}
+@media (max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr)}.pole-wrap{min-height:300px}.pole{height:66%}.pole-note{top:16px;bottom:auto}}
 
 /* ---------- sections ---------- */
 .section{padding-block:clamp(72px,9vw,128px)}
@@ -110,7 +111,7 @@ h2.display{font-size:clamp(40px,6vw,84px)}
 .svc-row .go{color:var(--accent);font-weight:600;opacity:0;transform:translateX(-4px);transition:opacity 160ms ease,transform 200ms var(--ease-out)}
 @media (hover:hover) and (pointer:fine){.svc-row:hover{background:linear-gradient(90deg,transparent,rgba(43,79,214,.05),transparent)}.svc-row:hover .go{opacity:1;transform:none}}
 @media (hover:none){.svc-row .go{opacity:1;transform:none}}
-@media (max-width:900px){.menu-grid{grid-template-columns:1fr}}
+@media (max-width:900px){.menu-grid{grid-template-columns:minmax(0,1fr)}}
 
 /* masters: horizontal snap */
 .masters{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
@@ -134,8 +135,8 @@ h2.display{font-size:clamp(40px,6vw,84px)}
 .perks .ph{font-size:28px;color:#8EA4F5}
 .perks b{font-size:18px}
 .perks p{color:#AEB3BB;font-size:15.5px}
-@media (max-width:860px){.band .wrap{grid-template-columns:1fr}}
-@media (max-width:480px){.perks{grid-template-columns:1fr}}
+@media (max-width:860px){.band .wrap{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.perks{grid-template-columns:minmax(0,1fr)}}
 
 /* reviews */
 .reviews{columns:3 300px;column-gap:16px}
@@ -156,7 +157,7 @@ h2.display{font-size:clamp(40px,6vw,84px)}
 .c-cta h3{font-size:clamp(36px,4vw,56px)}
 .c-cta p{color:#D9E0FB}
 .c-cta .btn{background:#fff;color:var(--accent);justify-self:start}
-@media (max-width:760px){.contact{grid-template-columns:1fr}}
+@media (max-width:760px){.contact{grid-template-columns:minmax(0,1fr)}}
 .foot{padding-block:28px 96px;color:var(--muted);font-size:14.5px;border-top:1px solid var(--line)}
 .foot .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
 
@@ -225,7 +226,10 @@ h2.display{font-size:clamp(40px,6vw,84px)}
 @media (min-width:641px){.demo{left:auto;right:20px}.hint{left:auto;right:0;transform-origin:bottom right}}
 @media (max-width:420px){.demo a em{display:none}.demo a{padding:0 14px}}
 .book-float{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:none}
-@media (max-width:640px){.book-float{display:inline-flex}}
+.hdr-demo{display:none;align-items:center;gap:7px;height:38px;padding:0 13px;border-radius:var(--r-pill);border:1px solid var(--line-2);text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap}
+.hdr-demo .ph{font-size:17px}
+@media (max-width:640px){.book-float{display:inline-flex}.demo{display:none!important}.hdr-demo{display:inline-flex}}
+@media (max-width:640px){.hero .actions .btn{flex:1 1 auto}.hdr .wrap{gap:10px}}
 
 /* toast */
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:90;padding:12px 18px;border-radius:14px;background:var(--ink);color:#fff;font-weight:500;font-size:15px;max-width:calc(100vw - 32px);
@@ -270,6 +274,7 @@ body.is-admin #admin{display:grid}
 .list-row .grow b{display:block;font-weight:600;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .list-row .grow small{color:var(--muted);font-size:13.5px}
 @media (hover:hover) and (pointer:fine){button.list-row:hover{background:#F7F8F9}}
+@media (max-width:560px){.list-row{flex-wrap:wrap;row-gap:6px}.list-row .grow{flex:1 1 calc(100% - 72px)}.list-row .grow b{white-space:normal}.list-row .pill{margin-left:68px}.panel h2{flex-wrap:wrap;gap:6px}}
 .pill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:12px;font-size:12.5px;font-weight:600;white-space:nowrap}
 .s-new{background:var(--accent-soft);color:var(--accent)}
 .s-confirmed{background:#E6E8EB;color:var(--ink-2)}
@@ -280,7 +285,7 @@ body.is-admin #admin{display:grid}
 .load div{display:grid;grid-template-columns:110px minmax(0,1fr) 44px;align-items:center;gap:12px;font-size:14.5px}
 .load i{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--accent) var(--w),transparent var(--w))}
 .load span:last-child{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
-@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:minmax(0,1fr)}}
 
 /* schedule */
 .sched-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
@@ -339,7 +344,7 @@ body.is-admin #admin{display:grid}
 .status-btns{display:flex;flex-wrap:wrap;gap:6px}
 
 @media (max-width:900px){
-  #admin{grid-template-columns:1fr}
+  #admin{grid-template-columns:minmax(0,1fr)}
   .side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:8px;padding:10px 12px;overflow-x:auto}
   .side .logo{padding:0 8px 0 4px;font-size:20px}
   .side nav{display:flex;gap:2px}
@@ -365,6 +370,7 @@ body.is-admin #admin{display:grid}
         <a href="#reviews" data-t="nav.reviews">Отзывы</a>
         <a href="#contacts" data-t="nav.contacts">Контакты</a>
       </nav>
+      <a class="hdr-demo" href="#/admin" style="margin-left:auto"><i class="ph ph-gear-six"></i><span data-t="demo.short">Админка</span></a>
       <div class="lang" role="group" aria-label="Язык">
         <button type="button" data-lang="ru" aria-pressed="true">RU</button>
         <button type="button" data-lang="kz" aria-pressed="false">ҚАЗ</button>
@@ -525,7 +531,7 @@ const T = {
     "c.hours":"Ежедневно с 10:00 до 21:00","c.hours2":"Последняя запись в 20:00","c.phone2":"Звонки и WhatsApp (демо-номер)",
     "c.cta.title":"Свободное время есть уже сегодня","c.cta.p":"Запись занимает меньше минуты. Подтверждение придёт в WhatsApp.",
     "foot.demo":"Демо-проект: имена, цены и номер телефона вымышлены",
-    "demo.btn":"Админ-панель","demo.tag":"ДЕМО","demo.hint":"Это демо. Запишитесь на стрижку, потом откройте админку и найдите свою запись в расписании.",
+    "demo.btn":"Админ-панель","demo.short":"Админка","demo.tag":"ДЕМО","demo.hint":"Это демо. Запишитесь на стрижку, потом откройте админку и найдите свою запись в расписании.",
     "cat.hair":"Стрижки","cat.beard":"Борода и бритьё","cat.combo":"Комплексы",
     "min":"мин","from":"","book":"Записаться","free.today":"Ближайшее окно","free.none":"Свободных окон на неделю нет",
     "free.at":"у мастера","free.m":"Свободен","today":"сегодня","tomorrow":"завтра","toMaster":"Записаться к мастеру",
@@ -555,7 +561,7 @@ const T = {
     "c.hours":"Күн сайын 10:00-ден 21:00-ге дейін","c.hours2":"Соңғы жазылу 20:00-де","c.phone2":"Қоңырау және WhatsApp (демо-нөмір)",
     "c.cta.title":"Бос уақыт бүгіннің өзінде бар","c.cta.p":"Жазылу бір минуттан аз уақыт алады. Растау WhatsApp-қа келеді.",
     "foot.demo":"Демо-жоба: есімдер, бағалар және телефон нөмірі ойдан алынған",
-    "demo.btn":"Әкімші панелі","demo.tag":"ДЕМО","demo.hint":"Бұл демо. Шаш қиюға жазылыңыз, содан кейін әкімші панелін ашып, кестеден өз жазбаңызды табыңыз.",
+    "demo.btn":"Әкімші панелі","demo.short":"Әкімші","demo.tag":"ДЕМО","demo.hint":"Бұл демо. Шаш қиюға жазылыңыз, содан кейін әкімші панелін ашып, кестеден өз жазбаңызды табыңыз.",
     "cat.hair":"Шаш қию","cat.beard":"Сақал және қырыну","cat.combo":"Кешендер",
     "min":"мин","from":"","book":"Жазылу","free.today":"Ең жақын бос уақыт","free.none":"Осы аптада бос уақыт жоқ",
     "free.at":"шебер","free.m":"Бос","today":"бүгін","tomorrow":"ертең","toMaster":"Шеберге жазылу",

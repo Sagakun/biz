@@ -59,11 +59,15 @@ h2.t{font:300 clamp(38px,5.2vw,76px)/1 var(--display);letter-spacing:-.04em}
 .logo{display:inline-flex;align-items:flex-end;gap:10px;text-decoration:none;font:500 22px/1 var(--display);letter-spacing:-.02em}
 .logo svg{width:26px;height:26px}
 .nav{display:flex;gap:4px;margin-left:auto}
-.nav a{padding:8px 13px;border-radius:var(--r-pill);text-decoration:none;color:var(--muted);font-weight:500;font-size:15px;transition:color 160ms ease}
+.nav a{padding:8px 13px;border-radius:var(--r-pill);text-decoration:none;color:var(--muted);font-weight:500;font-size:15px;white-space:nowrap;transition:color 160ms ease}
 @media (hover:hover) and (pointer:fine){.nav a:hover{color:var(--text)}}
 .hdr .phone{font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
-@media (max-width:1020px){.nav{display:none}.hdr .phone{margin-left:auto}}
-@media (max-width:560px){.hdr .phone{display:none}.hdr .btn{margin-left:auto}}
+@media (max-width:1180px){.nav{display:none}.hdr .phone{margin-left:auto}}
+.hdr-demo{display:none;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:var(--r-pill);border:1px solid var(--line-2);text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap}
+.hdr-demo .ph{font-size:17px;color:var(--accent)}
+.hdr .short{display:none}
+@media (max-width:640px){.hdr-demo{display:inline-flex}.demo{display:none!important}}
+@media (max-width:560px){.hdr .phone{display:none}.hdr-demo{margin-left:auto}.hdr .wrap{gap:8px}.hdr .full{display:none}.hdr .short{display:inline}}
 
 /* ---------- hero: the 3D model ---------- */
 .hero{position:relative;height:100dvh;min-height:640px;max-height:1100px;overflow:hidden;
@@ -74,12 +78,12 @@ h2.t{font:300 clamp(38px,5.2vw,76px)/1 var(--display);letter-spacing:-.04em}
 #scene.pointing{cursor:pointer}
 .hero-ui{position:absolute;z-index:2;left:0;right:0;bottom:clamp(92px,11vh,120px);pointer-events:none}
 .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(14,20,33,.82) 0%,rgba(14,20,33,.35) 34%,rgba(14,20,33,0) 55%)}
-.hero-ui .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end}
+.hero-ui .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
 .hero-ui>*,.hero-ui .wrap>*{pointer-events:auto}
 .hero h1{font:300 clamp(64px,11vw,176px)/.86 var(--display);letter-spacing:-.06em;margin-left:-.04em}
 .hero .sub{margin-top:18px;font-size:clamp(18px,1.6vw,22px);color:#D5DAE4;max-width:30ch}
 .hero .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:end;gap:0;border:1px solid var(--line-2);border-radius:var(--r-tile);background:rgba(14,20,33,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-self:end;width:max-content;max-width:100%;gap:0;border:1px solid var(--line-2);border-radius:var(--r-tile);background:rgba(14,20,33,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .facts div{padding:16px 22px;display:grid;gap:4px}
 .facts div+div{border-left:1px solid var(--line-2)}
 .facts b{font:400 clamp(22px,2vw,30px)/1 var(--display);letter-spacing:-.03em;white-space:nowrap}
@@ -92,14 +96,18 @@ h2.t{font:300 clamp(38px,5.2vw,76px)/1 var(--display);letter-spacing:-.04em}
 .tip b{display:block;font-weight:600}
 .tip span{color:var(--accent)}
 
+@media (max-width:1180px) and (min-width:861px){
+  .hero-ui .wrap{grid-template-columns:minmax(0,1fr);gap:24px}
+  .facts{justify-self:start}
+}
 @media (max-width:860px){
   .hero{height:auto;min-height:0;max-height:none;padding-top:72px}
   #scene{position:relative;height:48svh;min-height:330px}
   .hero::before{display:none}
   .hero::after{display:none}
   .hero-ui{position:relative;bottom:auto;padding-block:8px 40px}
-  .hero-ui .wrap{grid-template-columns:1fr}
-  .facts{justify-content:stretch;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-ui .wrap{grid-template-columns:minmax(0,1fr)}
+  .facts{justify-self:stretch;width:auto;grid-template-columns:repeat(2,minmax(0,1fr))}
   .facts div:nth-child(3){grid-column:1 / -1;border-left:0;border-top:1px solid var(--line-2)}
   .facts div{padding:12px 14px}
   .facts span{white-space:normal}
@@ -171,7 +179,7 @@ h2.t{font:300 clamp(38px,5.2vw,76px)/1 var(--display);letter-spacing:-.04em}
 .price span{color:var(--muted);font-size:14px}
 .calc{display:grid;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
 .calc .row{display:grid;gap:6px}
-.calc .row div{display:flex;justify-content:space-between;font-size:14.5px}
+.calc .row div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;font-size:14.5px}
 .calc .row div span{color:var(--muted)}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent}
 input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--accent) var(--p,50%),var(--line-2) var(--p,50%))}
@@ -185,10 +193,10 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .note{color:var(--dim);font-size:12.5px}
 @media (max-width:1180px){.chooser{grid-template-columns:240px minmax(0,1fr)}.c-right{grid-column:1 / -1;position:static}}
 @media (max-width:760px){
-  .chooser{grid-template-columns:1fr}
+  .chooser{grid-template-columns:minmax(0,1fr)}
   .c-left{position:static}
   .floors{grid-auto-flow:column;grid-auto-columns:64px;max-height:none;overflow-x:auto;overflow-y:hidden;padding-bottom:6px}
-  .floor{grid-template-columns:1fr;justify-items:center;height:auto;padding:8px 0;gap:6px}
+  .floor{grid-template-columns:minmax(0,1fr);justify-items:center;height:auto;padding:8px 0;gap:6px}
   .floor span{display:none}
 }
 
@@ -205,7 +213,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .c5{grid-column:span 2;background:linear-gradient(160deg,#1C2A44,var(--bg-2) 70%)}
 .river{position:absolute;inset:0;z-index:-1;opacity:.9}
 @media (max-width:900px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.c1{grid-column:span 2}.c2,.c3,.c4,.c5{grid-column:span 1}}
-@media (max-width:560px){.bento{grid-template-columns:1fr}.c1,.c2,.c3,.c4,.c5{grid-column:auto}}
+@media (max-width:560px){.bento{grid-template-columns:minmax(0,1fr)}.c1,.c2,.c3,.c4,.c5{grid-column:auto}.cell{min-height:0;align-content:start}.c1{min-height:280px;align-content:end}}
 
 /* ---------- construction ---------- */
 .build{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
@@ -219,7 +227,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .bar i{position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--accent);transform-origin:left}
 @media (prefers-reduced-motion: no-preference){.build.seen .bar i{animation:grow 1400ms var(--ease-out) both}}
 @keyframes grow{from{transform:scaleX(0)}to{transform:none}}
-@media (max-width:760px){.build{grid-template-columns:1fr}.build>div+div{border-left:0;border-top:1px solid var(--line)}.build>div{padding-bottom:24px}}
+@media (max-width:760px){.build{grid-template-columns:minmax(0,1fr)}.build>div+div{border-left:0;border-top:1px solid var(--line)}.build>div{padding-bottom:24px}}
 
 /* ---------- contact ---------- */
 .contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:start}
@@ -228,7 +236,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .office .ph{font-size:22px;color:var(--accent);margin-top:2px}
 .office b{display:block;font-weight:600}
 .office span{color:var(--muted);font-size:15.5px}
-form.lead{padding:clamp(22px,3vw,36px);display:grid;gap:16px}
+form.lead-form{padding:clamp(22px,3vw,36px);display:grid;gap:16px}
 .field{display:grid;gap:7px}
 .field label{font-weight:600;font-size:14.5px}
 .field input,.field select,.field textarea{min-height:52px;padding:0 16px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg);font-size:16px}
@@ -241,7 +249,7 @@ form.lead{padding:clamp(22px,3vw,36px);display:grid;gap:16px}
 .ok-msg .ph{font-size:36px;color:var(--ok)}
 .ok-msg h3{font:400 28px/1.1 var(--display)}
 .ok-msg p{color:var(--muted)}
-@media (max-width:860px){.contact{grid-template-columns:1fr}}
+@media (max-width:860px){.contact{grid-template-columns:minmax(0,1fr)}}
 .foot{border-top:1px solid var(--line);padding-block:28px 100px;color:var(--dim);font-size:14px}
 .foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px}
 
@@ -296,7 +304,8 @@ body.is-admin #admin{display:grid}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
 .kpi{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-tile);padding:18px;display:grid;gap:8px}
 .kpi span{color:var(--muted);font-size:13.5px}
-.kpi b{font:400 clamp(24px,2.6vw,34px)/1 var(--display);letter-spacing:-.03em;white-space:nowrap}
+.kpi b{font:400 clamp(19px,5.2vw,34px)/1 var(--display);letter-spacing:-.03em;white-space:nowrap}
+@media (min-width:900px){.kpi b{font-size:clamp(24px,2.4vw,34px)}}
 .kpi.hi{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .kpi.hi span{color:rgba(30,20,4,.7)}
 .two{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
@@ -317,7 +326,7 @@ body.is-admin #admin{display:grid}
 .split i{display:flex;height:10px;border-radius:3px;overflow:hidden}
 .split i s{display:block;height:100%}
 .split span:last-child{text-align:right;color:var(--muted)}
-@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:minmax(0,1fr)}}
 /* chessboard */
 .chess-wrap{display:grid;grid-template-columns:repeat(3,max-content);gap:24px;overflow-x:auto;padding-bottom:10px}
 .chess h3{font:400 22px/1 var(--display);margin-bottom:10px;display:flex;gap:10px;align-items:baseline}
@@ -343,11 +352,11 @@ body.is-admin #admin{display:grid}
 .tbl-wrap{overflow-x:auto;border-radius:var(--r-panel)}
 .prog-edit{display:grid;gap:14px;max-width:640px}
 .prog-edit .box{display:grid;gap:12px}
-.prog-edit .box div{display:flex;justify-content:space-between;align-items:baseline}
+.prog-edit .box>div:first-child{display:flex;justify-content:space-between;align-items:baseline}
 .prog-edit .box b{font:400 34px/1 var(--display)}
 .stbtns{display:flex;flex-wrap:wrap;gap:6px}
 @media (max-width:900px){
-  #admin{grid-template-columns:1fr}
+  #admin{grid-template-columns:minmax(0,1fr)}
   .side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:8px;padding:10px 12px;overflow-x:auto}
   .side .logo{padding:0 6px 0 2px}
   .side nav{display:flex}
@@ -375,7 +384,8 @@ body.is-admin #admin{display:grid}
         <a href="#contacts">Офис продаж</a>
       </nav>
       <a class="phone" href="#contacts">+7 700 000 00 00</a>
-      <a class="btn btn-primary btn-sm" href="#choose">Выбрать квартиру</a>
+      <a class="hdr-demo" href="#/admin"><i class="ph ph-gear-six"></i>Админка</a>
+      <a class="btn btn-primary btn-sm" href="#choose"><span class="full">Выбрать квартиру</span><span class="short">Квартиры</span></a>
     </div>
   </header>
 
@@ -457,7 +467,7 @@ body.is-admin #admin{display:grid}
             <div><i class="ph ph-phone"></i><div><b>+7 700 000 00 00</b><span>Демо-номер</span></div></div>
           </div>
         </div>
-        <div class="panel"><form class="lead" id="leadForm" novalidate></form></div>
+        <div class="panel"><form class="lead-form" id="leadForm" novalidate></form></div>
       </div>
     </section>
   </main>
@@ -731,7 +741,7 @@ function initScene() {
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" }); }
   catch { document.documentElement.classList.add("no3d"); $("#dragHint").remove(); return; }
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -778,21 +788,26 @@ function initScene() {
   const LAYOUT = { A: { x: -8.5, z: 1.5, w: 7, d: 4.2, ry: 0 }, B: { x: 1.5, z: 4.5, w: 6.2, d: 4, ry: 0 }, C: { x: 9, z: -3.5, w: 4.4, d: 6, ry: 0 } };
   const concrete = new THREE.MeshStandardMaterial({ color: 0xd9d6cf, roughness: .85 });
   const darkConcrete = new THREE.MeshStandardMaterial({ color: 0x8f8b84, roughness: .9 });
-  const floorMeshes = [];
+  const bodyMeshes = []; // one InstancedMesh per tower, instance i = floor i + 1
   const windowsData = [];
+  const GLASS = new THREE.Color(0x1b2436), HOVER = new THREE.Color(0x9a6420), PICKED = new THREE.Color(0xe09a3a);
+  const bodyMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .3, metalness: .35 });
   for (const tw of db.towers) {
     const L = LAYOUT[tw.id];
     const g = new THREE.Group(); g.position.set(L.x, 0, L.z); g.rotation.y = L.ry; world.add(g);
     // podium
     const pod = new THREE.Mesh(new THREE.BoxGeometry(L.w + .6, .9, L.d + .6), darkConcrete); pod.position.y = .45; pod.castShadow = pod.receiveShadow = true; g.add(pod);
+    const slabs = new THREE.InstancedMesh(new THREE.BoxGeometry(L.w + .14, .08, L.d + .14), concrete, tw.floors);
+    const bodies = new THREE.InstancedMesh(new THREE.BoxGeometry(L.w - .08, FH - .08, L.d - .08), bodyMat, tw.floors);
+    slabs.castShadow = slabs.receiveShadow = bodies.castShadow = bodies.receiveShadow = true;
+    bodies.userData = { tower: tw.id };
+    g.add(slabs, bodies); bodyMeshes.push(bodies);
     for (let f = 1; f <= tw.floors; f++) {
       const y = .9 + (f - 1) * FH;
-      const slab = new THREE.Mesh(new THREE.BoxGeometry(L.w + .14, .08, L.d + .14), concrete); slab.position.y = y + .04; slab.castShadow = slab.receiveShadow = true; g.add(slab);
-      const mat = new THREE.MeshStandardMaterial({ color: 0x1b2436, roughness: .25, metalness: .55, emissive: 0x000000 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(L.w - .08, FH - .08, L.d - .08), mat);
-      body.position.y = y + .08 + (FH - .08) / 2; body.castShadow = true; body.receiveShadow = true;
-      body.userData = { tower: tw.id, floor: f, mat };
-      g.add(body); floorMeshes.push(body);
+      m4.makeTranslation(0, y + .04, 0); slabs.setMatrixAt(f - 1, m4);
+      const by = y + .08 + (FH - .08) / 2;
+      m4.makeTranslation(0, by, 0); bodies.setMatrixAt(f - 1, m4); bodies.setColorAt(f - 1, GLASS);
+      const body = { position: { y: by } };
       // windows on the two long facades and the short ones
       const per = Math.round(L.w / .55), perD = Math.round(L.d / .55);
       for (let i = 0; i < per; i++) for (const side of [1, -1]) windowsData.push({ g, x: -L.w / 2 + (i + .5) * L.w / per, y: body.position.y, z: side * (L.d / 2 - .02), ry: side > 0 ? 0 : Math.PI, f, t: tw.id });
@@ -858,18 +873,24 @@ function initScene() {
     // keep the model to the right of the headline on wide screens
     camera.setViewOffset(r.width, r.height, r.width > 860 ? -r.width * .17 : 0, r.width > 860 ? r.height * .04 : 0, r.width, r.height);
     camera.updateProjectionMatrix();
-    dirty = true;
+    dirty = true; kick();
   }
 
   // interaction
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
-  let hovered = null, selected = null, dragging = false, downX = 0, downY = 0, lastX = 0, moved = 0, dirty = true;
+  let hovered = null, selected = null, dragging = false, downX = 0, downY = 0, lastX = 0, moved = 0, dirty = true, pendingMove = null;
   const tip = $("#tip");
-  function setHover(mesh) {
-    if (hovered === mesh) return;
-    if (hovered && hovered !== selected) hovered.userData.mat.emissive.setHex(0x000000);
-    hovered = mesh;
-    if (hovered && hovered !== selected) hovered.userData.mat.emissive.setHex(0x6b4410);
+  const same = (a, b) => a && b && a.tower === b.tower && a.floor === b.floor;
+  function paint(key, color) {
+    if (!key) return;
+    const m = bodyMeshes.find(x => x.userData.tower === key.tower); if (!m) return;
+    m.setColorAt(key.floor - 1, color); m.instanceColor.needsUpdate = true;
+  }
+  function setHover(key) {
+    if (same(hovered, key) || (!hovered && !key)) return;
+    if (hovered && !same(hovered, selected)) paint(hovered, GLASS);
+    hovered = key;
+    if (hovered && !same(hovered, selected)) paint(hovered, HOVER);
     canvas.classList.toggle("pointing", !!hovered);
     dirty = true;
   }
@@ -877,19 +898,19 @@ function initScene() {
     const r = canvas.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects(floorMeshes, false)[0];
-    return hit ? hit.object : null;
+    const hit = ray.intersectObjects(bodyMeshes, false)[0];
+    return hit && hit.instanceId != null ? { tower: hit.object.userData.tower, floor: hit.instanceId + 1 } : null;
   }
-  function showTip(e, mesh) {
-    if (!mesh) { tip.classList.remove("on"); return; }
-    const { tower: tw, floor: f } = mesh.userData;
+  function showTip(e, key) {
+    if (!key) { tip.classList.remove("on"); return; }
+    const { tower: tw, floor: f } = key;
     const free = aptsOf(tw, f).filter(a => a.status === "free").length;
     const r = canvas.getBoundingClientRect(), h = $("#hero").getBoundingClientRect();
     tip.innerHTML = `<b>Корпус ${tw}, ${f} этаж</b>${free ? `<span>${free} ${free === 1 ? "свободная квартира" : free < 5 ? "свободные квартиры" : "свободных квартир"}</span>` : `<span style="color:var(--muted)">всё продано</span>`}`;
     tip.style.left = (e.clientX - h.left) + "px"; tip.style.top = (e.clientY - h.top) + "px";
     tip.classList.add("on");
   }
-  canvas.addEventListener("pointerdown", e => { dragging = true; moved = 0; downX = lastX = e.clientX; downY = e.clientY; canvas.setPointerCapture(e.pointerId); lastInteract = performance.now(); });
+  canvas.addEventListener("pointerdown", e => { kick(); dragging = true; moved = 0; downX = lastX = e.clientX; downY = e.clientY; canvas.setPointerCapture(e.pointerId); lastInteract = performance.now(); });
   canvas.addEventListener("pointermove", e => {
     if (dragging) {
       const dx = e.clientX - lastX; lastX = e.clientX; moved = Math.max(moved, Math.abs(e.clientX - downX), Math.abs(e.clientY - downY));
@@ -897,45 +918,56 @@ function initScene() {
       lastInteract = performance.now();
       return;
     }
-    if (e.pointerType === "mouse") { const m = pick(e); setHover(m); showTip(e, m); }
+    // Raycasting runs once per frame in the render loop, not on every mouse event.
+    if (e.pointerType === "mouse") { pendingMove = { clientX: e.clientX, clientY: e.clientY }; kick(); }
   });
   const end = e => {
     if (!dragging) return; dragging = false; canvas.classList.remove("dragging");
-    if (moved <= 4) { const m = pick(e); if (m) { $("#dragHint").classList.add("gone"); selectFloor(m.userData.tower, m.userData.floor, true); } }
+    if (moved <= 4) { const m = pick(e); if (m) { $("#dragHint").classList.add("gone"); selectFloor(m.tower, m.floor, true); } }
   };
   canvas.addEventListener("pointerup", end);
   canvas.addEventListener("pointercancel", () => { dragging = false; canvas.classList.remove("dragging"); });
-  canvas.addEventListener("pointerleave", () => { if (!dragging) { setHover(null); tip.classList.remove("on"); } });
+  canvas.addEventListener("pointerleave", () => { pendingMove = null; if (!dragging) { setHover(null); tip.classList.remove("on"); } });
 
   function select(tw, f) {
-    if (selected) selected.userData.mat.emissive.setHex(0x000000);
-    selected = floorMeshes.find(m => m.userData.tower === tw && m.userData.floor === f) || null;
-    if (selected) selected.userData.mat.emissive.setHex(0xb06a12);
-    if (hovered && hovered !== selected) hovered.userData.mat.emissive.setHex(0x6b4410);
-    dirty = true;
+    if (selected) paint(selected, same(selected, hovered) ? HOVER : GLASS);
+    selected = { tower: tw, floor: f };
+    paint(selected, PICKED);
+    dirty = true; kick();
   }
-  function refresh() { dirty = true; }
+  function refresh() { dirty = true; kick(); }
 
   // render loop, paused while the hero is off-screen
-  let visible = true, raf = 0, t0 = performance.now();
-  new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(loop); }).observe(canvas);
+  // Nothing in the scene moves, only the camera: the shadow map is drawn once, not every frame.
+  renderer.shadowMap.autoUpdate = false;
+  renderer.shadowMap.needsUpdate = true;
+  let visible = true, raf = 0, t0 = performance.now(), lastFrame = 0, lastT = performance.now();
+  function kick() { if (visible && !raf && !document.hidden) raf = requestAnimationFrame(loop); }
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; kick(); }).observe(canvas);
+  document.addEventListener("visibilitychange", kick);
   function loop(now) {
     raf = 0;
-    if (!visible) return;
+    if (!visible || document.hidden) return;
+    const dt = Math.min(50, now - lastT) / 16.67; lastT = now;
+    if (pendingMove && !dragging) { const m = pick(pendingMove); setHover(m); showTip(pendingMove, m); pendingMove = null; }
     const idle = now - lastInteract > 3500;
-    if (!dragging) { yaw += vYaw; vYaw *= 0.92; if (Math.abs(vYaw) > 1e-4) dirty = true; }
-    if (autoRotate && idle && !dragging) { yaw += 0.0011; dirty = true; }
-    // intro: camera settles in from further away
+    let busy = false; // something the user is doing or watching closely
+    if (!dragging && Math.abs(vYaw) > 1e-4) { yaw += vYaw * dt; vYaw *= Math.pow(0.92, dt); dirty = true; busy = true; }
+    if (dragging) busy = true;
+    let spinning = false;
+    if (autoRotate && idle && !dragging) { yaw += 0.0011 * dt; dirty = true; spinning = true; }
+    // intro: the camera settles in from further away
     const k = Math.min(1, (now - t0) / 2200), ease = 1 - Math.pow(1 - k, 3);
-    if (k < 1 && !reduceMotion) { dirty = true; }
+    if (k < 1 && !reduceMotion) { dirty = true; busy = true; }
     const rr = reduceMotion ? radius : radius * (1.35 - .35 * ease);
     const savedR = radius; radius = rr; placeCamera(); radius = savedR;
-    if (dirty) { renderer.render(scene, camera); dirty = false; }
-    raf = requestAnimationFrame(loop);
+    // The slow idle spin is drawn at ~30 fps; interaction and the intro get every frame.
+    if (dirty && (busy || !spinning || now - lastFrame > 32)) { renderer.render(scene, camera); dirty = false; lastFrame = now; }
+    if (busy || spinning || dirty || pendingMove) raf = requestAnimationFrame(loop);
   }
   new ResizeObserver(resize).observe(canvas);
   resize(); placeCamera();
-  raf = requestAnimationFrame(loop);
+  kick();
   scene3d = { select, refresh };
   select(S.tower, S.floor);
 }
