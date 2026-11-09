@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЖК «Арна» | Квартиры на набережной Урала, Атырау</title>
+<meta name="description" content="Жилой комплекс бизнес-класса на набережной Урала. Выберите квартиру на 3D-модели, посмотрите планировку и рассчитайте платёж.">
+<meta name="theme-color" content="#0E1421">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E1421'/%3E%3Crect x='14' y='22' width='10' height='30' fill='%23EEF0F4'/%3E%3Crect x='27' y='12' width='10' height='40' fill='%23F2B566'/%3E%3Crect x='40' y='28' width='10' height='24' fill='%23EEF0F4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+/* ЖК «Арна» demo. Dusk over the Ural river: night-blue page, one warm accent taken from lit windows.
+   The loud element is the 3D model of the complex; everything else stays quiet and precise.
+   Shape rule: buttons and chips are pills, panels 22px, inner tiles 14px. */
+:root{
+  --bg:#0E1421; --bg-2:#131B2B; --bg-3:#1A2437; --line:#233049; --line-2:#2F3D5A;
+  --text:#EEF0F4; --muted:#98A2B6; --dim:#6B768C;
+  --accent:#F2B566; --accent-hi:#F7C887; --accent-ink:#1E1404; --accent-soft:rgba(242,181,102,.14);
+  --free:#F2B566; --booked:#7F8BA6; --sold:#3A4660;
+  --ok:#7FD1A4; --bad:#F29A8C;
+  --display:"Geologica",system-ui,sans-serif; --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r-panel:22px; --r-tile:14px; --r-pill:999px;
+  --ease-out:cubic-bezier(.23,1,.32,1); --ease-drawer:cubic-bezier(.32,.72,0,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:80px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+p{margin:0}
+.ph{line-height:1}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+::selection{background:var(--accent);color:var(--accent-ink)}
+.wrap{max-width:1320px;margin-inline:auto;padding-inline:clamp(18px,4vw,44px)}
+.num{font-variant-numeric:tabular-nums}
+h2.t{font:300 clamp(38px,5.2vw,76px)/1 var(--display);letter-spacing:-.04em}
+.lead{color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:48ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:var(--r-pill);border:1px solid transparent;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;
+  transition:transform 160ms var(--ease-out),background-color 180ms ease,border-color 180ms ease,color 180ms ease}
+.btn:active{transform:scale(.97)}
+.btn .ph{font-size:20px}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{border-color:var(--line-2);background:rgba(14,20,33,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.btn-sm{min-height:40px;padding:0 16px;font-size:14.5px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+@media (hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--accent-hi)}.btn-ghost:hover{border-color:var(--muted)}}
+
+/* ---------- header ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:30;transition:background-color 240ms ease,border-color 240ms ease;border-bottom:1px solid transparent}
+.hdr.solid{background:rgba(14,20,33,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.logo{display:inline-flex;align-items:flex-end;gap:10px;text-decoration:none;font:500 22px/1 var(--display);letter-spacing:-.02em}
+.logo svg{width:26px;height:26px}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{padding:8px 13px;border-radius:var(--r-pill);text-decoration:none;color:var(--muted);font-weight:500;font-size:15px;transition:color 160ms ease}
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:var(--text)}}
+.hdr .phone{font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+@media (max-width:1020px){.nav{display:none}.hdr .phone{margin-left:auto}}
+@media (max-width:560px){.hdr .phone{display:none}.hdr .btn{margin-left:auto}}
+
+/* ---------- hero: the 3D model ---------- */
+.hero{position:relative;height:100dvh;min-height:640px;max-height:1100px;overflow:hidden;
+  background:radial-gradient(ellipse 50% 40% at 66% 30%,rgba(140,92,80,.28),transparent 70%),#0E1421}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;background:linear-gradient(180deg,rgba(14,20,33,0),var(--bg) 92%)}
+#scene{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+#scene.dragging{cursor:grabbing}
+#scene.pointing{cursor:pointer}
+.hero-ui{position:absolute;z-index:2;left:0;right:0;bottom:clamp(92px,11vh,120px);pointer-events:none}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(14,20,33,.82) 0%,rgba(14,20,33,.35) 34%,rgba(14,20,33,0) 55%)}
+.hero-ui .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end}
+.hero-ui>*,.hero-ui .wrap>*{pointer-events:auto}
+.hero h1{font:300 clamp(64px,11vw,176px)/.86 var(--display);letter-spacing:-.06em;margin-left:-.04em}
+.hero .sub{margin-top:18px;font-size:clamp(18px,1.6vw,22px);color:#D5DAE4;max-width:30ch}
+.hero .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:end;gap:0;border:1px solid var(--line-2);border-radius:var(--r-tile);background:rgba(14,20,33,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.facts div{padding:16px 22px;display:grid;gap:4px}
+.facts div+div{border-left:1px solid var(--line-2)}
+.facts b{font:400 clamp(22px,2vw,30px)/1 var(--display);letter-spacing:-.03em;white-space:nowrap}
+.facts span{color:var(--muted);font-size:13.5px;white-space:nowrap}
+.drag-hint{position:absolute;z-index:2;top:96px;right:clamp(18px,4vw,44px);display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:var(--r-pill);background:rgba(14,20,33,.55);border:1px solid var(--line-2);font-size:13.5px;color:#C9D0DC;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity 400ms ease}
+.drag-hint.gone{opacity:0;pointer-events:none}
+.tip{position:absolute;z-index:3;pointer-events:none;padding:10px 14px;border-radius:12px;background:rgba(14,20,33,.92);border:1px solid var(--line-2);font-size:14px;line-height:1.35;white-space:nowrap;
+  opacity:0;transform:translate(-50%,calc(-100% - 14px)) scale(.97);transition:opacity 140ms ease,transform 180ms var(--ease-out)}
+.tip.on{opacity:1;transform:translate(-50%,calc(-100% - 18px))}
+.tip b{display:block;font-weight:600}
+.tip span{color:var(--accent)}
+
+@media (max-width:860px){
+  .hero{height:auto;min-height:0;max-height:none;padding-top:72px}
+  #scene{position:relative;height:48svh;min-height:330px}
+  .hero::before{display:none}
+  .hero::after{display:none}
+  .hero-ui{position:relative;bottom:auto;padding-block:8px 40px}
+  .hero-ui .wrap{grid-template-columns:1fr}
+  .facts{justify-content:stretch;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts div:nth-child(3){grid-column:1 / -1;border-left:0;border-top:1px solid var(--line-2)}
+  .facts div{padding:12px 14px}
+  .facts span{white-space:normal}
+  .drag-hint{top:auto;bottom:calc(100% + 12px);right:auto;left:clamp(18px,4vw,44px)}
+}
+
+/* ---------- chooser ---------- */
+.section{padding-block:clamp(80px,10vw,140px)}
+.shead{display:grid;gap:18px;margin-bottom:clamp(32px,4vw,52px)}
+.chooser{display:grid;grid-template-columns:260px minmax(0,1fr) 360px;gap:14px;align-items:start}
+.panel{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-panel)}
+.c-left{padding:16px;display:grid;gap:16px;position:sticky;top:88px}
+.towers{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:4px;border-radius:var(--r-pill);background:var(--bg)}
+.towers button{height:40px;border:0;border-radius:var(--r-pill);background:none;font-weight:600;color:var(--muted);transition:background-color 200ms ease,color 200ms ease}
+.towers button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
+.lbl{font-size:13px;color:var(--muted);font-weight:600}
+.rooms{display:flex;flex-wrap:wrap;gap:6px}
+.chip{height:36px;padding:0 14px;border-radius:var(--r-pill);border:1px solid var(--line-2);background:none;font-size:14px;font-weight:600;color:var(--muted);transition:background-color 160ms ease,color 160ms ease,border-color 160ms ease}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.floors{display:grid;gap:3px;max-height:430px;overflow-y:auto;padding-right:4px;scrollbar-width:thin}
+.floor{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:10px;border:0;background:none;text-align:left;color:var(--muted);font-size:14px}
+.floor b{font:500 16px/1 var(--display);color:var(--text)}
+.floor i{display:flex;gap:3px}
+.floor i s{display:block;width:8px;height:8px;border-radius:2px;background:var(--sold)}
+.floor i s.f{background:var(--free)}
+.floor i s.b{background:var(--booked)}
+.floor i s.x{opacity:.25}
+.floor[aria-pressed="true"]{background:var(--bg-3)}
+.floor[aria-pressed="true"] b{color:var(--accent)}
+.floor.none{opacity:.45}
+@media (hover:hover) and (pointer:fine){.floor:hover{background:var(--bg-3)}}
+.c-mid{padding:18px;display:grid;gap:14px}
+.plan-top{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline;justify-content:space-between}
+.plan-top h3{font:400 28px/1 var(--display);letter-spacing:-.03em}
+.legend{display:flex;gap:16px;font-size:13.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:10px;height:10px;border-radius:3px;background:var(--free)}
+.legend i.b{background:var(--booked)}.legend i.s{background:var(--sold)}
+.plan{width:100%;height:auto;display:block}
+.plan .apt{cursor:pointer}
+.plan .apt rect.fill{transition:fill 180ms ease,opacity 180ms ease}
+.plan .apt.free rect.fill{fill:rgba(242,181,102,.16);stroke:rgba(242,181,102,.75)}
+.plan .apt.booked rect.fill{fill:url(#hatch);stroke:#5B6785}
+.plan .apt.sold rect.fill{fill:#18213A;stroke:#2A3550}
+.plan .apt.sel rect.fill{fill:rgba(242,181,102,.42);stroke:#F7C887;stroke-width:1.2}
+.plan .apt.dim{opacity:.28}
+.plan text{font-family:var(--body);pointer-events:none}
+.plan .r{font-size:9px;font-weight:700;fill:var(--text)}
+.plan .a{font-size:6.5px;fill:var(--muted)}
+.plan .apt.sold .r{fill:#56627D}
+@media (hover:hover) and (pointer:fine){.plan .apt.free:hover rect.fill{fill:rgba(242,181,102,.3)}}
+.compass{display:flex;justify-content:space-between;color:var(--dim);font-size:12.5px}
+.c-right{padding:22px;display:grid;gap:18px;position:sticky;top:88px}
+.c-right .empty{color:var(--muted);text-align:center;padding:40px 8px;display:grid;gap:10px;justify-items:center}
+.c-right .empty .ph{font-size:34px;color:var(--dim)}
+.apt-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.apt-h h3{font:400 30px/1 var(--display);letter-spacing:-.03em}
+.apt-h small{display:block;color:var(--muted);font-size:14.5px;margin-top:6px}
+.st{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:13px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.st.free{background:var(--accent-soft);color:var(--accent)}
+.st.booked{background:rgba(127,139,166,.18);color:#B3BDD3}
+.st.sold{background:rgba(58,70,96,.5);color:#8A95AD}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--r-tile)}
+.specs div{padding:12px;display:grid;gap:2px}
+.specs div+div{border-left:1px solid var(--line)}
+.specs b{font:400 22px/1.1 var(--display)}
+.specs span{color:var(--muted);font-size:12.5px}
+.price b{display:block;font:400 clamp(30px,2.6vw,38px)/1 var(--display);letter-spacing:-.03em}
+.price span{color:var(--muted);font-size:14px}
+.calc{display:grid;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.calc .row{display:grid;gap:6px}
+.calc .row div{display:flex;justify-content:space-between;font-size:14.5px}
+.calc .row div span{color:var(--muted)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--accent) var(--p,50%),var(--line-2) var(--p,50%))}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--line-2)}
+input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--accent)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;margin-top:-8px;border-radius:50%;background:var(--text);border:4px solid var(--bg-2);box-shadow:0 0 0 1px var(--line-2)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--text);border:3px solid var(--bg-2)}
+.pay{display:flex;justify-content:space-between;align-items:baseline;padding:14px 16px;border-radius:var(--r-tile);background:var(--bg)}
+.pay b{font:400 24px/1 var(--display)}
+.pay span{color:var(--muted);font-size:13.5px}
+.note{color:var(--dim);font-size:12.5px}
+@media (max-width:1180px){.chooser{grid-template-columns:240px minmax(0,1fr)}.c-right{grid-column:1 / -1;position:static}}
+@media (max-width:760px){
+  .chooser{grid-template-columns:1fr}
+  .c-left{position:static}
+  .floors{grid-auto-flow:column;grid-auto-columns:64px;max-height:none;overflow-x:auto;overflow-y:hidden;padding-bottom:6px}
+  .floor{grid-template-columns:1fr;justify-items:center;height:auto;padding:8px 0;gap:6px}
+  .floor span{display:none}
+}
+
+/* ---------- features: bento ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.cell{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-panel);padding:clamp(22px,2.4vw,32px);display:grid;gap:10px;align-content:end;min-height:240px;position:relative;overflow:hidden;isolation:isolate}
+.cell h3{font:400 clamp(24px,2.2vw,32px)/1.05 var(--display);letter-spacing:-.03em}
+.cell p{color:var(--muted);font-size:16px;max-width:40ch}
+.cell .big{font:300 clamp(64px,7vw,112px)/.9 var(--display);letter-spacing:-.06em;color:var(--accent)}
+.c1{grid-column:span 4;min-height:340px;background:radial-gradient(ellipse 70% 90% at 100% 0%,rgba(242,181,102,.16),transparent 60%),var(--bg-2)}
+.c2{grid-column:span 2}
+.c3{grid-column:span 2}
+.c4{grid-column:span 2;background:repeating-linear-gradient(90deg,rgba(238,240,244,.03) 0 1px,transparent 1px 22px),var(--bg-2)}
+.c5{grid-column:span 2;background:linear-gradient(160deg,#1C2A44,var(--bg-2) 70%)}
+.river{position:absolute;inset:0;z-index:-1;opacity:.9}
+@media (max-width:900px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.c1{grid-column:span 2}.c2,.c3,.c4,.c5{grid-column:span 1}}
+@media (max-width:560px){.bento{grid-template-columns:1fr}.c1,.c2,.c3,.c4,.c5{grid-column:auto}}
+
+/* ---------- construction ---------- */
+.build{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+.build>div{padding:28px clamp(16px,2vw,32px) 0;display:grid;gap:14px;align-content:start}
+.build>div+div{border-left:1px solid var(--line)}
+.build .pc{font:300 clamp(56px,6vw,96px)/.9 var(--display);letter-spacing:-.06em}
+.build .pc small{font-size:.4em;color:var(--muted);letter-spacing:0;margin-left:4px}
+.build h3{font:500 20px/1.2 var(--body)}
+.build p{color:var(--muted);font-size:15.5px}
+.bar{height:2px;background:var(--line-2);position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--accent);transform-origin:left}
+@media (prefers-reduced-motion: no-preference){.build.seen .bar i{animation:grow 1400ms var(--ease-out) both}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:none}}
+@media (max-width:760px){.build{grid-template-columns:1fr}.build>div+div{border-left:0;border-top:1px solid var(--line)}.build>div{padding-bottom:24px}}
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:start}
+.office{display:grid;gap:22px;margin-top:28px}
+.office>div{display:flex;gap:14px}
+.office .ph{font-size:22px;color:var(--accent);margin-top:2px}
+.office b{display:block;font-weight:600}
+.office span{color:var(--muted);font-size:15.5px}
+form.lead{padding:clamp(22px,3vw,36px);display:grid;gap:16px}
+.field{display:grid;gap:7px}
+.field label{font-weight:600;font-size:14.5px}
+.field input,.field select,.field textarea{min-height:52px;padding:0 16px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg);font-size:16px}
+.field textarea{padding:13px 16px;min-height:90px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:var(--dim)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(242,181,102,.18)}
+.field input[aria-invalid="true"]{border-color:var(--bad)}
+.ferr{color:var(--bad);font-size:14px;min-height:1em}
+.ok-msg{display:grid;gap:12px;justify-items:start;padding:8px 0}
+.ok-msg .ph{font-size:36px;color:var(--ok)}
+.ok-msg h3{font:400 28px/1.1 var(--display)}
+.ok-msg p{color:var(--muted)}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.foot{border-top:1px solid var(--line);padding-block:28px 100px;color:var(--dim);font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px}
+
+/* demo switch */
+.demo{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40}
+.demo a{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 18px 0 16px;border-radius:var(--r-pill);background:rgba(19,27,43,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--line-2);text-decoration:none;font-weight:600;font-size:15px;box-shadow:0 14px 30px -14px rgba(0,0,0,.7);transition:transform 160ms var(--ease-out)}
+.demo a:active{transform:scale(.97)}
+.demo a .ph{font-size:20px;color:var(--accent)}
+.demo a em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 7px;border-radius:var(--r-pill);background:var(--bg-3);color:var(--muted)}
+.hint{position:absolute;right:0;bottom:calc(100% + 10px);width:280px;padding:14px 36px 14px 16px;border-radius:16px;background:var(--text);color:var(--bg);font-size:14px;line-height:1.45;
+  opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:opacity 220ms ease,transform 260ms var(--ease-out)}
+.hint.show{opacity:1;transform:none;pointer-events:auto}
+.hint button{position:absolute;top:6px;right:6px;width:28px;height:28px;border:0;background:none;color:var(--bg);border-radius:50%}
+.demo .short{display:none}
+@media (max-width:560px){.demo{right:12px;left:12px;display:flex;justify-content:flex-end}.demo a em,.demo .full{display:none}.demo .short{display:inline}.demo a{height:44px;padding:0 14px;font-size:14px}}
+
+/* modal + toast */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(5,8,14,.6);opacity:0;pointer-events:none;transition:opacity 200ms ease}
+.scrim.open{opacity:1;pointer-events:auto}
+.modal{position:fixed;z-index:61;left:50%;top:50%;width:min(480px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--r-panel);
+  transform:translate(-50%,-48%) scale(.97);opacity:0;pointer-events:none;transition:opacity 180ms ease,transform 240ms var(--ease-out)}
+.modal.open{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+.modal .mb{padding:22px;display:grid;gap:16px}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mh h3{font:400 26px/1.1 var(--display);letter-spacing:-.02em}
+.icon-btn{width:40px;height:40px;flex:none;border-radius:50%;border:1px solid var(--line-2);background:var(--bg-3);display:grid;place-items:center;font-size:18px;transition:transform 160ms var(--ease-out)}
+.icon-btn:active{transform:scale(.94)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:90;padding:12px 18px;border-radius:14px;background:var(--text);color:var(--bg);font-weight:600;font-size:15px;
+  transform:translate(-50%,160%);opacity:0;transition:transform 300ms var(--ease-out),opacity 200ms ease;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* ================= ADMIN ================= */
+#admin{display:none;min-height:100dvh;grid-template-columns:236px minmax(0,1fr)}
+body.is-admin #site{display:none}
+body.is-admin #admin{display:grid}
+.side{background:#0A0F19;border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100dvh;padding:18px 12px}
+.side .logo{padding:6px 10px 24px}
+.side nav{display:grid;gap:2px}
+.side nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--muted);font-weight:600;font-size:15px}
+.side nav a .ph{font-size:20px}
+.side nav a.on{background:var(--bg-3);color:var(--text)}
+.side nav a .badge{margin-left:auto;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:800;display:grid;place-items:center}
+.side .bottom{margin-top:auto;display:grid;gap:6px;padding-top:14px;border-top:1px solid var(--line)}
+.side .back{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:var(--r-pill);background:var(--text);color:var(--bg);text-decoration:none;font-weight:700;font-size:14.5px}
+.side .reset{border:0;background:none;color:var(--dim);font-size:13px;padding:8px 12px;text-align:left;display:flex;gap:10px;align-items:center}
+.amain{min-width:0}
+.demo-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;padding:10px clamp(18px,3vw,36px);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.demo-bar a{color:var(--text);font-weight:600;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.page{padding:clamp(20px,3vw,36px)}
+.ptitle{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:24px}
+.ptitle h1{font:400 clamp(32px,3.6vw,46px)/1 var(--display);letter-spacing:-.04em}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-tile);padding:18px;display:grid;gap:8px}
+.kpi span{color:var(--muted);font-size:13.5px}
+.kpi b{font:400 clamp(24px,2.6vw,34px)/1 var(--display);letter-spacing:-.03em;white-space:nowrap}
+.kpi.hi{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.kpi.hi span{color:rgba(30,20,4,.7)}
+.two{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+.box{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-panel);padding:18px}
+.box h2{font:400 22px/1 var(--display);letter-spacing:-.02em;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.box h2 a{font:600 14px/1 var(--body);color:var(--muted);text-decoration:none}
+.lrow{display:flex;align-items:center;gap:14px;width:100%;padding:12px 6px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left}
+.lrow:last-child{border-bottom:0}
+.lrow .grow{flex:1;min-width:0}
+.lrow b{display:block;font-weight:600;font-size:15.5px}
+.lrow small{color:var(--muted);font-size:13.5px}
+.lst{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:12px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.lst.new{background:var(--accent-soft);color:var(--accent)}
+.lst.in_work{background:rgba(127,139,166,.18);color:#B3BDD3}
+.lst.done{background:rgba(127,209,164,.14);color:var(--ok)}
+.split{display:grid;gap:10px}
+.split div{display:grid;grid-template-columns:90px minmax(0,1fr) 60px;gap:12px;align-items:center;font-size:14.5px}
+.split i{display:flex;height:10px;border-radius:3px;overflow:hidden}
+.split i s{display:block;height:100%}
+.split span:last-child{text-align:right;color:var(--muted)}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
+/* chessboard */
+.chess-wrap{display:grid;grid-template-columns:repeat(3,max-content);gap:24px;overflow-x:auto;padding-bottom:10px}
+.chess h3{font:400 22px/1 var(--display);margin-bottom:10px;display:flex;gap:10px;align-items:baseline}
+.chess h3 small{font:500 13px/1 var(--body);color:var(--muted)}
+.cgrid{display:grid;gap:3px}
+.crow{display:grid;grid-template-columns:28px repeat(var(--n),58px);gap:3px}
+.crow>span{display:grid;place-items:center;font-size:12.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+.cell2{height:42px;border-radius:7px;border:0;display:grid;align-content:center;justify-items:center;line-height:1.1;font-size:12px;font-weight:700;transition:transform 140ms var(--ease-out)}
+.cell2 small{font-weight:500;font-size:10.5px;opacity:.8}
+.cell2.free{background:var(--accent);color:var(--accent-ink)}
+.cell2.booked{background:#4A5674;color:#E3E8F2}
+.cell2.sold{background:#1E2840;color:#6B768C}
+.cell2.hl{box-shadow:0 0 0 2px var(--text)}
+.cell2:active{transform:scale(.94)}
+@media (hover:hover) and (pointer:fine){.cell2:hover{transform:scale(1.06)}}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;align-items:center}
+.tbl{width:100%;border-collapse:collapse;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-panel);overflow:hidden}
+.tbl th{font-size:13px;font-weight:600;color:var(--muted);text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--line);font-size:15px}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr{cursor:pointer}
+@media (hover:hover) and (pointer:fine){.tbl tbody tr:hover td{background:var(--bg-3)}}
+.tbl-wrap{overflow-x:auto;border-radius:var(--r-panel)}
+.prog-edit{display:grid;gap:14px;max-width:640px}
+.prog-edit .box{display:grid;gap:12px}
+.prog-edit .box div{display:flex;justify-content:space-between;align-items:baseline}
+.prog-edit .box b{font:400 34px/1 var(--display)}
+.stbtns{display:flex;flex-wrap:wrap;gap:6px}
+@media (max-width:900px){
+  #admin{grid-template-columns:1fr}
+  .side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:8px;padding:10px 12px;overflow-x:auto}
+  .side .logo{padding:0 6px 0 2px}
+  .side nav{display:flex}
+  .side nav a{padding:8px 10px;white-space:nowrap}
+  .side nav a .t{display:none}
+  .side .bottom{margin:0 0 0 auto;border:0;padding:0;display:flex}
+  .side .reset{display:none}
+  .side .back{padding:0 14px;white-space:nowrap}
+  .chess-wrap{grid-template-columns:max-content}
+}
+@media (prefers-reduced-motion: reduce){.modal,.scrim,.hint,.toast,.tip{transition:opacity 150ms ease}}
+</style>
+</head>
+<body>
+
+<!-- ================= SITE ================= -->
+<div id="site">
+  <header class="hdr" id="hdr">
+    <div class="wrap">
+      <a class="logo" href="#top" aria-label="ЖК Арна"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="2" y="9" width="6" height="16" fill="#EEF0F4"/><rect x="10" y="2" width="6" height="23" fill="#F2B566"/><rect x="18" y="12" width="6" height="13" fill="#EEF0F4"/></svg>Арна</a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="#choose">Выбрать квартиру</a>
+        <a href="#about">О комплексе</a>
+        <a href="#progress">Ход строительства</a>
+        <a href="#contacts">Офис продаж</a>
+      </nav>
+      <a class="phone" href="#contacts">+7 700 000 00 00</a>
+      <a class="btn btn-primary btn-sm" href="#choose">Выбрать квартиру</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="hero">
+      <canvas id="scene" aria-label="3D-модель жилого комплекса: наведите на этаж, чтобы увидеть свободные квартиры, нажмите, чтобы открыть планировку"></canvas>
+      <div class="drag-hint" id="dragHint"><i class="ph ph-hand-grabbing"></i>Покрутите модель, нажмите на этаж</div>
+      <div class="tip" id="tip"></div>
+      <div class="hero-ui">
+        <div class="wrap">
+          <div>
+            <h1>Арна</h1>
+            <p class="sub">Жилой комплекс на набережной Урала в Атырау. Три корпуса, закрытый двор, вид на реку.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="#choose"><i class="ph ph-buildings"></i>Выбрать квартиру</a>
+              <button type="button" class="btn btn-ghost js-lead" data-type="viewing"><i class="ph ph-calendar-blank"></i>Записаться на показ</button>
+            </div>
+          </div>
+          <div class="facts" id="facts"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="choose">
+      <div class="wrap">
+        <div class="shead">
+          <h2 class="t">Выберите квартиру</h2>
+          <p class="lead">Корпус, этаж, планировка. Жёлтым отмечены свободные квартиры, цены актуальны на сегодня.</p>
+        </div>
+        <div class="chooser">
+          <div class="panel c-left">
+            <div style="display:grid;gap:8px"><span class="lbl">Корпус</span><div class="towers" role="group" aria-label="Корпус" id="towers"></div></div>
+            <div style="display:grid;gap:8px"><span class="lbl">Комнат</span><div class="rooms" id="rooms"></div></div>
+            <div style="display:grid;gap:8px"><span class="lbl">Этаж</span><div class="floors" id="floors"></div></div>
+          </div>
+          <div class="panel c-mid">
+            <div class="plan-top"><h3 id="planTitle"></h3>
+              <div class="legend"><span><i></i>Свободна</span><span><i class="b"></i>Бронь</span><span><i class="s"></i>Продана</span></div></div>
+            <div id="plan"></div>
+            <div class="compass"><span>Двор</span><span>Набережная Урала</span></div>
+          </div>
+          <div class="panel c-right" id="aptCard"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" style="padding-top:0">
+      <div class="wrap">
+        <div class="shead"><h2 class="t">Город у воды</h2></div>
+        <div class="bento">
+          <div class="cell c1">
+            <svg class="river" viewBox="0 0 800 340" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 300 C 160 250, 260 330, 420 270 S 700 210, 820 250" fill="none" stroke="rgba(242,181,102,.35)" stroke-width="1.5"/><path d="M-20 320 C 170 270, 270 350, 430 290 S 700 230, 820 270" fill="none" stroke="rgba(242,181,102,.18)" stroke-width="1"/></svg>
+            <span class="big">2 мин</span>
+            <h3>До набережной Урала пешком</h3>
+            <p>Велодорожка, променад и вечерний вид на реку прямо из окон корпусов A и B.</p>
+          </div>
+          <div class="cell c2"><i class="ph ph-tree" style="font-size:30px;color:var(--accent)"></i><h3>Двор без машин</h3><p>Детская площадка, тихая зона и сад. Машины уходят под землю.</p></div>
+          <div class="cell c3"><i class="ph ph-car-simple" style="font-size:30px;color:var(--accent)"></i><h3>Подземный паркинг</h3><p>Лифт с парковки прямо на этаж квартиры.</p></div>
+          <div class="cell c4"><i class="ph ph-arrows-out" style="font-size:30px;color:var(--accent)"></i><h3>Потолки 3 метра</h3><p>Панорамные окна в гостиных и чистовая отделка на выбор.</p></div>
+          <div class="cell c5"><i class="ph ph-shield-check" style="font-size:30px;color:var(--accent)"></i><h3>Закрытая территория</h3><p>Вход по карте, видеонаблюдение и консьерж в каждом подъезде.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="progress" style="padding-top:0">
+      <div class="wrap">
+        <div class="shead"><h2 class="t">Ход строительства</h2><p class="lead">Обновляем каждый месяц. Сдача всех корпусов: IV квартал 2027 года.</p></div>
+        <div class="build" id="build"></div>
+      </div>
+    </section>
+
+    <section class="section" id="contacts" style="padding-top:0">
+      <div class="wrap contact">
+        <div>
+          <h2 class="t">Офис продаж</h2>
+          <div class="office">
+            <div><i class="ph ph-map-pin"></i><div><b>Атырау, набережная Урала, 14</b><span>Шоу-рум с макетом и образцами отделки</span></div></div>
+            <div><i class="ph ph-clock"></i><div><b>Пн–Сб с 9:00 до 19:00</b><span>Вс по записи</span></div></div>
+            <div><i class="ph ph-phone"></i><div><b>+7 700 000 00 00</b><span>Демо-номер</span></div></div>
+          </div>
+        </div>
+        <div class="panel"><form class="lead" id="leadForm" novalidate></form></div>
+      </div>
+    </section>
+  </main>
+  <footer class="foot"><div class="wrap"><span>© 2026 ЖК «Арна»</span><span>Демо-проект: комплекс, цены и номер телефона вымышлены</span></div></footer>
+
+  <div class="demo">
+    <div class="hint" id="hint" role="status">Это демо. Запишитесь на показ квартиры, потом откройте админку: там шахматка продаж и ваша заявка.<button type="button" id="hintX" aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <a href="#/admin"><i class="ph ph-gear-six"></i><span class="full">Админ-панель</span><span class="short">Админка</span><em>ДЕМО</em></a>
+  </div>
+</div>
+
+<!-- ================= ADMIN ================= -->
+<div id="admin">
+  <aside class="side">
+    <a class="logo" href="#/admin"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="2" y="9" width="6" height="16" fill="#EEF0F4"/><rect x="10" y="2" width="6" height="23" fill="#F2B566"/><rect x="18" y="12" width="6" height="13" fill="#EEF0F4"/></svg>Арна</a>
+    <nav id="anav">
+      <a href="#/admin" data-v="home"><i class="ph ph-squares-four"></i><span class="t">Сводка</span></a>
+      <a href="#/admin/chess" data-v="chess"><i class="ph ph-grid-nine"></i><span class="t">Шахматка</span></a>
+      <a href="#/admin/leads" data-v="leads"><i class="ph ph-tray"></i><span class="t">Заявки</span><span class="badge" id="badge" hidden></span></a>
+      <a href="#/admin/build" data-v="build"><i class="ph ph-crane"></i><span class="t">Стройка</span></a>
+    </nav>
+    <div class="bottom">
+      <a class="back" href="#/"><i class="ph ph-arrow-left"></i>Вернуться на сайт</a>
+      <button type="button" class="reset" id="resetDemo"><i class="ph ph-arrow-counter-clockwise"></i>Сбросить демо-данные</button>
+    </div>
+  </aside>
+  <div class="amain">
+    <div class="demo-bar"><span>Демо-режим: всё, что вы здесь меняете, сохраняется только в вашем браузере.</span><a href="#/"><i class="ph ph-arrow-left"></i>На сайт ЖК</a></div>
+    <div class="page" id="page"></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true"><div class="mb" id="mb"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+const money = n => Math.round(n).toLocaleString("ru-RU").replace(/[ ,]/g, " ") + " ₸";
+const mln = n => (n / 1e6).toFixed(1).replace(".", ",") + " млн ₸";
+const nextId = rows => rows.reduce((m, r) => Math.max(m, r.id), 0) + 1;
+
+/* ================= data ================= */
+// Floor plans in a 200 × 120 box; a corridor runs along y 52–68. Top row faces the yard, bottom row the river.
+const TPL = {
+  A: [ { x:0, y:0, w:62, h:52, r:2, a:64.2 }, { x:62, y:0, w:56, h:52, r:1, a:41.5 }, { x:118, y:0, w:82, h:52, r:3, a:88.4 },
+       { x:0, y:68, w:72, h:52, r:3, a:86.1 }, { x:72, y:68, w:54, h:52, r:1, a:39.8 }, { x:126, y:68, w:74, h:52, r:2, a:66.7 } ],
+  B: [ { x:0, y:0, w:70, h:52, r:2, a:62.3 }, { x:70, y:0, w:68, h:52, r:2, a:60.1 }, { x:138, y:0, w:62, h:52, r:1, a:43.6 },
+       { x:0, y:68, w:104, h:52, r:4, a:118.2 }, { x:104, y:68, w:96, h:52, r:3, a:92.5 } ],
+  C: [ { x:0, y:0, w:104, h:52, r:3, a:96.4 }, { x:104, y:0, w:96, h:52, r:2, a:71.3 },
+       { x:0, y:68, w:92, h:52, r:2, a:69.8 }, { x:92, y:68, w:108, h:52, r:4, a:124.6 } ]
+};
+const KEY = "arna-demo-v1";
+function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
+function seed() {
+  const towers = [
+    { id:"A", floors:16, base:478000, progress:84, stage:"Фасадные работы, остекление" },
+    { id:"B", floors:12, base:452000, progress:63, stage:"Монолит завершён, кладка стен" },
+    { id:"C", floors:9,  base:436000, progress:37, stage:"Монолитные работы, 5 этаж" }
+  ];
+  const apts = [];
+  const r = rng(20271104);
+  for (const tw of towers) for (let f = 1; f <= tw.floors; f++) TPL[tw.id].forEach((p, i) => {
+    const price = Math.round(p.a * tw.base * (1 + (f - 1) * 0.011) / 10000) * 10000;
+    const sold = r() < (0.62 - f / tw.floors * 0.3 - (tw.id === "C" ? 0.18 : 0));
+    const status = sold ? "sold" : r() < 0.13 ? "booked" : "free";
+    apts.push({ id: `${tw.id}-${f}-${i}`, tower: tw.id, floor: f, idx: i, rooms: p.r, area: p.a, price, status, num: `${tw.id}-${f}${String(i + 1).padStart(2, "0")}` });
+  });
+  const now = Date.now(), H = 3600000;
+  const leads = [
+    { id:1, name:"Айгерим", phone:"+77015553311", type:"viewing", aptId:"A-9-2", status:"new", comment:"Удобно в субботу после 12", createdAt: now - 3 * H },
+    { id:2, name:"Ерболат", phone:"+77478882044", type:"callback", aptId:null, status:"new", comment:"Интересует рассрочка", createdAt: now - 20 * H },
+    { id:3, name:"Наталья", phone:"+77052219087", type:"viewing", aptId:"B-6-3", status:"in_work", comment:"", createdAt: now - 50 * H },
+    { id:4, name:"Самат", phone:"+77079014456", type:"viewing", aptId:"C-4-1", status:"done", comment:"Купили, оформляем договор", createdAt: now - 120 * H }
+  ];
+  return { v:1, towers, apts, leads };
+}
+let db;
+function load() { try { const x = JSON.parse(localStorage.getItem(KEY)); if (x && x.v === 1) return x; } catch {} const s = seed(); save(s); return s; }
+function save(x = db) { try { localStorage.setItem(KEY, JSON.stringify(x)); } catch {} }
+db = load();
+function commit() { save(); render(); scene3d && scene3d.refresh(); }
+window.addEventListener("storage", e => { if (e.key === KEY) { db = load(); render(); scene3d && scene3d.refresh(); } });
+const tower = id => db.towers.find(t => t.id === id);
+const aptsOf = (tw, f) => db.apts.filter(a => a.tower === tw && a.floor === f).sort((a, b) => a.idx - b.idx);
+const roomWord = r => r === 1 ? "1-комнатная" : `${r}-комнатная`;
+const ST = { free:"Свободна", booked:"Бронь", sold:"Продана" };
+
+/* ================= site state ================= */
+const S = { tower: "A", floor: 9, rooms: 0, apt: null, down: 30, years: 15 };
+function matches(a) { return !S.rooms || (S.rooms === 4 ? a.rooms >= 4 : a.rooms === S.rooms); }
+
+function renderFacts() {
+  const free = db.apts.filter(a => a.status === "free");
+  const min = Math.min(...free.map(a => a.price));
+  $("#facts").innerHTML = `<div><b class="num">${free.length}</b><span>свободных квартир</span></div>
+    <div><b class="num">от ${mln(min)}</b><span>цена квартиры</span></div>
+    <div><b>IV кв. 2027</b><span>сдача корпусов</span></div>`;
+}
+function renderTowers() {
+  $("#towers").innerHTML = db.towers.map(t => `<button type="button" data-tower="${t.id}" aria-pressed="${t.id === S.tower}" aria-label="Корпус ${t.id}">${t.id}</button>`).join("");
+  $("#rooms").innerHTML = [[0,"Все"],[1,"1"],[2,"2"],[3,"3"],[4,"4+"]].map(([v, l]) => `<button type="button" class="chip" data-rooms="${v}" aria-pressed="${S.rooms === v}">${l}</button>`).join("");
+}
+function renderFloors() {
+  const tw = tower(S.tower);
+  const rows = [];
+  for (let f = tw.floors; f >= 1; f--) {
+    const list = aptsOf(tw.id, f);
+    const freeM = list.filter(a => a.status === "free" && matches(a)).length;
+    rows.push(`<button type="button" class="floor ${freeM ? "" : "none"}" data-floor="${f}" aria-pressed="${f === S.floor}">
+      <b>${f}</b><i aria-hidden="true">${list.map(a => `<s class="${a.status === "free" ? "f" : a.status === "booked" ? "b" : ""} ${matches(a) ? "" : "x"}"></s>`).join("")}</i>
+      <span>${freeM ? `${freeM} своб.` : "нет"}</span></button>`);
+  }
+  $("#floors").innerHTML = rows.join("");
+  const sel = $(".floor[aria-pressed='true']");
+  if (sel) { const box = $("#floors"); const top = sel.offsetTop - box.offsetTop - box.clientHeight / 2; box.scrollTo({ top, left: sel.offsetLeft - box.clientWidth / 2, behavior: "auto" }); }
+}
+function renderPlan() {
+  const list = aptsOf(S.tower, S.floor);
+  $("#planTitle").textContent = `Корпус ${S.tower}, ${S.floor} этаж`;
+  const g = list.map(a => {
+    const p = TPL[a.tower][a.idx]; const pad = 1.6;
+    const cls = [a.status, S.apt === a.id ? "sel" : "", matches(a) ? "" : "dim"].join(" ");
+    const cx = p.x + p.w / 2, cy = p.y + p.h / 2;
+    return `<g class="apt ${cls}" data-apt="${a.id}" tabindex="${a.status === "sold" ? -1 : 0}" role="button" aria-label="Квартира ${a.num}, ${a.rooms} комн., ${a.area} м², ${ST[a.status]}">
+      <rect class="fill" x="${p.x + pad}" y="${p.y + pad}" width="${p.w - pad * 2}" height="${p.h - pad * 2}" rx="2.5" stroke-width=".8"/>
+      <text class="r" x="${cx}" y="${cy - 1}" text-anchor="middle">${a.rooms}К</text>
+      <text class="a" x="${cx}" y="${cy + 9}" text-anchor="middle">${a.area} м²</text></g>`;
+  }).join("");
+  $("#plan").innerHTML = `<svg class="plan" viewBox="-6 -6 212 132" role="group" aria-label="Планировка этажа">
+    <defs><pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#1C2640"/><line x1="0" y1="0" x2="0" y2="5" stroke="#3C4866" stroke-width="2"/></pattern></defs>
+    <rect x="-3" y="-3" width="206" height="126" rx="5" fill="none" stroke="#2F3D5A" stroke-width="1"/>
+    <rect x="0" y="53" width="200" height="14" fill="#101827"/>
+    <rect x="88" y="54.5" width="10" height="11" rx="1.5" fill="none" stroke="#3A4762" stroke-width=".7"/><rect x="101" y="54.5" width="10" height="11" rx="1.5" fill="none" stroke="#3A4762" stroke-width=".7"/>
+    <text x="16" y="62.2" class="a" style="fill:#56627D">коридор</text>
+    ${g}</svg>`;
+}
+function renderCard() {
+  const a = db.apts.find(x => x.id === S.apt);
+  const el = $("#aptCard");
+  if (!a) { el.innerHTML = `<div class="empty"><i class="ph ph-cursor-click"></i><p>Нажмите на квартиру на плане, чтобы увидеть цену и рассчитать платёж</p></div>`; return; }
+  const sqm = Math.round(a.price / a.area / 1000) * 1000;
+  const downAmt = a.price * S.down / 100, loan = a.price - downAmt;
+  const rate = 0.16 / 12, n = S.years * 12;
+  const monthly = loan > 0 ? loan * rate / (1 - Math.pow(1 + rate, -n)) : 0;
+  el.innerHTML = `
+    <div class="apt-h"><div><h3>${roomWord(a.rooms)}</h3><small>Квартира ${a.num} · корпус ${a.tower} · ${a.floor} этаж из ${tower(a.tower).floors}</small></div><span class="st ${a.status}">${ST[a.status]}</span></div>
+    <div class="specs"><div><b class="num">${a.area}</b><span>м² общая</span></div><div><b>${a.rooms}</b><span>комнаты</span></div><div><b>${a.idx >= 3 || (a.tower === "C" && a.idx >= 2) ? "река" : "двор"}</b><span>окна на</span></div></div>
+    <div class="price"><b class="num">${money(a.price)}</b><span>${money(sqm)} за м²</span></div>
+    ${a.status === "sold" ? `<p class="note">Квартира уже продана. Посмотрите свободные на этом или соседних этажах.</p>` : `
+    <div class="calc">
+      <div class="row"><div><span>Первоначальный взнос</span><b class="num" id="vDown">${S.down}% · ${mln(downAmt)}</b></div><input type="range" min="20" max="90" step="5" value="${S.down}" id="rDown" aria-label="Первоначальный взнос" style="--p:${(S.down - 20) / 70 * 100}%"></div>
+      <div class="row"><div><span>Срок</span><b class="num" id="vYears">${S.years} лет</b></div><input type="range" min="3" max="25" step="1" value="${S.years}" id="rYears" aria-label="Срок кредита" style="--p:${(S.years - 3) / 22 * 100}%"></div>
+      <div class="pay"><span>Платёж в месяц</span><b class="num" id="monthly">${money(monthly)}</b></div>
+      <p class="note">Пример расчёта по ставке 16% годовых. Точные условия подберёт менеджер.</p>
+    </div>
+    <button type="button" class="btn btn-primary js-lead" data-type="viewing" data-apt="${a.id}" ${a.status === "booked" ? "" : ""}><i class="ph ph-calendar-blank"></i>${a.status === "booked" ? "Встать в лист ожидания" : "Записаться на показ"}</button>`}`;
+  // Update numbers in place so the slider keeps the pointer while dragging.
+  const upd = () => {
+    const dAmt = a.price * S.down / 100, ln = a.price - dAmt, nn = S.years * 12;
+    $("#vDown").textContent = `${S.down}% · ${mln(dAmt)}`;
+    $("#vYears").textContent = `${S.years} лет`;
+    $("#monthly").textContent = money(ln > 0 ? ln * rate / (1 - Math.pow(1 + rate, -nn)) : 0);
+    $("#rDown").style.setProperty("--p", (S.down - 20) / 70 * 100 + "%");
+    $("#rYears").style.setProperty("--p", (S.years - 3) / 22 * 100 + "%");
+  };
+  const bind = (id, key) => { const r = $(id); if (!r) return; r.oninput = () => { S[key] = +r.value; upd(); }; };
+  bind("#rDown", "down"); bind("#rYears", "years");
+}
+function renderBuild() {
+  $("#build").innerHTML = db.towers.map(t => `<div><span class="pc num">${t.progress}<small>%</small></span><div class="bar"><i style="--w:${t.progress}%"></i></div>
+    <h3>Корпус ${t.id} · ${t.floors} этажей</h3><p>${esc(t.stage)}</p></div>`).join("");
+}
+function leadFormHTML(type = "callback", aptId = null, inModal = false) {
+  const a = aptId ? db.apts.find(x => x.id === aptId) : null;
+  return `${inModal ? `<div class="mh"><h3>${type === "viewing" ? "Запись на показ" : "Заказать звонок"}</h3><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>` : `<h3 style="font:400 28px/1.1 var(--display)">Подберём квартиру под ваш бюджет</h3><p style="color:var(--muted)">Оставьте телефон, менеджер перезвонит в течение 15 минут в рабочее время.</p>`}
+    ${a ? `<div style="padding:12px 14px;border-radius:12px;background:var(--bg);color:var(--muted);font-size:14.5px">Квартира <b style="color:var(--text)">${a.num}</b>, ${roomWord(a.rooms).toLowerCase()}, ${a.area} м², ${mln(a.price)}</div>` : ""}
+    <input type="hidden" name="type" value="${type}"><input type="hidden" name="apt" value="${aptId ?? ""}">
+    <div class="field"><label for="lName${inModal ? "M" : ""}">Имя</label><input id="lName${inModal ? "M" : ""}" name="name" autocomplete="given-name"><div class="ferr" data-e="name"></div></div>
+    <div class="field"><label for="lPhone${inModal ? "M" : ""}">Телефон</label><input id="lPhone${inModal ? "M" : ""}" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __"><div class="ferr" data-e="phone"></div></div>
+    ${type === "viewing" ? `<div class="field"><label for="lCom${inModal ? "M" : ""}">Когда удобно приехать</label><input id="lCom${inModal ? "M" : ""}" name="comment" placeholder="Например: суббота после 12"></div>` : ""}
+    <button type="submit" class="btn btn-primary">${type === "viewing" ? "Записаться на показ" : "Жду звонка"}</button>`;
+}
+function bindLeadForm(form, onDone) {
+  form.addEventListener("input", e => { if (e.target.name === "phone") e.target.value = fmtPhone(e.target.value); });
+  form.onsubmit = e => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const name = String(fd.get("name") || "").trim(), ph = digits(String(fd.get("phone") || ""));
+    $$(".ferr", form).forEach(x => x.textContent = ""); $$("input", form).forEach(x => x.removeAttribute("aria-invalid"));
+    let ok = true;
+    if (!name) { $('[data-e="name"]', form).textContent = "Напишите имя"; form.name.setAttribute("aria-invalid", "true"); ok = false; }
+    if (ph.length !== 11) { $('[data-e="phone"]', form).textContent = "Нужно 10 цифр после +7"; form.phone.setAttribute("aria-invalid", "true"); ok = false; }
+    if (!ok) return;
+    db.leads.push({ id: nextId(db.leads), name: name.slice(0, 60), phone: "+" + ph, type: String(fd.get("type")), aptId: String(fd.get("apt")) || null, status: "new", comment: String(fd.get("comment") || "").slice(0, 300), createdAt: Date.now() });
+    save();
+    onDone();
+  };
+}
+function okHTML(inModal) {
+  return `<div class="ok-msg"><i class="ph ph-check-circle"></i><h3>Заявка отправлена</h3><p>Менеджер свяжется с вами в ближайшее время. В демо заявку уже видно в админке.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary btn-sm" href="#/admin/leads">Открыть в админке</a>${inModal ? `<button type="button" class="btn btn-ghost btn-sm" data-close>Закрыть</button>` : ""}</div></div>`;
+}
+function renderLeadSection() {
+  const form = $("#leadForm"); form.innerHTML = leadFormHTML("callback");
+  bindLeadForm(form, () => { form.innerHTML = okHTML(false); });
+}
+function renderSite() { renderFacts(); renderTowers(); renderFloors(); renderPlan(); renderCard(); renderBuild(); }
+
+function digits(v) { let d = v.replace(/\D/g, ""); if (d.startsWith("8")) d = "7" + d.slice(1); if (!d.startsWith("7")) d = "7" + d; return d.slice(0, 11); }
+function fmtPhone(v) { const d = digits(v); if (d.length <= 1) return "+7 "; const p = d.slice(1); return ("+7 " + p.slice(0, 3) + (p.length > 3 ? " " + p.slice(3, 6) : "") + (p.length > 6 ? " " + p.slice(6, 8) : "") + (p.length > 8 ? " " + p.slice(8, 10) : "")).trim(); }
+
+function selectFloor(tw, f, fromModel) {
+  S.tower = tw; S.floor = f;
+  const list = aptsOf(tw, f);
+  const keep = list.find(a => a.id === S.apt);
+  if (!keep) S.apt = (list.find(a => a.status === "free" && matches(a)) || list.find(a => a.status === "free") || {}).id || null;
+  renderTowers(); renderFloors(); renderPlan(); renderCard();
+  scene3d && scene3d.select(tw, f);
+  if (fromModel) document.getElementById("choose").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+}
+
+/* site events */
+$("#site").addEventListener("click", e => {
+  const el = e.target.closest("[data-tower],[data-rooms],[data-floor],[data-apt],.js-lead");
+  if (!el) return;
+  if (el.classList.contains("js-lead")) return openLead(el.dataset.type, el.dataset.apt || null);
+  if (el.dataset.tower) { const tw = tower(el.dataset.tower); return selectFloor(tw.id, Math.min(S.floor, tw.floors)); }
+  if (el.dataset.rooms !== undefined) { S.rooms = +el.dataset.rooms; const cur = db.apts.find(a => a.id === S.apt); if (cur && !matches(cur)) S.apt = null; renderTowers(); renderFloors(); renderPlan(); renderCard(); return; }
+  if (el.dataset.floor) return selectFloor(S.tower, +el.dataset.floor);
+  if (el.dataset.apt && el.closest("#plan")) { S.apt = el.dataset.apt; renderPlan(); renderCard(); return; }
+});
+$("#plan").addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset.apt) { e.preventDefault(); S.apt = e.target.dataset.apt; renderPlan(); renderCard(); } });
+
+/* modal + toast */
+function openModal(html) { $("#mb").innerHTML = html; $("#modal").classList.add("open"); $("#scrim").classList.add("open"); $("#modal").setAttribute("aria-hidden", "false"); }
+function closeModal() { $("#modal").classList.remove("open"); $("#scrim").classList.remove("open"); $("#modal").setAttribute("aria-hidden", "true"); }
+$("#scrim").onclick = closeModal;
+$("#modal").addEventListener("click", e => { if (e.target.closest("[data-close]")) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+function openLead(type, aptId) {
+  openModal(`<form id="mLead" style="display:grid;gap:16px" novalidate>${leadFormHTML(type, aptId, true)}</form>`);
+  const f = $("#mLead"); bindLeadForm(f, () => { $("#mb").innerHTML = okHTML(true); });
+  setTimeout(() => f.name.focus(), 60);
+}
+let tT; function toast(m) { const el = $("#toast"); el.textContent = m; el.classList.add("show"); clearTimeout(tT); tT = setTimeout(() => el.classList.remove("show"), 2400); }
+
+/* header + hint + progress reveal */
+new IntersectionObserver(([en]) => $("#hdr").classList.toggle("solid", !en.isIntersecting), { rootMargin: "-80px 0px 0px 0px" }).observe($("#choose").previousElementSibling.querySelector(".hero-ui") || $("#hero"));
+new IntersectionObserver(([en], o) => { if (en.isIntersecting) { $("#build").classList.add("seen"); o.disconnect(); } }, { threshold: .4 }).observe($("#build"));
+(() => {
+  let seen = false; try { seen = !!sessionStorage.getItem("arna-hint"); sessionStorage.setItem("arna-hint", "1"); } catch {}
+  if (seen) return;
+  setTimeout(() => $("#hint").classList.add("show"), 2200);
+  setTimeout(() => $("#hint").classList.remove("show"), 10000);
+  $("#hintX").onclick = () => $("#hint").classList.remove("show");
+})();
+
+/* ================= 3D model ================= */
+let scene3d = null;
+function initScene() {
+  if (!window.THREE) { document.documentElement.classList.add("no3d"); return; }
+  const canvas = $("#scene");
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" }); }
+  catch { document.documentElement.classList.add("no3d"); $("#dragHint").remove(); return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x0e1421, 48, 118);
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 400);
+  const world = new THREE.Group(); scene.add(world);
+
+  scene.add(new THREE.HemisphereLight(0x8a9cd0, 0x0c1018, 0.42));
+  const sun = new THREE.DirectionalLight(0xffc796, 1.5);
+  sun.position.set(-30, 22, 18); sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  Object.assign(sun.shadow.camera, { left: -30, right: 30, top: 30, bottom: -30, near: 1, far: 120 });
+  sun.shadow.bias = -0.0006;
+  scene.add(sun);
+  const rim = new THREE.DirectionalLight(0x6f86c9, 0.45); rim.position.set(25, 18, -25); scene.add(rim);
+
+  // ground, yard, river, embankment
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(320, 64), new THREE.MeshStandardMaterial({ color: 0x121826, roughness: 1 }));
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; world.add(ground);
+  const yard = new THREE.Mesh(new THREE.PlaneGeometry(30, 22), new THREE.MeshStandardMaterial({ color: 0x1b2130, roughness: .95 }));
+  yard.rotation.x = -Math.PI / 2; yard.position.set(0, 0.01, -1); yard.receiveShadow = true; world.add(yard);
+  const lawn = new THREE.Mesh(new THREE.PlaneGeometry(12, 8), new THREE.MeshStandardMaterial({ color: 0x1f3328, roughness: 1 }));
+  lawn.rotation.x = -Math.PI / 2; lawn.position.set(1, 0.02, -2.5); lawn.receiveShadow = true; world.add(lawn);
+  const river = new THREE.Mesh(new THREE.PlaneGeometry(400, 30), new THREE.MeshStandardMaterial({ color: 0x122238, roughness: .55, metalness: 0, emissive: 0x050b16 }));
+  river.rotation.x = -Math.PI / 2; river.position.set(0, 0.015, 26); world.add(river);
+  const walk = new THREE.Mesh(new THREE.PlaneGeometry(400, 3), new THREE.MeshStandardMaterial({ color: 0x232733, roughness: .9 }));
+  walk.rotation.x = -Math.PI / 2; walk.position.set(0, 0.02, 9.5); walk.receiveShadow = true; world.add(walk);
+  // lamps along the embankment
+  const lampGeo = new THREE.SphereGeometry(0.12, 8, 8), lampMat = new THREE.MeshBasicMaterial({ color: 0xffd39a });
+  const lamps = new THREE.InstancedMesh(lampGeo, lampMat, 26);
+  const m4 = new THREE.Matrix4();
+  for (let i = 0; i < 26; i++) { m4.makeTranslation(-50 + i * 4, 1.1, 10.8); lamps.setMatrixAt(i, m4); }
+  world.add(lamps);
+  const poleGeo = new THREE.CylinderGeometry(0.03, 0.03, 1.1, 6), poles = new THREE.InstancedMesh(poleGeo, new THREE.MeshStandardMaterial({ color: 0x3a3f4a }), 26);
+  for (let i = 0; i < 26; i++) { m4.makeTranslation(-50 + i * 4, 0.55, 10.8); poles.setMatrixAt(i, m4); }
+  world.add(poles);
+
+  // towers
+  const FH = 0.62; // floor height
+  const LAYOUT = { A: { x: -8.5, z: 1.5, w: 7, d: 4.2, ry: 0 }, B: { x: 1.5, z: 4.5, w: 6.2, d: 4, ry: 0 }, C: { x: 9, z: -3.5, w: 4.4, d: 6, ry: 0 } };
+  const concrete = new THREE.MeshStandardMaterial({ color: 0xd9d6cf, roughness: .85 });
+  const darkConcrete = new THREE.MeshStandardMaterial({ color: 0x8f8b84, roughness: .9 });
+  const floorMeshes = [];
+  const windowsData = [];
+  for (const tw of db.towers) {
+    const L = LAYOUT[tw.id];
+    const g = new THREE.Group(); g.position.set(L.x, 0, L.z); g.rotation.y = L.ry; world.add(g);
+    // podium
+    const pod = new THREE.Mesh(new THREE.BoxGeometry(L.w + .6, .9, L.d + .6), darkConcrete); pod.position.y = .45; pod.castShadow = pod.receiveShadow = true; g.add(pod);
+    for (let f = 1; f <= tw.floors; f++) {
+      const y = .9 + (f - 1) * FH;
+      const slab = new THREE.Mesh(new THREE.BoxGeometry(L.w + .14, .08, L.d + .14), concrete); slab.position.y = y + .04; slab.castShadow = slab.receiveShadow = true; g.add(slab);
+      const mat = new THREE.MeshStandardMaterial({ color: 0x1b2436, roughness: .25, metalness: .55, emissive: 0x000000 });
+      const body = new THREE.Mesh(new THREE.BoxGeometry(L.w - .08, FH - .08, L.d - .08), mat);
+      body.position.y = y + .08 + (FH - .08) / 2; body.castShadow = true; body.receiveShadow = true;
+      body.userData = { tower: tw.id, floor: f, mat };
+      g.add(body); floorMeshes.push(body);
+      // windows on the two long facades and the short ones
+      const per = Math.round(L.w / .55), perD = Math.round(L.d / .55);
+      for (let i = 0; i < per; i++) for (const side of [1, -1]) windowsData.push({ g, x: -L.w / 2 + (i + .5) * L.w / per, y: body.position.y, z: side * (L.d / 2 - .02), ry: side > 0 ? 0 : Math.PI, f, t: tw.id });
+      for (let i = 0; i < perD; i++) for (const side of [1, -1]) windowsData.push({ g, x: side * (L.w / 2 - .02), y: body.position.y, z: -L.d / 2 + (i + .5) * L.d / perD, ry: side > 0 ? Math.PI / 2 : -Math.PI / 2, f, t: tw.id });
+    }
+    const top = .9 + tw.floors * FH;
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(L.w + .14, .22, L.d + .14), concrete); roof.position.y = top + .11; roof.castShadow = true; g.add(roof);
+    const tech = new THREE.Mesh(new THREE.BoxGeometry(L.w * .35, .7, L.d * .4), darkConcrete); tech.position.set(L.w * .15, top + .55, 0); tech.castShadow = true; g.add(tech);
+    // vertical fins on corners
+    for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+      const fin = new THREE.Mesh(new THREE.BoxGeometry(.14, top - .9, .14), concrete); fin.position.set(sx * (L.w / 2 + .02), .9 + (top - .9) / 2, sz * (L.d / 2 + .02)); fin.castShadow = true; g.add(fin);
+    }
+  }
+  // instanced windows, warm when lit
+  const winGeo = new THREE.PlaneGeometry(.34, .38);
+  const winMat = new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false });
+  const wins = new THREE.InstancedMesh(winGeo, winMat, windowsData.length);
+  const dummy = new THREE.Object3D(), warm = new THREE.Color(0xffc074), warm2 = new THREE.Color(0xffe2b0), off = new THREE.Color(0x26324a);
+  const rw = rng(77);
+  world.updateMatrixWorld(true);
+  windowsData.forEach((w, i) => {
+    dummy.position.set(w.x, w.y, w.z); dummy.rotation.set(0, w.ry, 0); dummy.updateMatrix();
+    m4.multiplyMatrices(w.g.matrixWorld, dummy.matrix);
+    // world group may rotate later; store windows in world space relative to world group
+    wins.setMatrixAt(i, m4);
+    const v = rw();
+    wins.setColorAt(i, v < .34 ? warm : v < .42 ? warm2 : off);
+  });
+  wins.instanceMatrix.needsUpdate = true; if (wins.instanceColor) wins.instanceColor.needsUpdate = true;
+  world.add(wins);
+
+  // trees in the yard
+  const treeSpots = [];
+  const rt = rng(5);
+  while (treeSpots.length < 44) {
+    const x = (rt() - .5) * 34, z = (rt() - .5) * 26 - 2;
+    const inside = Object.values(LAYOUT).some(L => Math.abs(x - L.x) < L.w / 2 + 1.2 && Math.abs(z - L.z) < L.d / 2 + 1.2);
+    if (!inside && z < 8) treeSpots.push([x, z, .5 + rt() * .5]);
+  }
+  const crowns = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.6, 1), new THREE.MeshStandardMaterial({ color: 0x2c4a37, roughness: .9, flatShading: true }), treeSpots.length);
+  const trunks = new THREE.InstancedMesh(new THREE.CylinderGeometry(.05, .07, .7, 6), new THREE.MeshStandardMaterial({ color: 0x3b3128 }), treeSpots.length);
+  crowns.castShadow = true;
+  treeSpots.forEach(([x, z, s], i) => {
+    dummy.position.set(x, .35, z); dummy.rotation.set(0, 0, 0); dummy.scale.set(1, 1, 1); dummy.updateMatrix(); trunks.setMatrixAt(i, dummy.matrix);
+    dummy.position.set(x, .7 + s * .6, z); dummy.scale.set(s, s * 1.15, s); dummy.updateMatrix(); crowns.setMatrixAt(i, dummy.matrix);
+  });
+  world.add(crowns, trunks);
+
+  // camera orbit state
+  const target = new THREE.Vector3(1.2, 4.2, 0);
+  let yaw = 0.42, pitch = 0.3, radius = 52, vYaw = 0;
+  let autoRotate = !reduceMotion, lastInteract = 0;
+  function placeCamera() {
+    camera.position.set(target.x + radius * Math.sin(yaw) * Math.cos(pitch), target.y + radius * Math.sin(pitch), target.z + radius * Math.cos(yaw) * Math.cos(pitch));
+    camera.lookAt(target);
+  }
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / r.height;
+    // pull back on narrow screens so the whole complex fits
+    radius = camera.aspect < 0.8 ? 66 : camera.aspect < 1.2 ? 56 : 54;
+    // keep the model to the right of the headline on wide screens
+    camera.setViewOffset(r.width, r.height, r.width > 860 ? -r.width * .17 : 0, r.width > 860 ? r.height * .04 : 0, r.width, r.height);
+    camera.updateProjectionMatrix();
+    dirty = true;
+  }
+
+  // interaction
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  let hovered = null, selected = null, dragging = false, downX = 0, downY = 0, lastX = 0, moved = 0, dirty = true;
+  const tip = $("#tip");
+  function setHover(mesh) {
+    if (hovered === mesh) return;
+    if (hovered && hovered !== selected) hovered.userData.mat.emissive.setHex(0x000000);
+    hovered = mesh;
+    if (hovered && hovered !== selected) hovered.userData.mat.emissive.setHex(0x6b4410);
+    canvas.classList.toggle("pointing", !!hovered);
+    dirty = true;
+  }
+  function pick(e) {
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(floorMeshes, false)[0];
+    return hit ? hit.object : null;
+  }
+  function showTip(e, mesh) {
+    if (!mesh) { tip.classList.remove("on"); return; }
+    const { tower: tw, floor: f } = mesh.userData;
+    const free = aptsOf(tw, f).filter(a => a.status === "free").length;
+    const r = canvas.getBoundingClientRect(), h = $("#hero").getBoundingClientRect();
+    tip.innerHTML = `<b>Корпус ${tw}, ${f} этаж</b>${free ? `<span>${free} ${free === 1 ? "свободная квартира" : free < 5 ? "свободные квартиры" : "свободных квартир"}</span>` : `<span style="color:var(--muted)">всё продано</span>`}`;
+    tip.style.left = (e.clientX - h.left) + "px"; tip.style.top = (e.clientY - h.top) + "px";
+    tip.classList.add("on");
+  }
+  canvas.addEventListener("pointerdown", e => { dragging = true; moved = 0; downX = lastX = e.clientX; downY = e.clientY; canvas.setPointerCapture(e.pointerId); lastInteract = performance.now(); });
+  canvas.addEventListener("pointermove", e => {
+    if (dragging) {
+      const dx = e.clientX - lastX; lastX = e.clientX; moved = Math.max(moved, Math.abs(e.clientX - downX), Math.abs(e.clientY - downY));
+      if (moved > 4) { canvas.classList.add("dragging"); vYaw = -dx * 0.006; yaw += vYaw; dirty = true; tip.classList.remove("on"); $("#dragHint").classList.add("gone"); }
+      lastInteract = performance.now();
+      return;
+    }
+    if (e.pointerType === "mouse") { const m = pick(e); setHover(m); showTip(e, m); }
+  });
+  const end = e => {
+    if (!dragging) return; dragging = false; canvas.classList.remove("dragging");
+    if (moved <= 4) { const m = pick(e); if (m) { $("#dragHint").classList.add("gone"); selectFloor(m.userData.tower, m.userData.floor, true); } }
+  };
+  canvas.addEventListener("pointerup", end);
+  canvas.addEventListener("pointercancel", () => { dragging = false; canvas.classList.remove("dragging"); });
+  canvas.addEventListener("pointerleave", () => { if (!dragging) { setHover(null); tip.classList.remove("on"); } });
+
+  function select(tw, f) {
+    if (selected) selected.userData.mat.emissive.setHex(0x000000);
+    selected = floorMeshes.find(m => m.userData.tower === tw && m.userData.floor === f) || null;
+    if (selected) selected.userData.mat.emissive.setHex(0xb06a12);
+    if (hovered && hovered !== selected) hovered.userData.mat.emissive.setHex(0x6b4410);
+    dirty = true;
+  }
+  function refresh() { dirty = true; }
+
+  // render loop, paused while the hero is off-screen
+  let visible = true, raf = 0, t0 = performance.now();
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(loop); }).observe(canvas);
+  function loop(now) {
+    raf = 0;
+    if (!visible) return;
+    const idle = now - lastInteract > 3500;
+    if (!dragging) { yaw += vYaw; vYaw *= 0.92; if (Math.abs(vYaw) > 1e-4) dirty = true; }
+    if (autoRotate && idle && !dragging) { yaw += 0.0011; dirty = true; }
+    // intro: camera settles in from further away
+    const k = Math.min(1, (now - t0) / 2200), ease = 1 - Math.pow(1 - k, 3);
+    if (k < 1 && !reduceMotion) { dirty = true; }
+    const rr = reduceMotion ? radius : radius * (1.35 - .35 * ease);
+    const savedR = radius; radius = rr; placeCamera(); radius = savedR;
+    if (dirty) { renderer.render(scene, camera); dirty = false; }
+    raf = requestAnimationFrame(loop);
+  }
+  new ResizeObserver(resize).observe(canvas);
+  resize(); placeCamera();
+  raf = requestAnimationFrame(loop);
+  scene3d = { select, refresh };
+  select(S.tower, S.floor);
+}
+
+/* ================= ADMIN ================= */
+const LST = { new:"Новая", in_work:"В работе", done:"Закрыта" };
+const fmtDT = ts => { const d = new Date(ts); return `${d.getDate()} ${["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"][d.getMonth()]}, ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
+let view = "home", leadFilter = "all", hl = null;
+function renderAdmin() {
+  $$("#anav a").forEach(a => a.classList.toggle("on", a.dataset.v === view));
+  const n = db.leads.filter(l => l.status === "new").length; const b = $("#badge"); b.hidden = !n; b.textContent = n;
+  ({ home: vHome, chess: vChess, leads: vLeads, build: vBuild }[view] || vHome)($("#page"));
+}
+function vHome(page) {
+  const total = db.apts.length, sold = db.apts.filter(a => a.status === "sold"), booked = db.apts.filter(a => a.status === "booked"), free = db.apts.filter(a => a.status === "free");
+  const revenue = sold.reduce((s, a) => s + a.price, 0);
+  const leads = [...db.leads].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6);
+  page.innerHTML = `<div class="ptitle"><h1>Сводка продаж</h1><a class="btn btn-primary btn-sm" href="#/admin/chess"><i class="ph ph-grid-nine"></i>Открыть шахматку</a></div>
+    <div class="kpis">
+      <div class="kpi hi"><span>Продано</span><b class="num">${Math.round(sold.length / total * 100)}% · ${sold.length} кв.</b></div>
+      <div class="kpi"><span>Сумма продаж</span><b class="num">${(revenue / 1e9).toFixed(2).replace(".", ",")} млрд ₸</b></div>
+      <div class="kpi"><span>Свободно / в брони</span><b class="num">${free.length} / ${booked.length}</b></div>
+      <div class="kpi"><span>Новые заявки</span><b class="num">${db.leads.filter(l => l.status === "new").length}</b></div>
+    </div>
+    <div class="two">
+      <div class="box"><h2>Последние заявки <a href="#/admin/leads">Все заявки</a></h2>${leads.map(leadRow).join("") || `<p style="color:var(--muted)">Заявок пока нет</p>`}</div>
+      <div class="box"><h2>Продажи по корпусам</h2><div class="split">${db.towers.map(t => {
+        const l = db.apts.filter(a => a.tower === t.id), s = l.filter(a => a.status === "sold").length, bk = l.filter(a => a.status === "booked").length;
+        return `<div><span>Корпус ${t.id}</span><i aria-hidden="true"><s style="width:${s / l.length * 100}%;background:var(--sold);filter:brightness(1.9)"></s><s style="width:${bk / l.length * 100}%;background:var(--booked)"></s><s style="width:${(l.length - s - bk) / l.length * 100}%;background:var(--accent)"></s></i><span>${s}/${l.length}</span></div>`; }).join("")}</div>
+        <div class="legend" style="margin-top:16px"><span><i class="s" style="filter:brightness(1.9)"></i>Продано</span><span><i class="b"></i>Бронь</span><span><i></i>Свободно</span></div></div>
+    </div>`;
+}
+function leadRow(l) {
+  const a = l.aptId ? db.apts.find(x => x.id === l.aptId) : null;
+  return `<button type="button" class="lrow" data-lead="${l.id}"><span class="grow"><b>${esc(l.name)} · ${l.type === "viewing" ? "показ" : "звонок"}</b><small>${fmtDT(l.createdAt)}${a ? ` · кв. ${a.num}, ${a.rooms}К, ${a.area} м²` : ""}</small></span><span class="lst ${l.status}">${LST[l.status]}</span></button>`;
+}
+function vChess(page) {
+  page.innerHTML = `<div class="ptitle"><h1>Шахматка</h1><div class="legend"><span><i></i>Свободна</span><span><i class="b"></i>Бронь</span><span><i class="s" style="filter:brightness(1.9)"></i>Продана</span></div></div>
+    <p style="color:var(--muted);margin:-10px 0 20px">Нажмите на квартиру, чтобы поменять статус или цену. Изменения сразу видны на сайте и на 3D-модели.</p>
+    <div class="chess-wrap">${db.towers.map(t => {
+      const n = TPL[t.id].length; const rows = [];
+      for (let f = t.floors; f >= 1; f--) rows.push(`<div class="crow" style="--n:${n}"><span>${f}</span>${aptsOf(t.id, f).map(a => `<button type="button" class="cell2 ${a.status} ${hl === a.id ? "hl" : ""}" data-cell="${a.id}" title="${a.num}: ${a.rooms}К, ${a.area} м², ${mln(a.price)}">${a.rooms}К<small>${Math.round(a.area)} м²</small></button>`).join("")}</div>`);
+      const l = db.apts.filter(a => a.tower === t.id);
+      return `<div class="chess"><h3>Корпус ${t.id} <small>своб. ${l.filter(a => a.status === "free").length} из ${l.length}</small></h3><div class="cgrid">${rows.join("")}</div></div>`;
+    }).join("")}</div>`;
+}
+function vLeads(page) {
+  const F = { all:"Все", new:"Новые", in_work:"В работе", done:"Закрытые" };
+  const rows = db.leads.filter(l => leadFilter === "all" || l.status === leadFilter).sort((a, b) => b.createdAt - a.createdAt);
+  page.innerHTML = `<div class="ptitle"><h1>Заявки</h1></div>
+    <div class="filters">${Object.entries(F).map(([k, v]) => `<button type="button" class="chip" data-lf="${k}" aria-pressed="${k === leadFilter}">${v}</button>`).join("")}</div>
+    ${rows.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Когда</th><th>Клиент</th><th>Запрос</th><th>Квартира</th><th>Статус</th></tr></thead><tbody>
+    ${rows.map(l => { const a = l.aptId ? db.apts.find(x => x.id === l.aptId) : null; return `<tr data-lead="${l.id}"><td style="white-space:nowrap">${fmtDT(l.createdAt)}</td><td><b>${esc(l.name)}</b><br><small style="color:var(--muted)">${esc(l.phone)}</small></td><td>${l.type === "viewing" ? "Показ" : "Звонок"}${l.comment ? `<br><small style="color:var(--muted)">${esc(l.comment)}</small>` : ""}</td><td>${a ? `${a.num}<br><small style="color:var(--muted)">${a.rooms}К, ${a.area} м², ${mln(a.price)}</small>` : "—"}</td><td><span class="lst ${l.status}">${LST[l.status]}</span></td></tr>`; }).join("")}
+    </tbody></table></div>` : `<p style="color:var(--muted)">Здесь пока пусто</p>`}`;
+}
+function vBuild(page) {
+  page.innerHTML = `<div class="ptitle"><h1>Ход строительства</h1></div><p style="color:var(--muted);margin:-10px 0 20px">Процент и этап сразу обновляются в разделе «Ход строительства» на сайте.</p>
+    <div class="prog-edit">${db.towers.map(t => `<div class="box" data-tw="${t.id}"><div><span style="font-weight:700">Корпус ${t.id}</span><b class="num">${t.progress}%</b></div>
+      <input type="range" min="0" max="100" value="${t.progress}" data-k="progress" aria-label="Готовность корпуса ${t.id}" style="--p:${t.progress}%">
+      <div class="field"><label>Текущий этап</label><input value="${esc(t.stage)}" data-k="stage"></div></div>`).join("")}</div>`;
+}
+function cellModal(id) {
+  const a = db.apts.find(x => x.id === id); if (!a) return;
+  const ls = db.leads.filter(l => l.aptId === id);
+  openModal(`<div class="mh"><h3>Квартира ${a.num}</h3><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <p style="color:var(--muted)">${roomWord(a.rooms)}, ${a.area} м², корпус ${a.tower}, ${a.floor} этаж</p>
+    <div><div style="font-size:13.5px;color:var(--muted);margin-bottom:8px">Статус</div><div class="stbtns">${Object.entries(ST).map(([k, v]) => `<button type="button" class="chip" data-setst="${k}" data-id="${a.id}" aria-pressed="${a.status === k}">${v}</button>`).join("")}</div></div>
+    <div class="field"><label for="cPrice">Цена, ₸</label><input id="cPrice" inputmode="numeric" value="${a.price}"></div>
+    <button type="button" class="btn btn-primary" data-saveprice="${a.id}">Сохранить цену</button>
+    ${ls.length ? `<div><div style="font-size:13.5px;color:var(--muted);margin-bottom:6px">Заявки на эту квартиру</div>${ls.map(leadRow).join("")}</div>` : ""}`);
+}
+function leadModal(id) {
+  const l = db.leads.find(x => x.id === id); if (!l) return;
+  const a = l.aptId ? db.apts.find(x => x.id === l.aptId) : null;
+  openModal(`<div class="mh"><h3>${esc(l.name)}</h3><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <p style="color:var(--muted)">${l.type === "viewing" ? "Запись на показ" : "Заказ звонка"} · ${fmtDT(l.createdAt)}<br>${esc(l.phone)}${l.comment ? `<br>«${esc(l.comment)}»` : ""}</p>
+    ${a ? `<div style="padding:12px 14px;border-radius:12px;background:var(--bg)">Квартира <b>${a.num}</b>: ${a.rooms}К, ${a.area} м², ${mln(a.price)} · <span class="st ${a.status}">${ST[a.status]}</span></div>` : ""}
+    <div><div style="font-size:13.5px;color:var(--muted);margin-bottom:8px">Статус заявки</div><div class="stbtns">${Object.entries(LST).map(([k, v]) => `<button type="button" class="chip" data-setlead="${k}" data-id="${l.id}" aria-pressed="${l.status === k}">${v}</button>`).join("")}</div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn btn-primary btn-sm" href="https://wa.me/${l.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Здравствуйте, ${l.name}! Это офис продаж ЖК «Арна».`)}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>WhatsApp</a>
+      ${a && a.status === "free" ? `<button type="button" class="btn btn-ghost btn-sm" data-book="${a.id}" data-lid="${l.id}"><i class="ph ph-bookmark-simple"></i>Забронировать квартиру</button>` : ""}
+      ${a ? `<a class="btn btn-ghost btn-sm" href="#/admin/chess" data-hl="${a.id}">Показать в шахматке</a>` : ""}</div>`);
+}
+$("#admin").addEventListener("click", e => {
+  const el = e.target.closest("[data-lead],[data-cell],[data-lf]"); if (!el) return;
+  if (el.dataset.cell) return cellModal(el.dataset.cell);
+  if (el.dataset.lead) return leadModal(+el.dataset.lead);
+  if (el.dataset.lf) { leadFilter = el.dataset.lf; renderAdmin(); }
+});
+$("#modal").addEventListener("click", e => {
+  const el = e.target.closest("[data-setst],[data-saveprice],[data-setlead],[data-book],[data-hl],[data-lead]"); if (!el) return;
+  if (el.dataset.setst) { const a = db.apts.find(x => x.id === el.dataset.id); a.status = el.dataset.setst; commit(); cellModal(a.id); toast("Статус обновлён"); return; }
+  if (el.dataset.saveprice) { const a = db.apts.find(x => x.id === el.dataset.saveprice); const v = parseInt($("#cPrice").value.replace(/\D/g, ""), 10); if (v > 0) { a.price = v; commit(); toast("Цена сохранена"); } return; }
+  if (el.dataset.setlead) { const l = db.leads.find(x => x.id === +el.dataset.id); l.status = el.dataset.setlead; commit(); leadModal(l.id); return; }
+  if (el.dataset.book) { const a = db.apts.find(x => x.id === el.dataset.book); a.status = "booked"; const l = db.leads.find(x => x.id === +el.dataset.lid); if (l && l.status === "new") l.status = "in_work"; commit(); leadModal(+el.dataset.lid); toast(`Квартира ${a.num} в брони`); return; }
+  if (el.dataset.hl) { hl = el.dataset.hl; closeModal(); return; }
+  if (el.dataset.lead) return leadModal(+el.dataset.lead);
+});
+$("#admin").addEventListener("input", e => {
+  const box = e.target.closest("[data-tw]"); if (!box) return;
+  const t = tower(box.dataset.tw);
+  if (e.target.dataset.k === "progress") { t.progress = +e.target.value; e.target.style.setProperty("--p", t.progress + "%"); $("b", box).textContent = t.progress + "%"; }
+  if (e.target.dataset.k === "stage") t.stage = e.target.value.slice(0, 80);
+  save();
+});
+$("#resetDemo").onclick = () => { if (confirm("Вернуть демо к исходному виду? Ваши заявки и правки удалятся.")) { db = seed(); save(); render(); scene3d && scene3d.refresh(); toast("Демо-данные сброшены"); } };
+
+/* ================= routing ================= */
+function route() {
+  const h = location.hash;
+  closeModal();
+  if (h.startsWith("#/admin")) {
+    view = h.slice(2).split("?")[0].split("/")[1] || "home";
+    document.body.classList.add("is-admin"); document.title = "Админка | ЖК Арна"; window.scrollTo(0, 0);
+  } else {
+    const was = document.body.classList.contains("is-admin");
+    document.body.classList.remove("is-admin"); document.title = "ЖК «Арна» | Квартиры на набережной Урала, Атырау";
+    if (was) window.scrollTo(0, 0);
+  }
+  render();
+}
+function render() { if (document.body.classList.contains("is-admin")) renderAdmin(); else renderSite(); }
+window.addEventListener("hashchange", route);
+renderLeadSection();
+S.apt = (aptsOf(S.tower, S.floor).find(a => a.status === "free") || {}).id || null;
+route();
+initScene();
+})();
+</script>
+</body>
+</html>
