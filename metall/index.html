@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Темір Қор | Металлопрокат со склада в Атырау</title>
+<meta name="description" content="Арматура, профильная и круглая труба, уголок, швеллер, балка и лист со склада в Атырау. Резка в размер, счёт с НДС за 15 минут, доставка в день заказа.">
+<meta name="theme-color" content="#0D1013">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230D1013'/%3E%3Cpath d='M16 14h32v8H36v20h12v8H16v-8h12V22H16z' fill='%23E2482B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+/* «Темір Қор» metal stockyard demo.
+   Vernacular of a steel yard: dark mill-scale steel, the red marking paint sprayed on bar ends, drafting cross-sections with 45° hatching,
+   GOST sortament tables in mono. One accent (marking red). Industrial shapes: 8px buttons, 14px panels, 10px tiles. */
+:root{
+  --bg:#0D1013; --bg-2:#111519; --s1:#161B20; --s2:#1C2228; --s3:#252C33; --line:#262D34; --line-2:#36404A;
+  --text:#E8EBED; --text-2:#B7BEC5; --muted:#868F98; --dim:#5C656E;
+  --acc:#E2482B; --acc-hi:#F25A3B; --acc-ink:#FF8466; --acc-soft:rgba(226,72,43,.14);
+  --ok:#4CC38A; --ok-soft:rgba(76,195,138,.13); --warn:#E9B04B; --warn-soft:rgba(233,176,75,.13);
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",sans-serif; --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --r:14px; --r-s:10px; --r-b:8px; --ease:cubic-bezier(.23,1,.32,1); --drawer:cubic-bezier(.32,.72,0,1);
+  --gut:clamp(18px,4vw,44px); --hdr:68px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px;color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16.5px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4{margin:0;font-weight:700;text-wrap:balance}
+p{margin:0}
+.ph{line-height:1}
+:focus-visible{outline:2px solid var(--acc-ink);outline-offset:2px;border-radius:6px}
+::selection{background:var(--acc);color:#fff}
+.wrap{max-width:1360px;margin-inline:auto;padding-inline:var(--gut)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.h-xl{font:700 clamp(46px,6.1vw,104px)/.9 var(--cond);text-transform:uppercase;letter-spacing:-.012em}
+.h-l{font:700 clamp(38px,4.8vw,76px)/.92 var(--cond);text-transform:uppercase;letter-spacing:-.008em}
+.h-m{font:700 clamp(24px,2.2vw,30px)/1.05 var(--cond);text-transform:uppercase}
+.muted{color:var(--muted)}
+.lead{color:var(--text-2);font-size:clamp(17px,1.3vw,19px);max-width:48ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border-radius:var(--r-b);border:1.5px solid transparent;background:none;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;
+  transition:transform 160ms var(--ease),background-color 180ms ease,border-color 180ms ease,color 180ms ease}
+.btn:active{transform:scale(.97)}
+.btn .ph{font-size:20px}
+.btn-acc{background:var(--acc);color:#fff}
+.btn-line{border-color:var(--line-2)}
+.btn-light{background:var(--text);color:var(--bg)}
+.btn-sm{min-height:42px;padding:0 16px;font-size:15px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+@media (hover:hover) and (pointer:fine){.btn-acc:hover{background:var(--acc-hi)}.btn-line:hover{background:var(--s2);border-color:var(--dim)}.btn-light:hover{background:#fff}}
+.sec{padding-block:clamp(72px,9vw,128px)}
+.shead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:18px 40px;margin-bottom:clamp(28px,3.4vw,48px)}
+.shead .lead{max-width:52ch}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:40;background:rgba(13,16,19,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:22px;height:var(--hdr)}
+.logo{display:inline-flex;align-items:center;gap:11px;text-decoration:none;white-space:nowrap}
+.logo svg{width:26px;height:26px;flex:none}
+.logo b{font:700 22px/1 var(--cond);letter-spacing:.01em}
+.logo small{font:500 12px/1.1 var(--mono);color:var(--muted);padding-left:11px;border-left:1px solid var(--line-2)}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{padding:8px 12px;border-radius:var(--r-b);text-decoration:none;color:var(--text-2);font-weight:500;font-size:15px;white-space:nowrap}
+.nav a.on{color:var(--text);background:var(--s2)}
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:var(--text);background:var(--s1)}}
+.hdr .phone{font:500 14.5px var(--mono);text-decoration:none;white-space:nowrap;color:var(--text-2)}
+.hdr-cat{display:none}
+.cart-btn{position:relative;display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 14px;border-radius:var(--r-b);background:var(--s2);border:1px solid var(--line-2);text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap;transition:transform 160ms var(--ease)}
+.cart-btn .ph{font-size:20px}
+.cart-btn em{font-style:normal;min-width:22px;height:22px;padding:0 6px;border-radius:6px;background:var(--acc);color:#fff;font:600 12.5px/22px var(--mono);text-align:center}
+.cart-btn em[hidden]{display:none}
+.cart-btn.bump{animation:bump 420ms var(--ease)}
+@keyframes bump{30%{transform:scale(1.07)}}
+.hdr-demo{display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:var(--r-b);border:1px solid var(--line-2);text-decoration:none;font-size:20px}
+@media (max-width:1180px){.nav{display:none}.hdr .phone{margin-left:auto}.hdr-cat{display:inline-flex}}
+@media (max-width:760px){.hdr .phone,.logo small{display:none}.hdr-cat{margin-left:auto}}
+@media (max-width:640px){.hdr-demo{display:inline-flex}.demo{display:none!important}.cart-btn .t{display:none}.hdr .wrap{gap:8px}.hdr-cat{min-height:44px;padding:0 14px}}
+
+/* ---------- hero: a bar rolls out of the rack, its cut end painted red ---------- */
+.hero{position:relative;padding-top:clamp(20px,3vw,40px);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5.3fr) minmax(0,6.7fr);gap:12px;align-items:center}
+.hero-copy{padding-block:clamp(12px,3vh,40px);position:relative;z-index:2}
+.hero-k{font:500 13px var(--mono);color:var(--acc-ink)}
+.hero h1{margin-top:18px}
+.hero-h{font-size:clamp(44px,min(5.2vw,9vh),88px)}
+.hero .lead{margin-top:22px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.stage3d{position:relative;height:clamp(380px,min(42vw,58vh),580px);margin-right:calc(-1 * var(--gut))}
+.stage3d::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px;
+  -webkit-mask:radial-gradient(closest-side at 55% 55%,#000 20%,transparent);mask:radial-gradient(closest-side at 55% 55%,#000 20%,transparent);opacity:.55;pointer-events:none}
+#bar3d{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.fallback{position:absolute;inset:0;display:grid;place-items:center}
+.fallback svg{width:min(70%,420px);height:auto}
+.spec{position:absolute;right:var(--gut);bottom:4%;z-index:2;width:258px;padding:16px;border:1px solid var(--line-2);border-radius:12px;background:rgba(17,21,25,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:opacity 220ms ease,transform 300ms var(--ease)}
+.spec.swap{opacity:0;transform:translateY(6px)}
+.spec .k{font:500 12px var(--mono);color:var(--acc-ink)}
+.spec h3{font:700 24px/1.05 var(--cond);text-transform:uppercase;margin-top:6px}
+.spec .art{margin:12px 0 4px;height:96px;border-radius:8px;background:var(--bg-2);display:grid;place-items:center}
+@media (min-width:1001px){.spec{width:min(480px,calc(100% - 2 * var(--gut)));display:grid;grid-template-columns:136px minmax(0,1fr);gap:0 18px;padding:14px}.spec .art{grid-column:1;grid-row:1/5;height:auto;min-height:120px;margin:0}.spec dl{margin-top:10px;gap:4px 10px}.spec a{margin-top:10px}}
+@media (min-width:1001px) and (max-width:1300px),(min-width:1001px) and (max-height:780px){.spec{width:auto;max-width:360px;grid-template-columns:minmax(0,1fr);padding:12px 16px}.stage3d .spec .art,.stage3d .spec dl{display:none}.spec h3{font-size:21px}.spec a{margin-top:6px}}
+.spec .art svg{width:100%;height:100%}
+.spec dl{display:grid;grid-template-columns:auto auto;justify-content:space-between;gap:5px 14px;margin:12px 0 0;font:400 13.5px var(--mono)}
+.spec dt{color:var(--muted)}
+.spec dd{margin:0;text-align:right}
+.spec a{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-weight:600;font-size:14.5px;text-decoration:none;color:var(--acc-ink)}
+.stock{display:inline-flex;align-items:center;gap:7px;font:500 13px var(--mono);white-space:nowrap}
+.stock::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.stock.no::before{background:var(--warn)}
+.stock.no{color:var(--warn)}
+.cat-sw{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:10px}
+.cat-sw button{position:relative;border:0;border-right:1px solid var(--line);background:none;padding:14px 14px 16px;text-align:left;display:grid;gap:4px;color:var(--text-2);transition:background-color 180ms ease,color 180ms ease}
+.cat-sw button:last-child{border-right:0}
+.cat-sw button::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--acc);transform:scaleX(var(--p,0));transform-origin:left}
+.cat-sw button.on{background:var(--s1);color:var(--text)}
+.cat-sw svg{width:46px;height:34px}
+.cat-sw b{font-size:14.5px;font-weight:600}
+.cat-sw span{font:400 12.5px var(--mono);color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.cat-sw button:hover{background:var(--s1);color:var(--text)}}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats div{padding:26px 24px 8px 0;display:grid;gap:6px;align-content:start}
+.stats div+div{padding-left:24px;border-left:1px solid var(--line)}
+.stats b{font:700 clamp(32px,3.4vw,48px)/1 var(--cond)}
+.stats span{color:var(--muted);font-size:14.5px;max-width:24ch}
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .stage3d{height:clamp(300px,64vw,460px);margin-inline:calc(-1 * var(--gut))}
+  .hero-copy{display:contents}
+  .hero-k{order:1}.hero h1{order:2}.stage3d{order:3}.hero .lead{order:4;margin-top:4px}.hero-cta{order:5;margin-top:18px;margin-bottom:8px}
+  .spec{top:auto;bottom:12px;left:var(--gut);width:auto;right:var(--gut);display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 14px;align-items:center;padding:12px}
+  .spec .art{grid-row:1/4;width:84px;height:66px;margin:0}
+  .spec h3{font-size:19px;margin-top:2px}
+  .spec dl{display:none}
+  .spec a{margin-top:4px}
+  .cat-sw{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(140px,1fr);overflow-x:auto;scrollbar-width:none}
+  .cat-sw::-webkit-scrollbar{display:none}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats div:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:1000px) and (max-height:760px){.stage3d{height:clamp(260px,52vw,380px)}}
+@media (max-width:640px){.spec{display:none}.stage3d{height:clamp(250px,72vw,330px)}.hero-h{font-size:clamp(34px,10.4vw,52px)}.hero-cta .btn{flex:1}}
+
+/* ---------- price board ---------- */
+.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) 112px 92px 64px;gap:12px;align-items:baseline;padding:13px 6px;border-bottom:1px solid var(--line);text-decoration:none;border-radius:4px;transition:background-color 160ms ease}
+.brow.h{font:500 12.5px var(--mono);color:var(--muted);border-bottom-color:var(--line-2);padding-block:8px}
+.brow b{font-weight:600}
+.brow .sz{font-family:var(--mono);color:var(--text-2);margin-left:6px;font-size:14.5px}
+.brow .n{font-family:var(--mono);text-align:right;white-space:nowrap}
+.up{color:var(--acc-ink)}.dn{color:var(--ok)}.eq{color:var(--dim)}
+@media (hover:hover) and (pointer:fine){.brow:not(.h):hover{background:var(--s1)}}
+.board-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-top:22px;color:var(--muted);font-size:14.5px}
+@media (max-width:900px){.board{grid-template-columns:minmax(0,1fr)}.board>div+div .brow.h{display:none}}
+@media (max-width:520px){.brow{grid-template-columns:minmax(0,1fr) auto 54px}.brow .pm{display:none}}
+
+/* ---------- category cards (sortament drawings) ---------- */
+.cgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ccard{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 20px;display:grid;gap:14px;align-content:start;text-decoration:none;transition:border-color 180ms ease,transform 200ms var(--ease)}
+.ccard .art{height:132px;border-radius:var(--r-s);background:var(--bg-2);display:grid;place-items:center;overflow:hidden}
+.ccard .art svg{width:100%;height:100%}
+.ccard h3{font:700 25px/1 var(--cond);text-transform:uppercase}
+.ccard .meta{display:flex;justify-content:space-between;gap:10px;font:400 13.5px var(--mono);color:var(--muted)}
+.ccard .meta b{color:var(--text);font-weight:500}
+.ccard.order{border-style:dashed;border-color:var(--line-2);background:none;align-content:center;justify-items:start;gap:12px;padding:24px}
+.ccard.order h3{font-size:28px}
+.ccard.order p{color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.ccard:hover{border-color:var(--line-2);transform:translateY(-2px)}.ccard:hover .sec-out{stroke:var(--acc-ink)}}
+@media (max-width:1100px){.cgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.cgrid{gap:8px}.ccard{padding:10px 10px 14px;gap:10px}.ccard .art{height:96px}.ccard h3{font-size:19px}.ccard .meta{flex-direction:column;gap:2px;font-size:12.5px}.ccard.order{padding:16px}.ccard.order h3{font-size:21px}.ccard.order p{font-size:14px}}
+
+/* ---------- calculator ---------- */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.panel{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:clamp(18px,2.4vw,30px)}
+.c-in{display:grid;gap:22px;align-content:start}
+.q{display:grid;gap:10px}
+.q>label,.q>.lbl{font-weight:600;font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{min-height:40px;padding:0 14px;border-radius:var(--r-b);border:1px solid var(--line-2);background:none;font-weight:500;font-size:14.5px;white-space:nowrap;transition:background-color 160ms ease,color 160ms ease,border-color 160ms ease}
+.chip[aria-pressed="true"]{background:var(--text);border-color:var(--text);color:var(--bg)}
+@media (hover:hover) and (pointer:fine){.chip:not([aria-pressed="true"]):hover{border-color:var(--dim)}}
+.seg{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:3px;padding:3px;border-radius:var(--r-b);background:var(--bg-2);border:1px solid var(--line);width:max-content;max-width:100%}
+.seg button{height:38px;padding:0 16px;border:0;border-radius:6px;background:none;font-weight:500;font-size:14.5px;color:var(--text-2);white-space:nowrap;transition:background-color 160ms ease,color 160ms ease}
+.seg button[aria-pressed="true"]{background:var(--s3);color:var(--text)}
+.sel{position:relative}
+.sel select,.inp{width:100%;height:50px;padding:0 14px;border-radius:var(--r-b);border:1px solid var(--line-2);background:var(--bg-2);font-size:16px;-webkit-appearance:none;appearance:none}
+.sel select{padding-right:42px;font-family:var(--mono)}
+.sel::after{content:"";position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.inp:focus,.sel select:focus{outline:none;border-color:var(--text-2);box-shadow:0 0 0 3px rgba(232,235,237,.08)}
+.qty-big{display:flex;align-items:center;gap:10px}
+.qty-big input{width:100%;height:60px;font:500 28px var(--mono);padding:0 16px;border-radius:var(--r-b);border:1px solid var(--line-2);background:var(--bg-2)}
+.qty-big input:focus{outline:none;border-color:var(--text-2)}
+.qty-big span{font:500 16px var(--mono);color:var(--muted);min-width:70px}
+.c-out{display:grid;gap:12px;grid-template-rows:auto minmax(170px,1fr) auto}
+.res{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.res div{background:var(--s1);padding:14px 16px;display:grid;gap:4px}
+.res span{color:var(--muted);font-size:13px}
+.res b{font:500 22px/1.1 var(--mono);white-space:nowrap}
+.res .tot{grid-column:1/-1;background:var(--s2)}
+.res .tot b{font:700 clamp(36px,3.6vw,50px)/1 var(--cond)}
+.res .tot small{color:var(--muted);font-size:13px}
+.bundle{position:relative;border-radius:12px;background:var(--bg-2);border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;padding:18px 18px 36px}
+.bundle svg{width:100%;height:100%;max-height:230px}
+.bundle .cap{position:absolute;left:14px;bottom:10px;right:14px;display:flex;justify-content:space-between;gap:10px;font:400 12.5px var(--mono);color:var(--muted)}
+.c-add{display:flex;gap:10px;flex-wrap:wrap}
+.c-add .btn{flex:1}
+@media (max-width:1000px){.calc{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.res{grid-template-columns:repeat(2,minmax(0,1fr))}.res div:nth-child(3){grid-column:1/-1}.res b{font-size:19px}}
+
+/* ---------- cutting & delivery ---------- */
+.svc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,4vw,56px);align-items:start}
+.svc-list{display:grid}
+.svc-it{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 16px;padding:24px 0;border-top:1px solid var(--line)}
+.svc-it:last-child{border-bottom:1px solid var(--line)}
+.svc-it .n{font:500 14px var(--mono);color:var(--acc-ink);padding-top:6px}
+.svc-it h3{font:700 26px/1.05 var(--cond);text-transform:uppercase}
+.svc-it p{grid-column:2;color:var(--text-2);max-width:46ch}
+.map{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.map svg{display:block;width:100%;height:auto}
+.fleet{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+.fleet div{padding:16px;display:grid;gap:3px}
+.fleet div+div{border-left:1px solid var(--line)}
+.fleet b{font-weight:600;font-size:15px}
+.fleet span{font:400 13px var(--mono);color:var(--muted)}
+.fleet em{font:normal 500 14px var(--mono);color:var(--text)}
+@media (max-width:1000px){.svc{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.fleet{grid-template-columns:minmax(0,1fr)}.fleet div+div{border-left:0;border-top:1px solid var(--line)}.svc-it{grid-template-columns:38px minmax(0,1fr)}.svc-it h3{font-size:22px}}
+
+/* ---------- invoice in 15 minutes ---------- */
+.tl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1.5px solid var(--text-2);margin-bottom:clamp(36px,4vw,56px)}
+.tl div{position:relative;padding:22px 24px 0 0;display:grid;gap:6px;align-content:start}
+.tl div::before{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;background:var(--bg);border:2px solid var(--text-2)}
+.tl div:last-child::before{background:var(--acc);border-color:var(--acc)}
+.tl time{font:500 15px var(--mono);color:var(--acc-ink)}
+.tl b{font-weight:600;font-size:17px}
+.tl p{color:var(--muted);font-size:15px;max-width:30ch}
+@media (max-width:900px){.tl{grid-template-columns:minmax(0,1fr);border-top:0;border-left:1.5px solid var(--text-2);margin-left:5px}.tl div{padding:0 0 26px 24px}.tl div::before{top:4px;left:-6px}}
+.upl{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px}
+.drop{position:relative;display:grid;place-items:center;text-align:center;gap:10px;padding:34px 20px;border:1.5px dashed var(--line-2);border-radius:var(--r);background:var(--bg-2);cursor:pointer;transition:border-color 160ms ease,background-color 160ms ease}
+.drop .ph{font-size:38px;color:var(--acc-ink)}
+.drop b{font-size:18px}
+.drop p{color:var(--muted);font-size:14.5px;max-width:36ch}
+.drop.has{border-style:solid;border-color:var(--ok)}
+.drop.over{border-color:var(--acc-ink);background:var(--s1)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.file-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;background:var(--ok-soft);color:var(--ok);font:500 13.5px var(--mono);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.form{display:grid;gap:14px;align-content:start}
+.field{display:grid;gap:7px}
+.field label{font-weight:600;font-size:14px}
+.field .inp{height:50px}
+.field textarea.inp{height:auto;min-height:84px;padding:12px 14px;resize:vertical}
+.inp::placeholder{color:var(--dim)}
+.inp[aria-invalid="true"]{border-color:#E5533A}
+.ferr{color:#FF8A73;font-size:13.5px;min-height:0}
+.ferr:empty{display:none}
+.two-f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.upl{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.two-f{grid-template-columns:minmax(0,1fr)}}
+.ok-box{display:grid;gap:12px;justify-items:start}
+.ok-box .ph{font-size:40px;color:var(--ok)}
+.ok-box h3{font:700 30px/1 var(--cond);text-transform:uppercase}
+.ok-box p{color:var(--text-2)}
+
+/* ---------- reviews ---------- */
+.rv-top{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px}
+.rv-avg{display:flex;align-items:baseline;gap:10px}
+.rv-avg b{font:700 64px/1 var(--cond)}
+.rv-avg span{color:var(--muted);font-size:14.5px}
+.rv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.rv{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:14px;align-content:start}
+.rate{display:flex;align-items:center;gap:10px;font:500 14px var(--mono)}
+.rate i{display:flex;gap:3px}
+.rate i s{display:block;width:14px;height:4px;border-radius:1px;background:var(--line-2)}
+.rate i s.f{background:var(--acc)}
+.rv p{color:var(--text-2)}
+.rv .who{padding-top:14px;border-top:1px solid var(--line);display:grid;gap:2px}
+.rv .who b{font-weight:600}
+.rv .who span{color:var(--muted);font-size:14px}
+.rv .who em{font:normal 400 13px var(--mono);color:var(--muted);margin-top:6px}
+@media (max-width:1100px){.rv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.rv-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- contacts ---------- */
+.ct{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px}
+.ct-main{background:var(--acc);color:#fff;border-radius:var(--r);padding:clamp(24px,4vw,48px);display:grid;gap:20px;align-content:space-between;min-height:340px;position:relative;overflow:hidden;isolation:isolate}
+.ct-main::after{content:"";position:absolute;right:-30px;bottom:-60px;width:260px;height:300px;z-index:-1;background:
+  linear-gradient(#fff,#fff) 0 0/100% 34px no-repeat,linear-gradient(#fff,#fff) 0 100%/100% 34px no-repeat,linear-gradient(#fff,#fff) center/26px 100% no-repeat;opacity:.1}
+.ct-main h2{font:700 clamp(34px,4vw,60px)/.92 var(--cond);text-transform:uppercase}
+.ct-main .big{font:500 clamp(24px,2.6vw,36px) var(--mono);text-decoration:none;color:#fff}
+.ct-main .row{display:flex;flex-wrap:wrap;gap:10px}
+.ct-main .btn-light{color:var(--acc)}
+.ct-side{display:grid;gap:0;align-content:start;padding:4px clamp(0px,1vw,12px)}
+.ct-side div{display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-bottom:1px solid var(--line)}
+.ct-side .ph{font-size:20px;color:var(--acc-ink);padding-top:2px}
+.ct-side b{font-weight:600}
+.ct-side span{grid-column:2;color:var(--muted);font-size:15px}
+@media (max-width:900px){.ct{grid-template-columns:minmax(0,1fr)}}
+.foot{padding:30px 0 110px;color:var(--dim);font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between;border-top:1px solid var(--line);padding-top:22px}
+
+/* ---------- catalog ---------- */
+.pg{padding:clamp(24px,3vw,40px) 0 40px;min-height:70vh}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px 10px;font:400 13.5px var(--mono);color:var(--muted);margin-bottom:16px}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{color:var(--text)}
+.cat-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 30px;margin-bottom:22px}
+.cat-head p{color:var(--muted);margin-top:10px}
+.cat-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px;position:sticky;top:var(--hdr);z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1 1 520px;min-width:0}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;height:40px;padding:0 14px;border-radius:var(--r-b);border:1px solid var(--line);background:none;font-weight:500;font-size:14.5px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:8px;color:var(--text-2)}
+.tab span{font:400 12.5px var(--mono);color:var(--dim)}
+.tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tab.on span{color:#5b636b}
+.search{position:relative;flex:0 1 280px}
+.search .ph{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:18px}
+.search input{width:100%;height:40px;padding:0 12px 0 38px;border-radius:var(--r-b);border:1px solid var(--line-2);background:var(--s1);font-size:15px}
+.search input:focus{outline:none;border-color:var(--text-2)}
+table.tb{width:100%;border-collapse:collapse}
+.tb th{font:500 12.5px var(--mono);color:var(--muted);text-align:left;padding:12px 10px;border-bottom:1px solid var(--line-2);white-space:nowrap}
+.tb td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tb .num{text-align:right;font-family:var(--mono);white-space:nowrap}
+.tb tr.grp td{padding:34px 10px 10px;border-bottom:1px solid var(--line-2)}
+.tb tr.grp b{font:700 26px/1 var(--cond);text-transform:uppercase;margin-right:14px}
+.tb tr.grp span{font:400 13px var(--mono);color:var(--muted)}
+.tb .nm a{text-decoration:none;font-weight:600}
+.tb .nm small{display:block;font:400 12.5px var(--mono);color:var(--muted)}
+.tb tbody tr:not(.grp){transition:background-color 140ms ease}
+@media (hover:hover) and (pointer:fine){.tb tbody tr:not(.grp):hover{background:var(--s1)}.tb .nm a:hover{color:var(--acc-ink)}}
+.qty{display:flex;gap:6px;justify-content:flex-end;align-items:center}
+.qty input{width:74px;height:38px;padding:0 10px;border-radius:6px;border:1px solid var(--line-2);background:var(--bg-2);font:500 15px var(--mono);text-align:right}
+.qty select{height:38px;padding:0 26px 0 10px;border-radius:6px;border:1px solid var(--line-2);background:var(--bg-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23868F98' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 9px center;font-size:14px;-webkit-appearance:none;appearance:none}
+.qty input:focus,.qty select:focus{outline:none;border-color:var(--text-2)}
+.add{width:38px;height:38px;flex:none;border-radius:6px;border:0;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:18px;transition:transform 140ms var(--ease),background-color 160ms ease}
+.add:active{transform:scale(.92)}
+@media (hover:hover) and (pointer:fine){.add:hover{background:var(--acc-hi)}}
+.empty{padding:60px 0;text-align:center;color:var(--muted)}
+@media (max-width:900px){
+  .tb thead{display:none}
+  .tb,.tb tbody{display:block}
+  .tb tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:14px 4px;border-bottom:1px solid var(--line)}
+  .tb tr.grp{display:block;padding:28px 4px 10px;border-bottom-color:var(--line-2)}
+  .tb tr.grp td{padding:0;border:0}
+  .tb tr.grp b{display:block;margin-bottom:4px;font-size:22px}
+  .tb td{padding:0;border:0}
+  .tb td.hide-m{display:none}
+  .tb td.nm{grid-column:1}
+  .tb td.ppm{grid-column:2;grid-row:1;align-self:start}
+  .tb td.stk{grid-column:1}
+  .tb td.qtyc{grid-column:1/-1}
+  .qty{justify-content:flex-start}
+  .qty input{flex:1;min-width:0}
+}
+
+/* ---------- product ---------- */
+.pp{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:start}
+.pp-draw{position:sticky;top:calc(var(--hdr) + 16px);background:var(--s1);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pp-draw svg{display:block;width:100%;height:auto}
+.pp-draw .cap{display:flex;justify-content:space-between;gap:10px;padding:12px 16px;border-top:1px solid var(--line);font:400 12.5px var(--mono);color:var(--muted)}
+.pp-info{display:grid;gap:22px}
+.pp-info h1{font:700 clamp(36px,4vw,60px)/.92 var(--cond);text-transform:uppercase}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:6px;background:var(--s2);font:500 12.5px var(--mono);color:var(--text-2)}
+.price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.price-row b{font:700 clamp(40px,4vw,56px)/1 var(--cond)}
+.price-row span{color:var(--muted);font:400 14.5px var(--mono)}
+.specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;margin:0}
+.specs div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.specs dt{color:var(--muted)}
+.specs dd{margin:0;font-family:var(--mono);text-align:right}
+.sizes{display:flex;flex-wrap:wrap;gap:6px}
+.sizes a{height:38px;padding:0 12px;border-radius:6px;border:1px solid var(--line-2);display:inline-flex;align-items:center;text-decoration:none;font:500 14px var(--mono);color:var(--text-2)}
+.sizes a.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+@media (max-width:900px){.pp{grid-template-columns:minmax(0,1fr)}.pp-draw{position:static}.specs{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- cart ---------- */
+.cart{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+.ci{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:6px 16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.ci .art{width:72px;height:56px;border-radius:8px;background:var(--bg-2);display:grid;place-items:center}
+.ci .art svg{width:100%;height:100%}
+.ci .nm a{text-decoration:none;font-weight:600}
+.ci .nm small{display:block;font:400 13px var(--mono);color:var(--muted);margin-top:2px}
+.ci .rt{display:grid;justify-items:end;gap:6px}
+.ci .sum{font:500 17px var(--mono);white-space:nowrap}
+.ci .ctl{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.rm{border:0;background:none;color:var(--muted);display:inline-flex;align-items:center;gap:6px;font-size:14px;padding:6px 4px}
+@media (hover:hover) and (pointer:fine){.rm:hover{color:var(--acc-ink)}}
+.sum-panel{position:sticky;top:calc(var(--hdr) + 16px);display:grid;gap:18px}
+.lines{display:grid;gap:9px;font:400 14.5px var(--mono)}
+.ln{display:grid;grid-template-columns:auto minmax(12px,1fr) auto;gap:8px;align-items:baseline}
+.ln i{border-bottom:1px dotted var(--line-2);transform:translateY(-4px)}
+.ln span:first-child{font-family:var(--sans);color:var(--text-2)}
+.grand{padding-top:16px;border-top:1px dashed var(--line-2);display:grid;gap:4px}
+.grand span{color:var(--muted);font-size:14px}
+.grand b{font:700 clamp(36px,3.4vw,48px)/1 var(--cond)}
+.truck{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:var(--r-s);background:var(--bg-2);border:1px solid var(--line);font-size:14.5px}
+.truck .ph{font-size:24px;color:var(--acc-ink)}
+.radio{display:grid;gap:6px}
+.radio label{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r-s);border:1px solid var(--line-2);cursor:pointer;font-size:15px}
+.radio label:has(input:checked){border-color:var(--text-2);background:var(--s2)}
+.radio input{accent-color:var(--acc);width:18px;height:18px;margin:0}
+.radio em{margin-left:auto;font:normal 400 13.5px var(--mono);color:var(--muted)}
+.check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:15px}
+.check input{accent-color:var(--acc);width:18px;height:18px;margin:2px 0 0;flex:none}
+.check small{display:block;color:var(--muted);font-size:13.5px}
+@media (max-width:1000px){.cart{grid-template-columns:minmax(0,1fr)}.sum-panel{position:static}}
+@media (max-width:520px){.ci{grid-template-columns:56px minmax(0,1fr)}.ci .art{width:56px;height:46px}.ci .rt{grid-column:1/-1;grid-row:auto;display:flex;justify-content:space-between;align-items:center}.ci .ctl{grid-column:1/-1}}
+
+/* ---------- demo pill, chat ---------- */
+.demo{position:fixed;left:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:45}
+.demo a{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 16px;border-radius:var(--r-s);background:var(--text);color:var(--bg);text-decoration:none;font-weight:600;font-size:15px;box-shadow:0 14px 30px -14px rgba(0,0,0,.8);transition:transform 160ms var(--ease)}
+.demo a:active{transform:scale(.97)}
+.demo a .ph{font-size:20px;color:var(--acc)}
+.demo a em{font-style:normal;font:500 11px var(--mono);padding:3px 7px;border-radius:5px;background:#D3D8DC;color:#3B4249}
+.hint{position:absolute;left:0;bottom:calc(100% + 10px);width:290px;padding:14px 38px 14px 16px;border-radius:12px;background:var(--s2);border:1px solid var(--line-2);font-size:14px;line-height:1.45;color:var(--text-2);
+  opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom left;pointer-events:none;transition:opacity 220ms ease,transform 260ms var(--ease)}
+.hint.show{opacity:1;transform:none;pointer-events:auto}
+.hint button{position:absolute;top:6px;right:6px;width:28px;height:28px;border:0;background:none;border-radius:6px;color:var(--muted)}
+.chat-fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:46;display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 18px 0 14px;border-radius:var(--r-s);border:1px solid var(--line-2);background:var(--s2);font-weight:600;font-size:15px;box-shadow:0 14px 30px -14px rgba(0,0,0,.8);transition:transform 160ms var(--ease)}
+.chat-fab:active{transform:scale(.97)}
+.chat-fab .ph{font-size:22px}
+.chat-fab .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px var(--ok-soft)}
+.chat-fab em{font-style:normal;position:absolute;top:-7px;right:-7px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--acc);color:#fff;font:600 12px/22px var(--mono);text-align:center}
+.chat-fab em[hidden]{display:none}
+.chat{position:fixed;right:20px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:47;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100dvh - 120px));display:flex;flex-direction:column;
+  background:var(--s1);border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.8);
+  opacity:0;transform:translateY(10px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:opacity 180ms ease,transform 240ms var(--ease)}
+.chat.open{opacity:1;transform:none;pointer-events:auto}
+.chat-h{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;border-bottom:1px solid var(--line)}
+.ava{width:40px;height:40px;flex:none;border-radius:10px;background:var(--acc);color:#fff;display:grid;place-items:center;font:700 17px var(--cond)}
+.chat-h b{display:block;font-weight:600}
+.chat-h small{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+.chat-h small::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.chat-h .icon-btn{margin-left:auto}
+.msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;overscroll-behavior:contain}
+.msg{max-width:84%;padding:10px 12px;border-radius:12px;font-size:15px;line-height:1.45;background:var(--s2);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{align-self:flex-end;background:var(--acc-soft);border:1px solid rgba(226,72,43,.3);border-bottom-left-radius:12px;border-bottom-right-radius:4px}
+.msg small{display:block;font:400 11.5px var(--mono);color:var(--muted);margin-top:4px}
+.msg .who{display:block;font-size:12.5px;font-weight:600;color:var(--acc-ink);margin-bottom:2px}
+.quick{display:flex;gap:6px;overflow-x:auto;padding:0 12px 10px;scrollbar-width:none}
+.quick::-webkit-scrollbar{display:none}
+.quick button{flex:none;height:34px;padding:0 12px;border-radius:6px;border:1px solid var(--line-2);background:none;font-size:13.5px;color:var(--text-2)}
+.chat-f{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.chat-f input{flex:1;min-width:0;height:44px;padding:0 12px;border-radius:var(--r-b);border:1px solid var(--line-2);background:var(--bg-2);font-size:15px}
+.chat-f input:focus{outline:none;border-color:var(--text-2)}
+.chat-f button{width:44px;height:44px;flex:none;border-radius:var(--r-b);border:0;background:var(--acc);color:#fff;font-size:20px;display:grid;place-items:center}
+@media (max-width:640px){.chat{left:8px;right:8px;width:auto;top:calc(var(--hdr) + 8px);bottom:calc(8px + env(safe-area-inset-bottom,0px));height:auto}.chat-fab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}.chat-fab .t{display:none}.chat-fab{padding:0 14px}}
+body.chat-open .chat-fab{opacity:0;pointer-events:none}
+@media (min-width:641px){body.chat-open .chat-fab{opacity:1;pointer-events:auto}}
+
+/* ---------- modal, toast ---------- */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(5,6,8,.66);opacity:0;pointer-events:none;transition:opacity 200ms ease}
+.scrim.open{opacity:1;pointer-events:auto}
+.modal{position:fixed;z-index:61;left:50%;top:50%;width:min(540px,calc(100vw - 20px));max-height:calc(100dvh - 24px);overflow:auto;background:var(--s1);border:1px solid var(--line-2);border-radius:16px;
+  transform:translate(-50%,-48%) scale(.97);opacity:0;pointer-events:none;transition:opacity 180ms ease,transform 240ms var(--ease)}
+.modal.wide{width:min(860px,calc(100vw - 20px))}
+.modal.open{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+.mb{padding:22px;display:grid;gap:16px}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mh h3{font:700 28px/1 var(--cond);text-transform:uppercase}
+.icon-btn{width:40px;height:40px;flex:none;border-radius:var(--r-b);border:1px solid var(--line-2);background:none;display:grid;place-items:center;font-size:18px;transition:transform 160ms var(--ease)}
+.icon-btn:active{transform:scale(.94)}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:90;width:max-content;max-width:calc(100vw - 24px);padding:12px 16px;border-radius:10px;background:var(--text);color:var(--bg);font-weight:500;font-size:15px;
+  display:flex;align-items:center;gap:10px;transform:translate(-50%,24px);opacity:0;transition:transform 300ms var(--ease),opacity 200ms ease;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.toast a{color:var(--acc);font-weight:600;white-space:nowrap}
+
+/* ---------- invoice (prints on its own) ---------- */
+.inv{background:#fff;color:#16181A;border-radius:6px;padding:clamp(18px,3vw,34px);font:13px/1.45 var(--sans)}
+.inv h4{font:700 20px/1.2 var(--sans);margin:18px 0 12px}
+.inv .req{display:grid;grid-template-columns:120px minmax(0,1fr);gap:4px 14px;font-size:12.5px}
+.inv .req dt{color:#5a6067}
+.inv .req dd{margin:0}
+.inv table{width:100%;border-collapse:collapse;margin-top:14px;font-size:12.5px}
+.inv th,.inv td{border:1px solid #2a2d31;padding:6px 8px;text-align:left;vertical-align:top}
+.inv th{background:#f0f1f2;font-weight:600}
+.inv .r{text-align:right;white-space:nowrap;font-family:var(--mono)}
+.inv .tot{margin-top:10px;display:grid;justify-content:end;gap:3px;font-size:13px;text-align:right}
+.inv .tot b{font-size:15px}
+.inv .note{margin-top:16px;font-size:12px;color:#5a6067}
+.inv .sign{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px;font-size:12.5px}
+.inv .sign span{display:block;border-bottom:1px solid #2a2d31;height:24px;margin-top:6px}
+.inv-wrap{overflow-x:auto}
+.inv-wrap .inv{min-width:620px}
+@media print{
+  @page{margin:12mm}
+  html,body{background:#fff!important}
+  body *{visibility:hidden!important}
+  .inv,.inv *{visibility:visible!important}
+  .modal{position:static!important;transform:none!important;max-height:none!important;overflow:visible!important;border:0!important;width:auto!important}
+  .inv{position:absolute;left:0;top:0;width:100%;padding:0;min-width:0!important}
+}
+
+/* ================= ADMIN ================= */
+#admin{display:none;min-height:100dvh;grid-template-columns:240px minmax(0,1fr)}
+body.is-admin #site{display:none}
+body.is-admin #admin{display:grid}
+.side{background:#090B0D;border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100dvh;padding:18px 12px}
+.side .logo{padding:6px 10px 24px}
+.side nav{display:grid;gap:2px}
+.side nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-b);text-decoration:none;color:var(--muted);font-weight:500;font-size:15px}
+.side nav a .ph{font-size:20px}
+.side nav a.on{background:var(--s2);color:var(--text)}
+.side nav a .badge{margin-left:auto;min-width:22px;height:22px;padding:0 6px;border-radius:6px;background:var(--acc);color:#fff;font:600 12px/22px var(--mono);text-align:center}
+.side nav a .badge[hidden]{display:none}
+@media (hover:hover) and (pointer:fine){.side nav a:hover{color:var(--text)}}
+.side .bottom{margin-top:auto;display:grid;gap:6px;padding-top:14px;border-top:1px solid var(--line)}
+.side .back{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:var(--r-b);background:var(--text);color:var(--bg);text-decoration:none;font-weight:600;font-size:14.5px}
+.side .reset{border:0;background:none;color:var(--dim);font-size:13px;padding:8px 12px;text-align:left;display:flex;gap:10px;align-items:center}
+.amain{min-width:0}
+.demo-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding:10px clamp(16px,3vw,36px);background:var(--bg-2);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.demo-bar a{color:var(--text);font-weight:600;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.page{padding:clamp(16px,3vw,36px)}
+.ptitle{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.ptitle h1{font:700 clamp(32px,3.4vw,46px)/1 var(--cond);text-transform:uppercase}
+.ptitle p{color:var(--muted);font-size:14.5px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:var(--s1);border:1px solid var(--line);border-radius:var(--r-s);padding:18px;display:grid;gap:8px}
+.kpi span{color:var(--muted);font-size:13.5px}
+.kpi b{font:700 clamp(24px,5.4vw,36px)/1 var(--cond);white-space:nowrap}
+@media (min-width:900px){.kpi b{font-size:clamp(26px,2.4vw,36px)}}
+.kpi.hi{background:var(--acc);border-color:var(--acc);color:#fff}.kpi.hi span{color:#FFE0D8}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.box{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.box h2{font:700 21px/1.1 var(--cond);text-transform:uppercase;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.box h2 a{font:500 14px var(--sans);text-transform:none;color:var(--muted)}
+.grid3{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px}
+.grid3 .wide{grid-column:1/-1}
+@media (max-width:1100px){.grid3{grid-template-columns:minmax(0,1fr)}}
+.lrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;width:100%;padding:12px 4px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left}
+.lrow:last-child{border-bottom:0}
+.lrow .grow{flex:1 1 220px;min-width:0}
+.lrow b{display:block;font-weight:600}
+.lrow small{color:var(--muted);font-size:13.5px}
+.lrow .sum{font:500 15px var(--mono);white-space:nowrap}
+.st{display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:6px;font-size:12.5px;font-weight:600;white-space:nowrap;background:var(--s3);color:var(--text-2)}
+.st.new{background:var(--acc-soft);color:var(--acc-ink)}
+.st.invoice{background:var(--warn-soft);color:var(--warn)}
+.st.paid,.st.shipped{background:var(--ok-soft);color:var(--ok)}
+.st.cancel{color:var(--dim)}
+.bars{display:grid;gap:10px}
+.bars div{display:grid;grid-template-columns:130px minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:14.5px}
+.bars i{display:block;height:12px;border-radius:2px;background:var(--text-2);width:var(--w);min-width:3px}
+.bars div:first-child i{background:var(--acc)}
+.bars span:last-child{text-align:right;font-family:var(--mono)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tb.adm td,.tb.adm th{padding:12px 10px}
+.tb.adm tr[data-order]{cursor:pointer}
+@media (max-width:1240px){.tb.adm .hide-l{display:none}}
+.pe input{width:120px;height:38px;padding:0 10px;border-radius:6px;border:1px solid var(--line-2);background:var(--bg-2);font:500 14.5px var(--mono);text-align:right}
+.pe input:focus{outline:none;border-color:var(--text-2)}
+.bulk{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px;border-radius:var(--r-s);background:var(--bg-2);border:1px solid var(--line);margin-bottom:12px;font-size:14.5px}
+.bulk input{width:90px;height:40px;padding:0 10px;border-radius:6px;border:1px solid var(--line-2);background:var(--s1);font:500 15px var(--mono);text-align:right}
+.items-t{width:100%;border-collapse:collapse;font-size:14.5px}
+.items-t td,.items-t th{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}
+.items-t th{font:500 12.5px var(--mono);color:var(--muted)}
+.items-t .r{text-align:right;font-family:var(--mono);white-space:nowrap}
+@media (max-width:520px){.items-t .w{display:none}.items-t{font-size:13.5px}}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;font-size:14.5px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.chats{display:grid;grid-template-columns:300px minmax(0,1fr);gap:12px;height:calc(100dvh - 190px);min-height:440px}
+.threads{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);overflow-y:auto}
+.thr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;width:100%;padding:14px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left}
+.thr.on{background:var(--s2)}
+.thr b{font-weight:600}
+.thr small{grid-column:1;color:var(--muted);font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thr em{font-style:normal;grid-row:1/3;grid-column:2;align-self:center;min-width:22px;height:22px;padding:0 6px;border-radius:6px;background:var(--acc);color:#fff;font:600 12px/22px var(--mono);text-align:center}
+.conv{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.conv .msg.me{align-self:flex-start;background:var(--s2);border:0;border-bottom-left-radius:4px;border-bottom-right-radius:12px}
+.conv .msg.mgr{align-self:flex-end;background:var(--acc-soft);border:1px solid rgba(226,72,43,.3);border-bottom-right-radius:4px}
+.rvm{display:grid;gap:10px}
+.rvm .rv{grid-template-columns:minmax(0,1fr) auto;align-items:start}
+.rvm .acts{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+@media (max-width:900px){
+  #admin{grid-template-columns:minmax(0,1fr)}
+  .side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:6px;padding:10px 12px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .side .logo{padding:0 4px 0 2px}
+  .side .logo b,.side .logo small{display:none}
+  .side nav{display:flex}
+  .side nav a{padding:8px 10px;white-space:nowrap}
+  .side nav a .t{display:none}
+  .side nav{gap:0}
+  .side nav a{position:relative;padding:8px 9px}
+  .side nav a .badge{position:absolute;top:0;right:0;min-width:17px;height:17px;padding:0 4px;font-size:10.5px;line-height:17px;border-radius:5px}
+  .side .bottom{margin:0 0 0 auto;border:0;padding:0;display:flex}
+  .side .reset{display:none}
+  .side .back{width:40px;height:40px;flex:none}
+  .side .back .t{display:none}
+  .chats{grid-template-columns:minmax(0,1fr);height:auto}
+  .chats.has .threads{display:none}
+  .chats:not(.has) .conv{display:none}
+  .conv{height:calc(100dvh - 210px);min-height:420px}
+  .bars div{grid-template-columns:100px minmax(0,1fr) 54px}
+  .rvm .rv{grid-template-columns:minmax(0,1fr)}
+  .rvm .acts{justify-content:flex-start}
+}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important}.modal,.chat,.hint,.toast,.spec{transition:opacity 150ms ease}}
+</style>
+</head>
+<body>
+
+<!-- ================= SITE ================= -->
+<div id="site">
+  <header class="hdr">
+    <div class="wrap">
+      <a class="logo" href="#/" aria-label="Темір Қор, на главную"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M4 2h18v5h-6.5v12H22v5H4v-5h6.5V7H4z" fill="#E2482B"/></svg><b>ТЕМІР ҚОР</b><small>металлобаза<br>Атырау</small></a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="#/catalog" data-nav="catalog">Каталог и цены</a><a href="#/s/calc" data-nav="calc">Калькулятор</a><a href="#/s/delivery" data-nav="delivery">Резка и доставка</a><a href="#/s/reviews" data-nav="reviews">Отзывы</a><a href="#/s/contacts" data-nav="contacts">Контакты</a>
+      </nav>
+      <a class="phone" href="#/s/contacts">+7 700 000 00 00</a>
+      <a class="btn btn-line btn-sm hdr-cat" href="#/catalog">Каталог</a>
+      <a class="cart-btn" href="#/cart" id="cartBtn" aria-label="Заявка"><i class="ph ph-clipboard-text"></i><span class="t">Заявка</span><em id="cartN" hidden>0</em></a>
+      <a class="hdr-demo" href="#/admin" aria-label="Открыть админку"><i class="ph ph-gear-six"></i></a>
+    </div>
+  </header>
+
+  <main>
+    <div id="home">
+      <section class="hero" aria-label="Главная">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="hero-k">Металлобаза в Атырау с 2009 года</p>
+            <h1 class="h-xl hero-h">Металл со склада. Сегодня на объекте</h1>
+            <p class="lead">2 400 тонн арматуры, труб, балки и листа на складе. Режем в размер, счёт с НДС присылаем за 15 минут, привозим в день заказа.</p>
+            <div class="hero-cta">
+              <a class="btn btn-acc" href="#/catalog"><i class="ph ph-list-magnifying-glass"></i>Каталог и цены</a>
+              <a class="btn btn-line" href="#/s/smeta"><i class="ph ph-file-arrow-up"></i>Прислать смету</a>
+            </div>
+          </div>
+          <div class="stage3d" id="stage3d">
+            <canvas id="bar3d" aria-label="3D-модель металлопроката: профиль меняется по выбранной категории"></canvas>
+            <div class="spec" id="spec" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="wrap"><div class="cat-sw" id="catSw" role="group" aria-label="Категории металлопроката"></div></div>
+        <div class="wrap stats">
+          <div><b>2 400 т</b><span>металла на складе прямо сейчас</span></div>
+          <div><b>±2 мм</b><span>точность резки на ленточнопильном станке</span></div>
+          <div><b>15 минут</b><span>от сметы до счёта с НДС</span></div>
+          <div><b>до 14:00</b><span>заказали, и сегодня металл на объекте</span></div>
+        </div>
+      </section>
+
+      <section class="sec" id="prices">
+        <div class="wrap">
+          <div class="shead"><h2 class="h-l">Цены на <span id="today"></span></h2><p class="lead">За тонну с НДС. Обновляем по понедельникам, в колонке справа изменение за неделю.</p></div>
+          <div class="board" id="board"></div>
+          <div class="board-foot"><span id="boardNote"></span><a class="btn btn-line btn-sm" href="#/catalog">Весь прайс-лист<i class="ph ph-arrow-right"></i></a></div>
+        </div>
+      </section>
+
+      <section class="sec" id="cats" style="padding-top:0">
+        <div class="wrap">
+          <div class="shead"><h2 class="h-l">Сортамент</h2><p class="lead">Всё по ГОСТ, с сертификатом качества на каждую партию.</p></div>
+          <div class="cgrid" id="cgrid"></div>
+        </div>
+      </section>
+
+      <section class="sec" id="calc" style="padding-top:0">
+        <div class="wrap">
+          <div class="shead"><h2 class="h-l">Сколько весит и стоит</h2><p class="lead">Введите метры, хлысты или тонны. Посчитаем вес, длину и сумму, а потом добавим в заявку.</p></div>
+          <div class="calc">
+            <div class="panel c-in" id="calcIn"></div>
+            <div class="c-out" id="calcOut"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="delivery" style="padding-top:0">
+        <div class="wrap">
+          <div class="shead"><h2 class="h-l">Резка и доставка</h2></div>
+          <div class="svc">
+            <div class="svc-list">
+              <div class="svc-it"><span class="n">01</span><h3>Режем в размер</h3><p>Ленточнопильный станок, точность ±2 мм, торец без заусенцев. 250 ₸ за рез, при заказе от 3 тонн бесплатно.</p></div>
+              <div class="svc-it"><span class="n">02</span><h3>Привозим сегодня</h3><p>Заявка до 14:00, и металл у вас до конца дня. Машину подбираем по весу и длине, хлысты по 12 м везём длинномером.</p></div>
+              <div class="svc-it"><span class="n">03</span><h3>Все документы</h3><p>Счёт, накладная, ЭСФ и сертификат качества на каждую партию. Для постоянных клиентов отсрочка до 14 дней.</p></div>
+            </div>
+            <div class="map" id="map"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="smeta" style="padding-top:0">
+        <div class="wrap">
+          <div class="shead"><h2 class="h-l">Смета → счёт за 15 минут</h2><p class="lead">Не хотите разбираться в марках и размерах? Пришлите смету или фото списка, остальное сделаем мы.</p></div>
+          <div class="tl">
+            <div><time>10:40</time><b>Прислали смету</b><p>Excel, PDF или фото списка от руки</p></div>
+            <div><time>10:55</time><b>Получили счёт</b><p>С НДС, весом, ценой резки и доставки</p></div>
+            <div><time>11:20</time><b>Оплатили</b><p>Или работаем с отсрочкой, если вы у нас не первый раз</p></div>
+            <div><time>15:00</time><b>Металл на объекте</b><p>С накладной и сертификатом</p></div>
+          </div>
+          <form class="upl" id="smetaForm" novalidate></form>
+        </div>
+      </section>
+
+      <section class="sec" id="reviews" style="padding-top:0">
+        <div class="wrap">
+          <div class="shead"><h2 class="h-l">Отзывы</h2><div class="rv-top" id="rvTop"></div></div>
+          <div class="rv-grid" id="rvGrid"></div>
+        </div>
+      </section>
+
+      <section class="sec" id="contacts" style="padding-top:0">
+        <div class="wrap ct">
+          <div class="ct-main">
+            <h2>Позвоните, и мы посчитаем по телефону</h2>
+            <a class="big" href="tel:+77000000000">+7 700 000 00 00</a>
+            <div class="row">
+              <button type="button" class="btn btn-light js-chat"><i class="ph ph-chat-circle-dots"></i>Написать в чат</button>
+              <a class="btn btn-line" style="border-color:rgba(255,255,255,.5);color:#fff" href="#/catalog">Открыть каталог</a>
+            </div>
+          </div>
+          <div class="ct-side">
+            <div><i class="ph ph-map-pin"></i><b>Атырау, промзона «Северная», ул. Промышленная, 7</b><span>Въезд для длинномеров с объездной</span></div>
+            <div><i class="ph ph-clock"></i><b>Пн–Сб, 8:00–19:00</b><span>Отгрузка до 18:00, в воскресенье по договорённости</span></div>
+            <div><i class="ph ph-certificate"></i><b>ТОО «Темір Қор»</b><span>Работаем с НДС, ЭСФ в день отгрузки</span></div>
+            <div><i class="ph ph-whatsapp-logo"></i><b>WhatsApp +7 700 000 00 00</b><span>Пришлите смету или фото списка</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div id="dyn"></div>
+  </main>
+  <footer class="foot"><div class="wrap"><span>© 2026 Темір Қор, металлобаза</span><span>Демо-проект: компания, цены, адрес и номер вымышлены</span></div></footer>
+
+  <div class="demo">
+    <div class="hint" id="hint" role="status">Это демо. Добавьте металл в заявку или напишите в чат, а потом откройте админку: там заявки, счёт на оплату и ответы клиентам.<button type="button" id="hintX" aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <a href="#/admin"><i class="ph ph-gear-six"></i>Админ-панель<em>ДЕМО</em></a>
+  </div>
+  <button type="button" class="chat-fab js-chat" id="chatFab" aria-label="Чат с менеджером"><span class="dot"></span><span class="t">Менеджер онлайн</span><i class="ph ph-chat-circle-dots"></i><em id="chatN" hidden></em></button>
+  <section class="chat" id="chat" aria-label="Чат с менеджером" aria-hidden="true">
+    <div class="chat-h"><span class="ava">А</span><div><b>Айгерим, отдел продаж</b><small>отвечает за 2–3 минуты</small></div><button type="button" class="icon-btn" id="chatX" aria-label="Закрыть чат"><i class="ph ph-x"></i></button></div>
+    <div class="msgs" id="msgs"></div>
+    <div class="quick" id="quick"></div>
+    <form class="chat-f" id="chatForm"><input id="chatIn" autocomplete="off" placeholder="Например: нужна арматура 12, 3 тонны" aria-label="Сообщение"><button type="submit" aria-label="Отправить"><i class="ph ph-paper-plane-right"></i></button></form>
+  </section>
+</div>
+
+<!-- ================= ADMIN ================= -->
+<div id="admin">
+  <aside class="side">
+    <a class="logo" href="#/admin"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M4 2h18v5h-6.5v12H22v5H4v-5h6.5V7H4z" fill="#E2482B"/></svg><b>ТЕМІР ҚОР</b></a>
+    <nav id="anav">
+      <a href="#/admin" data-v="home"><i class="ph ph-squares-four"></i><span class="t">Сводка</span></a>
+      <a href="#/admin/orders" data-v="orders"><i class="ph ph-clipboard-text"></i><span class="t">Заявки</span><span class="badge" id="bOrders" hidden></span></a>
+      <a href="#/admin/stock" data-v="stock"><i class="ph ph-package"></i><span class="t">Склад и цены</span></a>
+      <a href="#/admin/chats" data-v="chats"><i class="ph ph-chats"></i><span class="t">Чаты</span><span class="badge" id="bChats" hidden></span></a>
+      <a href="#/admin/reviews" data-v="reviews"><i class="ph ph-star"></i><span class="t">Отзывы</span><span class="badge" id="bReviews" hidden></span></a>
+    </nav>
+    <div class="bottom">
+      <a class="back" href="#/" aria-label="Вернуться на сайт"><i class="ph ph-arrow-left"></i><span class="t">Вернуться на сайт</span></a>
+      <button type="button" class="reset" id="resetDemo"><i class="ph ph-arrow-counter-clockwise"></i>Сбросить демо-данные</button>
+    </div>
+  </aside>
+  <div class="amain">
+    <div class="demo-bar"><span>Демо-режим: всё, что вы меняете, сохраняется только в вашем браузере.</span><a href="#/"><i class="ph ph-arrow-left"></i>На сайт</a></div>
+    <div class="page" id="page"></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true"><div class="mb" id="mb"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const nf = (n, d = 0) => Number(n).toLocaleString("ru-RU", { maximumFractionDigits: d, minimumFractionDigits: 0 }).replace(/[  ]/g, " ");
+const money = n => nf(Math.round(n)) + " ₸";
+const kgf = k => k >= 1000 ? nf(k / 1000, 2) + " т" : nf(k, k < 10 ? 1 : 0) + " кг";
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const dec = v => String(v).replace(".", ",");
+const hsh = s => { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+const plural = (n, f) => { const a = Math.abs(Math.round(n)) % 100, b = a % 10; return a > 10 && a < 20 ? f[2] : b === 1 ? f[0] : b >= 2 && b <= 4 ? f[1] : f[2]; };
+const MON = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+const MONs = ["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"];
+const hm = d => String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+const fmtDT = ts => { const d = new Date(ts); return `${d.getDate()} ${MONs[d.getMonth()]}, ${hm(d)}`; };
+const VAT = .16;
+
+/* ================= catalogue data (GOST sortament, weights per metre) ================= */
+const CATS = [
+  { k:"rebar",   t:"Арматура",         one:"Арматура",               gost:"ГОСТ 34028-2016", grade:"А500С", len:11.7, look:[0x5b6067,.56] },
+  { k:"tube",    t:"Профильная труба", one:"Труба профильная",       gost:"ГОСТ 30245-2003", grade:"Ст3сп", len:6,    look:[0xa3aab1,.3] },
+  { k:"pipe",    t:"Круглая труба",    one:"Труба электросварная",   gost:"ГОСТ 10704-91",   grade:"Ст3сп", len:6,    look:[0x9aa1a8,.32] },
+  { k:"angle",   t:"Уголок",           one:"Уголок равнополочный",   gost:"ГОСТ 8509-93",    grade:"Ст3сп", len:6,    look:[0x7f868d,.42] },
+  { k:"channel", t:"Швеллер",          one:"Швеллер",                gost:"ГОСТ 8240-97",    grade:"Ст3сп", len:12,   look:[0x80878e,.42] },
+  { k:"beam",    t:"Балка",            one:"Балка двутавровая",      gost:"ГОСТ 26020-83",   grade:"С255",  len:12,   look:[0x858c93,.4] },
+  { k:"sheet",   t:"Лист",             one:"Лист горячекатаный",     gost:"ГОСТ 19903-2015", grade:"Ст3сп", len:6, area:9, look:[0x6f767d,.46] }
+];
+const CAT = Object.fromEntries(CATS.map(c => [c.k, c]));
+const HERO_PICK = { rebar:"rebar-d16", tube:"tube-80x80x4", pipe:"pipe-108x4", angle:"angle-75x6", channel:"channel-16p", beam:"beam-20b1", sheet:"sheet-6mm" };
+function buildProducts() {
+  const P = [];
+  const add = (c, size, slug, dims, kgm, price) => {
+    const id = c + "-" + slug, h = hsh(id);
+    const stock = h % 100 < 9 ? 0 : 3 + (h % 57);
+    const delta = (h >> 3) % 4 === 0 ? 0 : (((h >> 8) % 52) - 18) / 10;
+    P.push({ id, c, size, dims, kgm, price, stock, delta });
+  };
+  [[8,.395],[10,.617],[12,.888],[14,1.21],[16,1.58],[18,2],[20,2.47],[22,2.98],[25,3.85],[28,4.83],[32,6.31]]
+    .forEach(([d, w]) => add("rebar", "Ø" + d, "d" + d, { d }, w, d <= 10 ? 398000 : d >= 25 ? 366000 : 372000));
+  [[20,20,2,1.12],[40,20,2,1.75],[40,40,2,2.31],[40,40,3,3.3],[60,40,3,4.25],[60,60,3,5.2],[80,80,4,9.22],[100,100,4,11.73],[100,100,5,14.4]]
+    .forEach(([a, b, t, w]) => add("tube", `${a}×${b}×${dec(t)}`, `${a}x${b}x${t}`, { a, b, t }, w, t <= 2 ? 468000 : 455000));
+  [[57,3.5,4.62],[76,3.5,6.26],[89,4,8.38],[108,4,10.26],[133,4.5,14.26],[159,5,18.99]]
+    .forEach(([D, t, w]) => add("pipe", `${D}×${dec(t)}`, `${D}x${t}`, { D, t }, w, 462000));
+  [[25,3,1.12],[32,3,1.46],[40,4,2.42],[50,5,3.77],[63,5,4.81],[75,6,6.89],[90,7,9.64],[100,8,12.25],[125,10,19.1]]
+    .forEach(([a, t, w]) => add("angle", `${a}×${a}×${t}`, `${a}x${t}`, { a, t }, w, a >= 90 ? 412000 : 405000));
+  [["8П",80,40,4.5,7.4,7.05],["10П",100,46,4.5,7.6,8.59],["12П",120,52,4.8,7.8,10.4],["14П",140,58,4.9,8.1,12.3],["16П",160,64,5,8.4,14.2],["20П",200,76,5.2,9,18.4],["24П",240,90,5.6,10,24]]
+    .forEach(([n, h, b, s, t, w]) => add("channel", n, n.replace("П", "p").toLowerCase(), { h, b, s, t }, w, 418000));
+  [["10Б1",100,55,4.1,5.7,8.1],["12Б1",117.6,64,3.8,5.1,8.7],["14Б1",137.4,73,3.8,5.6,10.5],["16Б1",157,82,4,5.9,12.7],["20Б1",200,100,5.6,8.5,22.4],["25Б1",248,124,5,8,25.7],["30Б1",296,140,5.8,8.5,32.9],["35Б1",346,155,6.2,8.5,38.9],["40Б1",392,165,7,9.5,48.1]]
+    .forEach(([n, h, b, s, t, w]) => add("beam", n, n.replace("Б", "b").toLowerCase(), { h, b, s, t }, w, h >= 290 ? 459000 : 452000));
+  [2,3,4,5,6,8,10,12,16,20].forEach(t => add("sheet", `${t} мм`, `${t}mm`, { t }, +(t * 7.85).toFixed(2), t <= 3 ? 446000 : 428000));
+  // the yard always has the popular sizes
+  ["rebar-d12","rebar-d16","tube-40x40x2","tube-60x40x3","angle-50x5","beam-20b1","channel-16p","sheet-4mm","sheet-6mm","pipe-108x4","tube-80x80x4","angle-75x6","rebar-d10","rebar-d14"]
+    .forEach(id => { const p = P.find(x => x.id === id); if (p && p.stock < 18) p.stock = 18 + (hsh(id) % 30); });
+  return P;
+}
+const cat = p => CAT[p.c];
+const pname = p => `${cat(p).one} ${p.size}`;
+const isSheet = p => p.c === "sheet";
+const perM = p => p.price / 1000 * p.kgm;                 // ₸ per metre (or per m² for sheet)
+const perPiece = p => isSheet(p) ? perM(p) * cat(p).area : perM(p) * cat(p).len;
+const UNITS = p => isSheet(p) ? [["sh","лист"],["t","т"]] : [["pc","хлыст"],["m","м"],["t","т"]];
+const UF = { pc:["хлыст","хлыста","хлыстов"], m:["метр","метра","метров"], t:["тонна","тонны","тонн"], sh:["лист","листа","листов"] };
+function calc(p, u, q) {
+  q = Math.max(0, +q || 0);
+  const c = cat(p);
+  if (isSheet(p)) {
+    const one = p.kgm * c.area, kg = u === "t" ? q * 1000 : q * one;
+    return { kg, pcs: kg / one, m: kg / p.kgm, sum: kg / 1000 * p.price };
+  }
+  const m = u === "m" ? q : u === "pc" ? q * c.len : q * 1000 / p.kgm, kg = m * p.kgm;
+  return { kg, m, pcs: m / c.len, sum: kg / 1000 * p.price };
+}
+const qtyText = (u, q) => `${nf(q, 2)} ${plural(q % 1 ? 2 : q, UF[u])}`;
+
+/* ================= cross-sections: one geometry for SVG drawings and the 3D bar ================= */
+function roundPoly(pts, radii) {
+  const out = [];
+  pts.forEach((p, i) => {
+    const r = radii[i] || 0;
+    if (!r) { out.push(p); return; }
+    const a = pts[(i - 1 + pts.length) % pts.length], b = pts[(i + 1) % pts.length];
+    const v1 = [a[0] - p[0], a[1] - p[1]], v2 = [b[0] - p[0], b[1] - p[1]];
+    const l1 = Math.hypot(...v1), l2 = Math.hypot(...v2);
+    const u1 = [v1[0] / l1, v1[1] / l1], u2 = [v2[0] / l2, v2[1] / l2];
+    const th = Math.acos(clamp(u1[0] * u2[0] + u1[1] * u2[1], -1, 1));
+    const d = Math.min(r / Math.tan(th / 2), l1 * .45, l2 * .45), rr = d * Math.tan(th / 2);
+    const t1 = [p[0] + u1[0] * d, p[1] + u1[1] * d], t2 = [p[0] + u2[0] * d, p[1] + u2[1] * d];
+    const bis = [u1[0] + u2[0], u1[1] + u2[1]], bl = Math.hypot(...bis), cd = rr / Math.sin(th / 2);
+    const cx = p[0] + bis[0] / bl * cd, cy = p[1] + bis[1] / bl * cd;
+    let a1 = Math.atan2(t1[1] - cy, t1[0] - cx), a2 = Math.atan2(t2[1] - cy, t2[0] - cx), da = a2 - a1;
+    while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI;
+    const n = 6; for (let k = 0; k <= n; k++) { const t = a1 + da * k / n; out.push([cx + rr * Math.cos(t), cy + rr * Math.sin(t)]); }
+  });
+  return out;
+}
+const rect = (w, h, r) => roundPoly([[-w/2,-h/2],[w/2,-h/2],[w/2,h/2],[-w/2,h/2]], [r,r,r,r]);
+const circle = (R, n = 48) => Array.from({ length: n }, (_, i) => [R * Math.cos(i / n * Math.PI * 2), R * Math.sin(i / n * Math.PI * 2)]);
+function shapeOf(p, display) {
+  const D = p.dims;
+  switch (p.c) {
+    case "beam": { const { h, b, s, t } = D, r = t * 1.25;
+      return { outer: roundPoly([[-b/2,-h/2],[b/2,-h/2],[b/2,-h/2+t],[s/2,-h/2+t],[s/2,h/2-t],[b/2,h/2-t],[b/2,h/2],[-b/2,h/2],[-b/2,h/2-t],[-s/2,h/2-t],[-s/2,-h/2+t],[-b/2,-h/2+t]], [0,0,0,r,r,0,0,0,0,r,r,0]), holes: [], w: b, h }; }
+    case "channel": { const { h, b, s, t } = D, r = t * 1.1;
+      return { outer: roundPoly([[-b/2,-h/2],[b/2,-h/2],[b/2,-h/2+t],[-b/2+s,-h/2+t],[-b/2+s,h/2-t],[b/2,h/2-t],[b/2,h/2],[-b/2,h/2]], [0,0,t*.35,r,r,t*.35,0,0]), holes: [], w: b, h }; }
+    case "angle": { const { a, t } = D, o = a / 2;
+      return { outer: roundPoly([[-o,-o],[o,-o],[o,-o+t],[-o+t,-o+t],[-o+t,o],[-o,o]], [0,0,t*.4,t*1.2,t*.4,0]), holes: [], w: a, h: a }; }
+    case "tube": { const { a, b, t } = D;
+      return { outer: rect(a, b, t * 2), holes: [rect(a - 2 * t, b - 2 * t, t)], w: a, h: b }; }
+    case "pipe": { const { D: d, t } = D;
+      return { outer: circle(d / 2, 56), holes: [circle(d / 2 - t, 56)], w: d, h: d }; }
+    case "rebar": { const R = D.d / 2, n = 72;
+      const pts = Array.from({ length: n }, (_, i) => { const th = i / n * Math.PI * 2; const dist = Math.min(Math.abs(Math.atan2(Math.sin(th), Math.cos(th))), Math.abs(Math.atan2(Math.sin(th - Math.PI), Math.cos(th - Math.PI))));
+        const rr = R * (1 + .1 * Math.max(0, 1 - dist / .2)); return [rr * Math.cos(th), rr * Math.sin(th)]; });
+      return { outer: pts, holes: [], w: D.d * 1.2, h: D.d }; }
+    case "sheet": { const t = D.t, w = display ? 100 : 1500, hh = display ? clamp(t * 1.6, 8, 32) : t;
+      return { outer: rect(w, hh, 0), holes: [], w, h: hh }; }
+  }
+}
+let uid = 0;
+function sectionSVG(p, W, H, o = {}) {
+  const sh = shapeOf(p, true), id = "h" + (++uid);
+  const pad = o.dims ? Math.max(46, W * .13) : W * .12;
+  const sc = Math.min((W - 2 * pad) / sh.w, (H - 2 * pad) / sh.h) * (o.zoom || 1);
+  const cx = W / 2 + (o.dims ? pad * .18 : 0), cy = H / 2 - (o.dims ? pad * .12 : 0);
+  const X = x => (cx + x * sc).toFixed(1), Y = y => (cy - y * sc).toFixed(1);
+  const path = pts => "M" + pts.map(([x, y]) => X(x) + " " + Y(y)).join("L") + "Z";
+  const d = path(sh.outer) + sh.holes.map(path).join("");
+  const sw = o.stroke || 1.4;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><pattern id="${id}" patternUnits="userSpaceOnUse" width="${o.hatch || 5}" height="${o.hatch || 5}" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="${o.hatch || 5}" stroke="${o.hc || "#5C656E"}" stroke-width="${o.hw || 1}"/></pattern></defs>
+    <path d="${d}" fill="url(#${id})" fill-rule="evenodd" stroke="${o.color || "#C9CFD4"}" stroke-width="${sw}" class="sec-out" stroke-linejoin="round" style="transition:stroke 200ms ease"/>`;
+  if (o.dims) {
+    const A = "#FF8466", fz = Math.max(11, W * .036);
+    const x0 = +X(-sh.w / 2), x1 = +X(sh.w / 2), y0 = +Y(sh.h / 2), y1 = +Y(-sh.h / 2);
+    const yb = y1 + pad * .55, xl = x0 - pad * .55;
+    const lab = dimLabels(p);
+    const tick = (x, y) => `<line x1="${x - 4}" y1="${y + 4}" x2="${x + 4}" y2="${y - 4}" stroke="${A}" stroke-width="1.4"/>`;
+    s += `<g stroke="${A}" stroke-width="1" fill="none" opacity=".9">
+      <line x1="${x0}" y1="${y1 + 4}" x2="${x0}" y2="${yb + 6}"/><line x1="${x1}" y1="${y1 + 4}" x2="${x1}" y2="${yb + 6}"/><line x1="${x0 - 6}" y1="${yb}" x2="${x1 + 6}" y2="${yb}"/>
+      ${lab.h ? `<line x1="${x0 - 4}" y1="${y0}" x2="${xl - 6}" y2="${y0}"/><line x1="${x0 - 4}" y1="${y1}" x2="${xl - 6}" y2="${y1}"/><line x1="${xl}" y1="${y0 - 6}" x2="${xl}" y2="${y1 + 6}"/>` : ""}</g>
+      ${tick(x0, yb)}${tick(x1, yb)}${lab.h ? tick(xl, y0) + tick(xl, y1) : ""}
+      <text x="${(x0 + x1) / 2}" y="${yb + fz + 6}" text-anchor="middle" fill="${A}" font-family="IBM Plex Mono, monospace" font-size="${fz}">${lab.w}</text>
+      ${lab.h ? `<text transform="translate(${xl - 8} ${(y0 + y1) / 2}) rotate(-90)" text-anchor="middle" fill="${A}" font-family="IBM Plex Mono, monospace" font-size="${fz}">${lab.h}</text>` : ""}
+      ${lab.note ? `<text x="${W - 14}" y="${fz + 12}" text-anchor="end" fill="#868F98" font-family="IBM Plex Mono, monospace" font-size="${fz * .92}">${lab.note}</text>` : ""}`;
+  }
+  return s + "</svg>";
+}
+function dimLabels(p) {
+  const D = p.dims;
+  switch (p.c) {
+    case "beam": case "channel": return { w: "b " + dec(D.b), h: "h " + dec(D.h), note: `s ${dec(D.s)} · t ${dec(D.t)}` };
+    case "angle": return { w: "b " + D.a, h: "b " + D.a, note: "t " + D.t };
+    case "tube": return { w: "a " + D.a, h: "b " + D.b, note: "t " + dec(D.t) };
+    case "pipe": return { w: "Ø " + D.D, h: "", note: "s " + dec(D.t) };
+    case "rebar": return { w: "Ø " + D.d, h: "", note: "А500С, периодический профиль" };
+    case "sheet": return { w: "1500", h: "t " + D.t, note: "1500 × 6000 мм" };
+  }
+}
+
+/* ================= demo database ================= */
+const KEY = "temir-demo-v1";
+function seed() {
+  const products = buildProducts(), now = Date.now(), H = 36e5, D = 24 * H;
+  const P = id => products.find(p => p.id === id);
+  const it = (id, u, q) => { const p = P(id), r = calc(p, u, q); return { pid: id, name: pname(p), u, q, kg: r.kg, price: p.price, sum: r.sum }; };
+  const ord = (no, st, ago, who, items, dlv, extra = {}) => ({ id: no, no: "ТК-" + (1030 + no), status: st, createdAt: now - ago, ...who, items, dlv, cut: false, comment: "", ...extra });
+  return {
+    v: 1, products, cart: [],
+    orders: [
+      ord(1, "new", 35 * 6e4, { company:"ТОО «Жайык Құрылыс»", bin:"180340012345", name:"Ерлан", phone:"+77015552080" }, [it("rebar-d12","pc",120), it("rebar-d16","pc",60)], { type:"city", addr:"мкр. Нурсая, ЖК «Сарайшык», 3 очередь", truck:"Длинномер 20 т", cost:45000 }),
+      ord(2, "new", 2 * H, { company:"ИП Сериков", bin:"", name:"Бауыржан", phone:"+77478880145" }, [it("beam-20b1","pc",8), it("channel-16p","pc",12), it("sheet-6mm","sh",4)], { type:"region", addr:"п. Доссор, промбаза", truck:"", cost:0 }, { comment:"Ангар 18×36, нужна резка балки по 6 м", cut:true }),
+      ord(3, "new", 3 * H, { company:"", bin:"", name:"Айгуль", phone:"+77052217731" }, [], { type:"pickup", addr:"", truck:"", cost:0 }, { file:"смета_гараж_6х8.xlsx", type:"smeta" }),
+      ord(4, "invoice", 1 * D, { company:"ТОО «Атырау Монтаж»", bin:"150240098765", name:"Руслан", phone:"+77079094410" }, [it("tube-60x40x3","m",200), it("tube-40x40x2","m",150), it("angle-50x5","pc",24)], { type:"city", addr:"ул. Сатпаева, 48", truck:"Манипулятор 10 т", cost:25000 }),
+      ord(5, "paid", 2 * D, { company:"ТОО «Нұр Құрылыс»", bin:"200140056789", name:"Тимур", phone:"+77019016622" }, [it("rebar-d14","t",4)], { type:"city", addr:"Северная промзона, 12", truck:"Длинномер 20 т", cost:45000 }),
+      ord(6, "shipped", 4 * D, { company:"ИП Ахметов", bin:"", name:"Нурлан", phone:"+77473334498" }, [it("pipe-108x4","m",36)], { type:"pickup", addr:"", truck:"", cost:0 }),
+      ord(7, "cancel", 6 * D, { company:"", bin:"", name:"Данияр", phone:"+77058887766" }, [it("sheet-3mm","sh",2)], { type:"pickup", addr:"", truck:"", cost:0 })
+    ],
+    chats: [
+      { id: 1, name: "Мурат, прораб", mine: false, unreadA: 1, unreadC: 0, msgs: [
+        { f:"c", t:"Арматура 12 есть 6 тонн? Нужна сегодня на Авангард", at: now - 50 * 6e4 },
+        { f:"m", t:"Есть 34 т. Если оформим до 14:00, привезём сегодня после 16:00.", at: now - 46 * 6e4 },
+        { f:"c", t:"Ок, скиньте счёт на ТОО, реквизиты сейчас пришлю", at: now - 12 * 6e4 } ] },
+      { id: 2, name: "Алина", mine: false, unreadA: 1, unreadC: 0, msgs: [
+        { f:"c", t:"Режете лист в размер? Нужно 12 пластин 300×300 из 10 мм", at: now - 95 * 6e4 } ] }
+    ],
+    reviews: [
+      { id: 1, name:"Ерлан Жумабаев", org:"ТОО «Жайык Құрылыс», прораб", rating:5, text:"Берём арматуру на два объекта. Счёт приходит минут за десять, машина ни разу не опоздала. Один раз недовезли 4 хлыста, довезли в тот же день без вопросов.", bought:"Арматура Ø12–Ø16, 46 т", at: now - 9 * D, status:"pub" },
+      { id: 2, name:"Айгерим Тасова", org:"ИП, навесы и ворота", rating:5, text:"Профтрубу режут в размер прямо при мне, торцы ровные, без заусенцев. Для мастерской это экономия полдня работы.", bought:"Профтруба 40×40, 60×40", at: now - 16 * D, status:"pub" },
+      { id: 3, name:"Бауыржан Сериков", org:"ангары под ключ", rating:4, text:"Балку 30Б1 нашли только здесь, остальные везли из Актобе неделю. Минус: в пятницу вечером очередь на погрузку.", bought:"Балка 30Б1, швеллер 20П", at: now - 23 * D, status:"pub" },
+      { id: 4, name:"Данияр Кенжебаев", org:"частный дом", rating:5, text:"Заказывал первый раз и не разбирался в марках стали. Менеджер в чате посчитал вес и подобрал уголок вместо швеллера, вышло дешевле на 60 тысяч.", bought:"Уголок 75×75×6", at: now - 31 * D, status:"pub" },
+      { id: 5, name:"Гульнара Б.", org:"снабжение, ТОО «Каспий Энерго Сервис»", rating:5, text:"Работаем с отсрочкой 14 дней. Документы всегда в порядке, ЭСФ приходит в день отгрузки, бухгалтерия довольна.", bought:"Лист 8–12 мм, швеллер", at: now - 40 * D, status:"pub" },
+      { id: 7, name:"Олжас Утепов", org:"монтаж металлоконструкций", rating:5, text:"Нужна была балка 40Б1 срочно, в субботу. Отгрузили за час, длинномер приехал на объект к обеду. Цена такая же, как в будни.", bought:"Балка 40Б1, 6 т", at: now - 48 * D, status:"pub" },
+      { id: 6, name:"Самат", org:"", rating:5, text:"Быстро и по-человечески, спасибо Айгерим!", bought:"", at: now - 3 * H, status:"pending" }
+    ]
+  };
+}
+let db;
+function load() { try { const x = JSON.parse(localStorage.getItem(KEY)); if (x && x.v === 1 && x.products) return x; } catch {} const s = seed(); save(s); return s; }
+function save(x = db) { try { localStorage.setItem(KEY, JSON.stringify(x)); } catch {} }
+db = load();
+const prod = id => db.products.find(p => p.id === id);
+const nextId = rows => rows.reduce((m, r) => Math.max(m, r.id), 0) + 1;
+window.addEventListener("storage", e => { if (e.key === KEY) { db = load(); renderAll(); } });
+
+/* ================= shared bits ================= */
+function toast(html) { const el = $("#toast"); el.innerHTML = html; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 3200); }
+function openModal(html, wide) { $("#mb").innerHTML = html; $("#modal").classList.toggle("wide", !!wide); $("#modal").classList.add("open"); $("#scrim").classList.add("open"); $("#modal").setAttribute("aria-hidden", "false"); }
+function closeModal() { $("#modal").classList.remove("open"); $("#scrim").classList.remove("open"); $("#modal").setAttribute("aria-hidden", "true"); }
+$("#scrim").onclick = closeModal;
+$("#modal").addEventListener("click", e => { if (e.target.closest("[data-close]")) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModal(); closeChat(); } });
+const stockHTML = p => p.stock > 0 ? `<span class="stock">${p.stock} т</span>` : `<span class="stock no">2–3 дня</span>`;
+const deltaHTML = d => d > 0 ? `<span class="up">+${dec(d.toFixed(1))}%</span>` : d < 0 ? `<span class="dn">−${dec(Math.abs(d).toFixed(1))}%</span>` : `<span class="eq">0%</span>`;
+function digits(v) { let d = String(v).replace(/\D/g, ""); if (d.startsWith("8")) d = "7" + d.slice(1); if (d && !d.startsWith("7")) d = "7" + d; return d.slice(0, 11); }
+function fmtPhone(v) { const d = digits(v); if (d.length <= 1) return "+7 "; const p = d.slice(1); return ("+7 " + p.slice(0, 3) + (p.length > 3 ? " " + p.slice(3, 6) : "") + (p.length > 6 ? " " + p.slice(6, 8) : "") + (p.length > 8 ? " " + p.slice(8, 10) : "")).trim(); }
+document.addEventListener("input", e => { if (e.target.matches("input[data-phone]")) e.target.value = fmtPhone(e.target.value); });
+function fieldErr(form, name, msg) { const inp = form.querySelector(`[name="${name}"]`), el = form.querySelector(`[data-e="${name}"]`); if (inp) inp.setAttribute("aria-invalid", "true"); if (el) el.textContent = msg; }
+function clearErr(form) { $$(".ferr", form).forEach(x => x.textContent = ""); $$("[aria-invalid]", form).forEach(x => x.removeAttribute("aria-invalid")); }
+
+/* ================= cart (the «заявка») ================= */
+function addToCart(pid, q, u) {
+  const p = prod(pid); q = +q; if (!p || !(q > 0)) { toast("Укажите количество"); return; }
+  const ex = db.cart.find(x => x.pid === pid && x.u === u);
+  if (ex) ex.q = +(ex.q + q).toFixed(3); else db.cart.push({ pid, q, u });
+  save(); cartBadge();
+  const r = calc(p, u, q);
+  toast(`<i class="ph ph-check-circle"></i><span>${esc(pname(p))}: ${qtyText(u, q)}, ${kgf(r.kg)}</span><a href="#/cart">В заявку</a>`);
+  const b = $("#cartBtn"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump");
+}
+function cartBadge() { const n = db.cart.length, el = $("#cartN"); el.hidden = !n; el.textContent = n; }
+function cartTotals(dType) {
+  let kg = 0, sum = 0, maxLen = 0;
+  db.cart.forEach(x => { const p = prod(x.pid); if (!p) return; const r = calc(p, x.u, x.q); kg += r.kg; sum += r.sum; maxLen = Math.max(maxLen, cat(p).len); });
+  const tr = truckFor(kg, maxLen);
+  const dl = dType === "city" ? tr.cost : 0;
+  return { kg, sum, maxLen, truck: tr, dl, total: sum + dl };
+}
+function truckFor(kg, maxLen) {
+  if (kg <= 1500 && maxLen <= 6) return { name: "Газель 1,5 т", cost: 12000 };
+  if (kg <= 10000 && maxLen <= 6) return { name: "Манипулятор 10 т", cost: 25000 };
+  if (kg <= 20000) return { name: "Длинномер 20 т", cost: 45000 };
+  const n = Math.ceil(kg / 20000); return { name: `Длинномер 20 т, ${n} ${plural(n, ["рейс","рейса","рейсов"])}`, cost: 45000 * n };
+}
+
+/* ================= HOME ================= */
+function renderBoard() {
+  const d = new Date(); $("#today").textContent = `${d.getDate()} ${MON[d.getMonth()]}`;
+  const pick = ["rebar-d12","rebar-d16","tube-40x40x2","tube-60x40x3","tube-80x80x4","pipe-108x4","angle-50x5","angle-75x6","channel-16p","beam-20b1","sheet-4mm","sheet-10mm"].map(prod).filter(Boolean);
+  const head = `<div class="brow h"><span>Позиция</span><span class="n">₸ за тонну</span><span class="n pm">₸ за м</span><span class="n">неделя</span></div>`;
+  const row = p => `<a class="brow" href="#/p/${p.id}"><span><b>${esc(cat(p).t)}</b><span class="sz">${esc(p.size)}</span></span><span class="n">${nf(p.price)}</span><span class="n pm muted">${isSheet(p) ? nf(perM(p)) + "/м²" : nf(perM(p))}</span><span class="n">${deltaHTML(p.delta)}</span></a>`;
+  const half = Math.ceil(pick.length / 2);
+  $("#board").innerHTML = `<div>${head}${pick.slice(0, half).map(row).join("")}</div><div>${head}${pick.slice(half).map(row).join("")}</div>`;
+  $("#boardNote").textContent = `${db.products.length} позиций в прайсе, ${db.products.filter(p => p.stock > 0).length} в наличии на складе`;
+}
+function renderCats() {
+  $("#cgrid").innerHTML = CATS.map(c => {
+    const list = db.products.filter(p => p.c === c.k), rep = prod(HERO_PICK[c.k]);
+    const min = Math.min(...list.map(p => isSheet(p) ? perPiece(p) : perM(p)));
+    return `<a class="ccard" href="#/catalog?c=${c.k}"><div class="art">${sectionSVG(rep, 240, 132, { zoom: .92 })}</div><h3>${esc(c.t)}</h3>
+      <div class="meta"><span>${list.length} ${plural(list.length, ["размер","размера","размеров"])}</span><span>от <b>${nf(min)} ₸</b>/${isSheet(rep) ? "лист" : "м"}</span></div></a>`;
+  }).join("") + `<button type="button" class="ccard order js-chat"><i class="ph ph-truck" style="font-size:30px;color:var(--acc-ink)"></i><h3>Нет нужного размера?</h3><p>Привезём под заказ за 2–3 дня с базы в Актобе. Напишите в чат, что нужно.</p></button>`;
+}
+function renderCatSwitch(active) {
+  $("#catSw").innerHTML = CATS.map(c => { const p = prod(HERO_PICK[c.k]);
+    return `<button type="button" data-hero="${c.k}" class="${c.k === active ? "on" : ""}">${sectionSVG(p, 46, 34, { stroke: 1, hatch: 3, hw: .7 })}<b>${esc(c.t)}</b><span>от ${nf(Math.min(...db.products.filter(x => x.c === c.k).map(x => isSheet(x) ? perPiece(x) : perM(x))))} ₸</span></button>`; }).join("");
+}
+function renderSpec(k) {
+  const p = prod(HERO_PICK[k]), c = CAT[k];
+  const rows = isSheet(p) ? [["Размер", "1500×6000"], ["Вес листа", nf(p.kgm * 9, 1) + " кг"], ["За лист", money(perPiece(p))]]
+    : [["Вес 1 м", dec(p.kgm) + " кг"], ["Длина", dec(c.len) + " м"], ["За метр", money(perM(p))]];
+  $("#spec").innerHTML = `<span class="k">${esc(c.gost)} · ${esc(c.grade)}</span><h3>${esc(c.t)} ${esc(p.size)}</h3><div class="art">${sectionSVG(p, 140, 112, { stroke: 1.2, hatch: 4 })}</div>
+    <dl>${rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("")}<dt>Склад</dt><dd>${stockHTML(p)}</dd></dl><a href="#/p/${p.id}">Открыть позицию<i class="ph ph-arrow-right"></i></a>`;
+}
+function renderMap() {
+  $("#map").innerHTML = `<svg viewBox="0 0 640 420" role="img" aria-label="Схема доставки по Атырау: склад в северной промзоне, зоны и стоимость">
+    <defs><pattern id="mgrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#1F252B" stroke-width="1"/></pattern></defs>
+    <rect width="640" height="420" fill="url(#mgrid)"/>
+    <path d="M300 -10 C 330 60, 270 120, 300 190 S 360 300, 320 430" fill="none" stroke="#1C2A36" stroke-width="34" stroke-linecap="round"/>
+    <path d="M300 -10 C 330 60, 270 120, 300 190 S 360 300, 320 430" fill="none" stroke="#24384A" stroke-width="2"/>
+    <text x="336" y="352" fill="#4E6B83" font-family="IBM Plex Mono, monospace" font-size="13" transform="rotate(-62 336 352)">р. Жайык</text>
+    <text x="70" y="400" fill="#5C656E" font-family="IBM Plex Mono, monospace" font-size="12">ЕВРОПА</text><text x="520" y="400" fill="#5C656E" font-family="IBM Plex Mono, monospace" font-size="12">АЗИЯ</text>
+    <circle cx="250" cy="120" r="150" fill="none" stroke="#E2482B" stroke-opacity=".5" stroke-dasharray="4 6"/>
+    <circle cx="250" cy="120" r="290" fill="none" stroke="#E2482B" stroke-opacity=".28" stroke-dasharray="4 6"/>
+    <g font-family="IBM Plex Mono, monospace" font-size="13"><rect x="112" y="250" width="148" height="44" rx="6" fill="#161B20" stroke="#36404A"/><text x="124" y="268" fill="#E8EBED">город</text><text x="124" y="285" fill="#FF8466">от 12 000 ₸</text>
+    <rect x="440" y="300" width="164" height="44" rx="6" fill="#161B20" stroke="#36404A"/><text x="452" y="318" fill="#E8EBED">пригород, область</text><text x="452" y="335" fill="#868F98">по маршруту</text></g>
+    <g transform="translate(250 120)"><circle r="22" fill="#E2482B" fill-opacity=".18"/><rect x="-9" y="-9" width="18" height="18" fill="#E2482B"/><text x="20" y="-14" fill="#E8EBED" font-family="IBM Plex Sans Condensed, sans-serif" font-weight="700" font-size="17">СКЛАД</text><text x="20" y="4" fill="#868F98" font-family="IBM Plex Mono, monospace" font-size="12">промзона «Северная»</text></g>
+  </svg>
+  <div class="fleet"><div><b><i class="ph ph-truck"></i> Газель</b><span>до 1,5 т, длина до 6 м</span><em>12 000 ₸</em></div><div><b><i class="ph ph-truck"></i> Манипулятор</b><span>до 10 т, сам разгружает</span><em>25 000 ₸</em></div><div><b><i class="ph ph-truck"></i> Длинномер</b><span>до 20 т, хлысты 12 м</span><em>45 000 ₸</em></div></div>`;
+}
+/* calculator */
+const CS = { c: "rebar", pid: "rebar-d12", u: "pc", q: 20 };
+function renderCalc() {
+  const list = db.products.filter(p => p.c === CS.c), p = prod(CS.pid) || list[0];
+  if (!UNITS(p).some(([k]) => k === CS.u)) CS.u = UNITS(p)[0][0];
+  $("#calcIn").innerHTML = `
+    <div class="q"><span class="lbl">Что считаем</span><div class="chips">${CATS.map(c => `<button type="button" class="chip" data-cc="${c.k}" aria-pressed="${c.k === CS.c}">${esc(c.t)}</button>`).join("")}</div></div>
+    <div class="q"><label for="cSize">Размер</label><div class="sel"><select id="cSize">${list.map(x => `<option value="${x.id}" ${x.id === p.id ? "selected" : ""}>${esc(x.size)} · ${dec(x.kgm)} кг/${isSheet(x) ? "м²" : "м"} · ${nf(x.price)} ₸/т</option>`).join("")}</select></div></div>
+    <div class="q"><span class="lbl">Считать в</span><div class="seg" role="group" aria-label="Единицы">${UNITS(p).map(([k, t]) => `<button type="button" data-cu="${k}" aria-pressed="${k === CS.u}">${k === "pc" ? "хлыстах" : k === "m" ? "метрах" : k === "t" ? "тоннах" : "листах"}</button>`).join("")}</div></div>
+    <div class="q"><label for="cQty">Количество</label><div class="qty-big"><input id="cQty" type="number" inputmode="decimal" min="0" step="${CS.u === "t" ? ".1" : "1"}" value="${CS.q}"><span>${CS.u === "pc" ? "хлыстов" : CS.u === "m" ? "м" : CS.u === "t" ? "т" : "листов"}</span></div></div>`;
+  CS.pid = p.id;
+  $("#cSize").onchange = e => { CS.pid = e.target.value; renderCalcOut(); };
+  $("#cQty").oninput = e => { CS.q = +e.target.value; renderCalcOut(); };
+  renderCalcOut();
+}
+$("#calcIn").addEventListener("click", e => {
+  const c = e.target.closest("[data-cc]"), u = e.target.closest("[data-cu]");
+  if (c) { CS.c = c.dataset.cc; const pk = prod(HERO_PICK[CS.c]); CS.pid = pk.id; CS.u = UNITS(pk)[0][0]; CS.q = isSheet(pk) ? 4 : 20; renderCalc(); }
+  if (u) {
+    const p = prod(CS.pid), was = calc(p, CS.u, CS.q); CS.u = u.dataset.cu;
+    CS.q = +(CS.u === "t" ? was.kg / 1000 : CS.u === "m" ? was.m : was.pcs).toFixed(CS.u === "t" ? 2 : CS.u === "m" ? 1 : 0) || 1;
+    renderCalc();
+  }
+});
+function bundleSVG(p, count) {
+  const W = 420, H = 230, n = Math.min(Math.ceil(count), isSheet(p) ? 36 : 110);
+  if (!n) return `<svg viewBox="0 0 ${W} ${H}"><text x="${W / 2}" y="${H / 2}" text-anchor="middle" fill="#5C656E" font-family="IBM Plex Mono, monospace" font-size="14">введите количество</text></svg>`;
+  if (isSheet(p)) {
+    const th = Math.max(3, Math.min(10, 150 / n)), w = 300;
+    let s = ""; for (let i = 0; i < n; i++) { const y = H - 20 - (i + 1) * (th + 1.5); s += `<rect x="${(W - w) / 2 + (i % 2 ? 4 : 0)}" y="${y}" width="${w}" height="${th}" fill="#252C33" stroke="#868F98" stroke-width=".8"/>`; }
+    return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">${s}<rect x="${(W - w) / 2}" y="${H - 20 - n * (th + 1.5) - 1}" width="10" height="${n * (th + 1.5)}" fill="#E2482B" opacity=".9"/></svg>`;
+  }
+  const sh = shapeOf(p, true), cols = Math.ceil(Math.sqrt(n * 1.9)), rows = Math.ceil(n / cols);
+  const cell = Math.min((W - 20) / (cols + .5), (H - 20) / rows), sc = cell * .86 / Math.max(sh.w, sh.h);
+  const path = pts => "M" + pts.map(([x, y]) => (x * sc).toFixed(1) + " " + (-y * sc).toFixed(1)).join("L") + "Z";
+  const d = path(sh.outer) + sh.holes.map(path).join("");
+  const ox = (W - (cols + .5) * cell) / 2 + cell / 2, oy = H - (H - rows * cell) / 2 - cell / 2;
+  let uses = "";
+  for (let i = 0; i < n; i++) { const r = Math.floor(i / cols), c = i % cols; uses += `<use href="#bu" x="${(ox + c * cell + (r % 2 ? cell / 2 : 0)).toFixed(1)}" y="${(oy - r * cell).toFixed(1)}"/>`; }
+  return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><path id="bu" d="${d}" fill="#E2482B" fill-rule="evenodd" stroke="#0D1013" stroke-width=".6"/></defs>${uses}</svg>`;
+}
+function renderCalcOut() {
+  const p = prod(CS.pid), r = calc(p, CS.u, CS.q), c = cat(p);
+  const shown = Math.min(Math.ceil(r.pcs), isSheet(p) ? 36 : 110);
+  $("#calcOut").innerHTML = `
+    <div class="res">
+      <div><span>Вес</span><b>${kgf(r.kg)}</b></div>
+      <div><span>${isSheet(p) ? "Площадь" : "Длина"}</span><b>${isSheet(p) ? nf(r.m, 1) + " м²" : nf(r.m, 1) + " м"}</b></div>
+      <div><span>${isSheet(p) ? "Листов 1,5×6 м" : `Хлыстов по ${dec(c.len)} м`}</span><b>${nf(r.pcs, 1)}</b></div>
+      <div class="tot"><span>Стоимость с НДС</span><b>${money(r.sum)}</b><small>${nf(p.price)} ₸ за тонну · ${isSheet(p) ? money(perPiece(p)) + " за лист" : money(perM(p)) + " за метр"}</small></div>
+    </div>
+    <div class="bundle">${bundleSVG(p, r.pcs)}<div class="cap"><span>${esc(pname(p))}</span><span>${Math.ceil(r.pcs) > shown ? `показано ${shown} из ${nf(Math.ceil(r.pcs))}` : `${nf(Math.ceil(r.pcs))} ${isSheet(p) ? "листов" : "хлыстов"} в пачке`}</span></div></div>
+    <div class="c-add"><button type="button" class="btn btn-acc" id="cAdd" ${r.kg > 0 ? "" : "disabled"}><i class="ph ph-plus"></i>Добавить в заявку</button><a class="btn btn-line" href="#/p/${p.id}">Подробнее о размере</a></div>`;
+  $("#cAdd").onclick = () => addToCart(CS.pid, CS.q, CS.u);
+}
+/* reviews */
+function stars(n) { return `<span class="rate">${dec(n.toFixed(1))}<i>${[1,2,3,4,5].map(i => `<s class="${i <= Math.round(n) ? "f" : ""}"></s>`).join("")}</i></span>`; }
+function renderReviews() {
+  const pub = db.reviews.filter(r => r.status === "pub").sort((a, b) => b.at - a.at);
+  const avg = pub.reduce((s, r) => s + r.rating, 0) / Math.max(1, pub.length);
+  $("#rvTop").innerHTML = `<div class="rv-avg"><b>${dec(avg.toFixed(1))}</b><span>из 5 · ${pub.length + 127} отзывов<br>в 2ГИС и на сайте</span></div><button type="button" class="btn btn-line btn-sm" id="rvAdd"><i class="ph ph-pencil-simple-line"></i>Оставить отзыв</button>`;
+  $("#rvGrid").innerHTML = pub.slice(0, 6).map(r => `<article class="rv">${stars(r.rating)}<p>${esc(r.text)}</p><div class="who"><b>${esc(r.name)}</b>${r.org ? `<span>${esc(r.org)}</span>` : ""}${r.bought ? `<em>Купили: ${esc(r.bought)}</em>` : ""}</div></article>`).join("");
+  $("#rvAdd").onclick = reviewModal;
+}
+function reviewModal() {
+  openModal(`<form id="rvf" class="form" novalidate><div class="mh"><h3>Ваш отзыв</h3><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <div class="q"><span class="lbl">Оценка</span><div class="chips" id="rvR">${[5,4,3,2,1].map(n => `<button type="button" class="chip" data-r="${n}" aria-pressed="${n === 5}">${n}</button>`).join("")}</div></div>
+    <div class="two-f"><div class="field"><label for="rvN">Имя</label><input class="inp" id="rvN" name="name" autocomplete="name"><div class="ferr" data-e="name"></div></div>
+    <div class="field"><label for="rvO">Компания или объект</label><input class="inp" id="rvO" name="org" placeholder="Необязательно"></div></div>
+    <div class="field"><label for="rvT">Что понравилось или нет</label><textarea class="inp" id="rvT" name="text" rows="4"></textarea><div class="ferr" data-e="text"></div></div>
+    <button type="submit" class="btn btn-acc">Отправить отзыв</button><p class="muted" style="font-size:13.5px">Отзыв появится после проверки модератором. В демо его можно опубликовать в админке, раздел «Отзывы».</p></form>`);
+  let rating = 5; const f = $("#rvf");
+  $("#rvR").onclick = e => { const b = e.target.closest("[data-r]"); if (!b) return; rating = +b.dataset.r; $$("#rvR .chip").forEach(x => x.setAttribute("aria-pressed", String(x === b))); };
+  f.onsubmit = ev => { ev.preventDefault(); clearErr(f); const name = f.name.value.trim(), text = f.text.value.trim(); let ok = true;
+    if (!name) { fieldErr(f, "name", "Напишите имя"); ok = false; } if (text.length < 10) { fieldErr(f, "text", "Хотя бы пару предложений"); ok = false; } if (!ok) return;
+    db.reviews.push({ id: nextId(db.reviews), name: name.slice(0, 60), org: f.org.value.trim().slice(0, 80), rating, text: text.slice(0, 600), bought: "", at: Date.now(), status: "pending" }); save();
+    $("#mb").innerHTML = `<div class="ok-box"><i class="ph ph-check-circle"></i><h3>Спасибо!</h3><p>Отзыв ушёл на модерацию. В демо его можно опубликовать в админке.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-light btn-sm" href="#/admin/reviews">Открыть модерацию</a><button type="button" class="btn btn-line btn-sm" data-close>Закрыть</button></div></div>`; };
+}
+/* smeta upload */
+function renderSmeta() {
+  const f = $("#smetaForm");
+  f.innerHTML = `<label class="drop" id="drop"><input type="file" name="file" accept=".xls,.xlsx,.pdf,.doc,.docx,.jpg,.jpeg,.png,.heic" aria-label="Файл сметы"><i class="ph ph-file-arrow-up"></i><b>Перетащите смету сюда</b><p>или нажмите, чтобы выбрать файл. Excel, PDF или фото списка</p><span id="fileName"></span></label>
+    <div class="panel form"><div class="field"><label for="smN">Имя</label><input class="inp" id="smN" name="name" autocomplete="given-name"><div class="ferr" data-e="name"></div></div>
+    <div class="field"><label for="smP">Телефон, на него пришлём счёт в WhatsApp</label><input class="inp" id="smP" name="phone" type="tel" inputmode="tel" data-phone autocomplete="tel" placeholder="+7 7__ ___ __ __"><div class="ferr" data-e="phone"></div></div>
+    <div class="ferr" data-e="file"></div><button type="submit" class="btn btn-acc"><i class="ph ph-paper-plane-right"></i>Получить счёт за 15 минут</button></div>`;
+  const drop = $("#drop"), inp = f.file;
+  const show = () => { const file = inp.files[0]; drop.classList.toggle("has", !!file); $("#fileName").innerHTML = file ? `<span class="file-chip"><i class="ph ph-check"></i>${esc(file.name)}</span>` : ""; };
+  inp.onchange = show;
+  ["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove("over")));
+  drop.addEventListener("drop", e => { e.preventDefault(); if (e.dataTransfer.files.length) { inp.files = e.dataTransfer.files; show(); } });
+  f.onsubmit = ev => { ev.preventDefault(); clearErr(f); const name = f.name.value.trim(), ph = digits(f.phone.value), file = inp.files[0]; let ok = true;
+    if (!name) { fieldErr(f, "name", "Напишите имя"); ok = false; } if (ph.length !== 11) { fieldErr(f, "phone", "Нужно 10 цифр после +7"); ok = false; } if (!file) { fieldErr(f, "file", "Прикрепите смету или фото списка"); ok = false; } if (!ok) return;
+    const o = { id: nextId(db.orders), status: "new", type: "smeta", createdAt: Date.now(), company: "", bin: "", name: name.slice(0, 60), phone: "+" + ph, items: [], file: file.name.slice(0, 80), dlv: { type: "pickup", addr: "", truck: "", cost: 0 }, cut: false, comment: "" };
+    o.no = "ТК-" + (1030 + o.id); db.orders.push(o); save();
+    f.innerHTML = `<div class="panel ok-box" style="grid-column:1/-1"><i class="ph ph-check-circle"></i><h3>Смета принята, заявка ${o.no}</h3><p>Счёт с НДС придёт в WhatsApp на ${fmtPhone(ph)} в течение 15 минут в рабочее время. В демо заявка уже в админке.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-light btn-sm" href="#/admin/orders">Открыть заявки</a><button type="button" class="btn btn-line btn-sm" id="smAgain">Отправить ещё</button></div></div>`;
+    $("#smAgain").onclick = renderSmeta; };
+}
+function renderHome() { renderBoard(); renderCats(); renderCatSwitch(hero.cat); renderSpec(hero.cat); renderMap(); renderCalc(); renderReviews(); }
+
+/* ================= CATALOG ================= */
+const CF = { c: "all", q: "" };
+const QTY = {};
+function catalogPage(q) {
+  CF.c = q.get("c") || "all";
+  const d = new Date();
+  $("#dyn").innerHTML = `<section class="pg"><div class="wrap">
+    <div class="crumbs"><a href="#/">Главная</a><span>/</span><span>Каталог</span></div>
+    <div class="cat-head"><div><h1 class="h-l">Каталог и цены</h1><p>${db.products.length} позиций · цены с НДС на ${d.getDate()} ${MON[d.getMonth()]} · резка в размер 250 ₸ за рез</p></div>
+      <a class="btn btn-line btn-sm" href="#/s/smeta"><i class="ph ph-file-arrow-up"></i>Прислать смету списком</a></div>
+    <div class="cat-tools"><div class="tabs" id="ctabs"></div><label class="search"><i class="ph ph-magnifying-glass"></i><input id="csearch" type="search" placeholder="Например: 40×40 или 20Б1" value="${esc(CF.q)}" aria-label="Поиск по каталогу"></label></div>
+    <div id="ctable"></div></div></section>`;
+  $("#csearch").oninput = e => { CF.q = e.target.value; renderTable(); };
+  renderTabs(); renderTable();
+}
+function renderTabs() {
+  $("#ctabs").innerHTML = `<a class="tab ${CF.c === "all" ? "on" : ""}" href="#/catalog">Все<span>${db.products.length}</span></a>` + CATS.map(c => `<a class="tab ${CF.c === c.k ? "on" : ""}" href="#/catalog?c=${c.k}">${esc(c.t)}<span>${db.products.filter(p => p.c === c.k).length}</span></a>`).join("");
+}
+function norm(s) { return s.toLowerCase().replace(/[x*х]/g, "×").replace(/\s+/g, "").replace(/ø/g, "").replace(/,/g, "."); }
+function renderTable() {
+  const qq = norm(CF.q);
+  const rows = db.products.filter(p => (CF.c === "all" || p.c === CF.c) && (!qq || norm(pname(p) + p.size + cat(p).t).replace(/,/g, ".").includes(qq)));
+  if (!rows.length) { $("#ctable").innerHTML = `<div class="empty">Такого размера нет в прайсе. <button type="button" class="btn btn-line btn-sm js-chat" style="margin-left:8px">Спросить в чате</button></div>`; return; }
+  let html = `<table class="tb"><thead><tr><th>Позиция</th><th class="num hide-m">Вес</th><th class="num hide-m">Длина</th><th class="num hide-m">₸ за т</th><th class="num">Цена</th><th>Склад</th><th class="num">Количество</th></tr></thead><tbody>`;
+  let last = "";
+  rows.forEach(p => {
+    const c = cat(p);
+    if (p.c !== last) { last = p.c; html += `<tr class="grp"><td colspan="7"><b>${esc(c.t)}</b><span>${esc(c.gost)} · ${esc(c.grade)}</span></td></tr>`; }
+    const st = QTY[p.id] || { q: isSheet(p) ? 1 : 10, u: UNITS(p)[0][0] };
+    html += `<tr data-pid="${p.id}"><td class="nm"><a href="#/p/${p.id}">${esc(c.t)} ${esc(p.size)}</a><small>${dec(p.kgm)} кг/${isSheet(p) ? "м²" : "м"} · ${isSheet(p) ? "лист 1,5×6 м" : dec(c.len) + " м"}</small></td>
+      <td class="num hide-m">${dec(p.kgm)} кг/${isSheet(p) ? "м²" : "м"}</td><td class="num hide-m">${isSheet(p) ? "1,5×6" : dec(c.len)} м</td><td class="num hide-m">${nf(p.price)}</td>
+      <td class="num ppm"><b>${nf(isSheet(p) ? perPiece(p) : perM(p))} ₸</b><small class="muted" style="display:block;font-size:12px">за ${isSheet(p) ? "лист" : "метр"}</small></td>
+      <td class="stk">${stockHTML(p)}</td>
+      <td class="qtyc"><div class="qty"><input type="number" min="0" step="any" inputmode="decimal" value="${st.q}" aria-label="Количество" data-q><select data-u aria-label="Единица">${UNITS(p).map(([k, t]) => `<option value="${k}" ${k === st.u ? "selected" : ""}>${t}</option>`).join("")}</select><button type="button" class="add" data-add aria-label="Добавить ${esc(pname(p))} в заявку"><i class="ph ph-plus"></i></button></div></td></tr>`;
+  });
+  $("#ctable").innerHTML = html + "</tbody></table>";
+}
+$("#dyn").addEventListener("input", e => { const tr = e.target.closest("tr[data-pid]"); if (!tr) return; QTY[tr.dataset.pid] = { q: +$("[data-q]", tr).value, u: $("[data-u]", tr).value }; });
+$("#dyn").addEventListener("change", e => { const tr = e.target.closest("tr[data-pid]"); if (!tr) return; QTY[tr.dataset.pid] = { q: +$("[data-q]", tr).value, u: $("[data-u]", tr).value }; });
+$("#dyn").addEventListener("click", e => {
+  const b = e.target.closest("[data-add]"); if (!b) return;
+  const tr = b.closest("tr[data-pid]"); if (tr) addToCart(tr.dataset.pid, +$("[data-q]", tr).value, $("[data-u]", tr).value);
+});
+
+/* ================= PRODUCT ================= */
+const PS = {};
+function productPage(id) {
+  const p = prod(id); if (!p) { $("#dyn").innerHTML = `<section class="pg"><div class="wrap empty">Позиция не найдена. <a href="#/catalog">В каталог</a></div></section>`; return; }
+  const c = cat(p), same = db.products.filter(x => x.c === p.c);
+  if (!PS[id]) PS[id] = { u: UNITS(p)[0][0], q: isSheet(p) ? 4 : 10 };
+  const specs = [["ГОСТ", c.gost], ["Марка стали", c.grade], [isSheet(p) ? "Вес 1 м²" : "Вес 1 м", dec(p.kgm) + " кг"], [isSheet(p) ? "Размер листа" : "Длина хлыста", isSheet(p) ? "1500×6000 мм" : dec(c.len) + " м"],
+    [isSheet(p) ? "Вес листа" : "Вес хлыста", nf(isSheet(p) ? p.kgm * c.area : p.kgm * c.len, 1) + " кг"], [isSheet(p) ? "Листов в тонне" : "Метров в тонне", nf(isSheet(p) ? 1000 / (p.kgm * c.area) : 1000 / p.kgm, 1)]];
+  $("#dyn").innerHTML = `<section class="pg"><div class="wrap">
+    <div class="crumbs"><a href="#/">Главная</a><span>/</span><a href="#/catalog">Каталог</a><span>/</span><a href="#/catalog?c=${c.k}">${esc(c.t)}</a><span>/</span><span>${esc(p.size)}</span></div>
+    <div class="pp">
+      <div class="pp-draw">${sectionSVG(p, 640, 480, { dims: true, stroke: 2, hatch: 7, hw: 1.2 })}<div class="cap"><span>Сечение, мм</span><span>${esc(c.gost)}</span></div></div>
+      <div class="pp-info">
+        <div><div class="tags"><span class="tag">${esc(c.grade)}</span><span class="tag">${esc(c.gost)}</span>${stockHTML(p)}</div><h1 style="margin-top:14px">${esc(c.one)} ${esc(p.size)}</h1></div>
+        <div class="price-row"><b>${money(isSheet(p) ? perPiece(p) : perM(p))}</b><span>за ${isSheet(p) ? "лист" : "метр"} · ${nf(p.price)} ₸/т с НДС · ${deltaHTML(p.delta)} за неделю</span></div>
+        <div class="panel" style="display:grid;gap:18px">
+          <div class="q"><span class="lbl">Считать в</span><div class="seg" id="pUnits">${UNITS(p).map(([k]) => `<button type="button" data-pu="${k}" aria-pressed="${k === PS[id].u}">${k === "pc" ? "хлыстах" : k === "m" ? "метрах" : k === "t" ? "тоннах" : "листах"}</button>`).join("")}</div></div>
+          <div class="qty-big"><input id="pQty" type="number" inputmode="decimal" min="0" step="any" value="${PS[id].q}" aria-label="Количество"><span id="pUnitL"></span></div>
+          <div class="res" id="pRes"></div>
+          <button type="button" class="btn btn-acc" id="pAdd"><i class="ph ph-plus"></i>Добавить в заявку</button>
+        </div>
+        <dl class="specs">${specs.map(([a, b]) => `<div><dt>${a}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>
+        <div class="q"><span class="lbl">Другие размеры</span><div class="sizes">${same.map(x => `<a href="#/p/${x.id}" class="${x.id === p.id ? "on" : ""}">${esc(x.size)}</a>`).join("")}</div></div>
+      </div></div></div></section>`;
+  const upd = () => { const s = PS[id], r = calc(p, s.u, s.q);
+    $("#pUnitL").textContent = s.u === "pc" ? "хлыстов" : s.u === "m" ? "м" : s.u === "t" ? "т" : "листов";
+    $("#pRes").innerHTML = `<div><span>Вес</span><b>${kgf(r.kg)}</b></div><div><span>${isSheet(p) ? "Площадь" : "Длина"}</span><b>${nf(r.m, 1)} ${isSheet(p) ? "м²" : "м"}</b></div><div><span>${isSheet(p) ? "Листов" : "Хлыстов"}</span><b>${nf(r.pcs, 1)}</b></div><div class="tot"><span>Стоимость с НДС</span><b>${money(r.sum)}</b></div>`; };
+  $("#pQty").oninput = e => { PS[id].q = +e.target.value; upd(); };
+  $("#pUnits").onclick = e => { const b = e.target.closest("[data-pu]"); if (!b) return; const s = PS[id], was = calc(p, s.u, s.q); s.u = b.dataset.pu;
+    s.q = +(s.u === "t" ? was.kg / 1000 : s.u === "m" ? was.m : was.pcs).toFixed(s.u === "t" ? 2 : 1) || 1; $("#pQty").value = s.q; $$("#pUnits button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); upd(); };
+  $("#pAdd").onclick = () => addToCart(id, PS[id].q, PS[id].u);
+  upd();
+}
+
+/* ================= CART / ORDER ================= */
+let CO = { d: "city", buyer: "org" };
+function cartPage() {
+  if (!db.cart.length) {
+    $("#dyn").innerHTML = `<section class="pg"><div class="wrap"><div class="crumbs"><a href="#/">Главная</a><span>/</span><span>Заявка</span></div><h1 class="h-l">Заявка пуста</h1>
+      <p class="lead" style="margin-top:16px">Добавьте металл из каталога или калькулятора. Или пришлите смету файлом, посчитаем сами.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn btn-acc" href="#/catalog">Открыть каталог</a><a class="btn btn-line" href="#/s/smeta">Прислать смету</a></div></div></section>`;
+    return;
+  }
+  $("#dyn").innerHTML = `<section class="pg"><div class="wrap"><div class="crumbs"><a href="#/">Главная</a><span>/</span><span>Заявка</span></div>
+    <div class="cat-head"><div><h1 class="h-l">Заявка на счёт</h1><p>Проверим наличие и пришлём счёт с НДС в WhatsApp за 15 минут</p></div></div>
+    <div class="cart"><div><div id="cItems"></div><div style="margin-top:18px"><a class="btn btn-line btn-sm" href="#/catalog"><i class="ph ph-plus"></i>Добавить ещё позицию</a></div></div>
+      <aside class="sum-panel"><div class="panel" style="display:grid;gap:16px" id="cSum"></div>
+        <form class="panel form" id="orderForm" novalidate>
+          <div class="seg" id="buyer" style="width:100%"><button type="button" data-b="org" aria-pressed="${CO.buyer === "org"}">ТОО или ИП</button><button type="button" data-b="person" aria-pressed="${CO.buyer === "person"}">Частное лицо</button></div>
+          <div class="two-f" id="orgF" ${CO.buyer === "org" ? "" : "hidden"}><div class="field"><label for="oC">Компания</label><input class="inp" id="oC" name="company" placeholder="ТОО «…»"></div>
+            <div class="field"><label for="oB">БИН / ИИН</label><input class="inp mono" id="oB" name="bin" inputmode="numeric" maxlength="12" placeholder="12 цифр"><div class="ferr" data-e="bin"></div></div></div>
+          <div class="two-f"><div class="field"><label for="oN">Имя</label><input class="inp" id="oN" name="name" autocomplete="given-name"><div class="ferr" data-e="name"></div></div>
+            <div class="field"><label for="oP">Телефон (WhatsApp)</label><input class="inp" id="oP" name="phone" type="tel" inputmode="tel" data-phone autocomplete="tel" placeholder="+7 7__ ___ __ __"><div class="ferr" data-e="phone"></div></div></div>
+          <div class="q"><span class="lbl">Получение</span><div class="radio">
+            <label><input type="radio" name="dlv" value="city" ${CO.d === "city" ? "checked" : ""}>Доставка по Атырау<em id="dCity"></em></label>
+            <label><input type="radio" name="dlv" value="region" ${CO.d === "region" ? "checked" : ""}>По области<em>по маршруту</em></label>
+            <label><input type="radio" name="dlv" value="pickup" ${CO.d === "pickup" ? "checked" : ""}>Самовывоз со склада<em>0 ₸</em></label></div></div>
+          <div class="field" id="addrF" ${CO.d === "pickup" ? "hidden" : ""}><label for="oA">Адрес объекта</label><input class="inp" id="oA" name="addr" placeholder="Например: мкр. Нурсая, ЖК «Сарайшык»"><div class="ferr" data-e="addr"></div></div>
+          <label class="check"><input type="checkbox" name="cut" id="oCut"><span>Нужна резка в размер<small>250 ₸ за рез, точность ±2 мм. Размеры напишите в комментарии</small></span></label>
+          <div class="field"><label for="oM">Комментарий</label><textarea class="inp" id="oM" name="comment" rows="2" placeholder="Например: балку порезать по 6 м, разгрузка с 9:00"></textarea></div>
+          <button type="submit" class="btn btn-acc"><i class="ph ph-file-text"></i>Получить счёт</button>
+          <p class="muted" style="font-size:13.5px">Оплата по счёту, наличными или картой на складе. Цены фиксируем на 3 дня.</p>
+        </form></aside></div></div></section>`;
+  renderCartItems(); renderCartSum();
+  const f = $("#orderForm");
+  $("#buyer").onclick = e => { const b = e.target.closest("[data-b]"); if (!b) return; CO.buyer = b.dataset.b; $$("#buyer button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); $("#orgF").hidden = CO.buyer !== "org"; };
+  f.addEventListener("change", e => { if (e.target.name === "dlv") { CO.d = e.target.value; $("#addrF").hidden = CO.d === "pickup"; renderCartSum(); } });
+  f.bin.addEventListener("input", () => { f.bin.value = f.bin.value.replace(/\D/g, "").slice(0, 12); });
+  f.onsubmit = ev => {
+    ev.preventDefault(); clearErr(f);
+    const name = f.name.value.trim(), ph = digits(f.phone.value), bin = f.bin.value.trim(), addr = f.addr.value.trim(); let ok = true;
+    if (!name) { fieldErr(f, "name", "Напишите имя"); ok = false; }
+    if (ph.length !== 11) { fieldErr(f, "phone", "Нужно 10 цифр после +7"); ok = false; }
+    if (CO.buyer === "org" && bin && bin.length !== 12) { fieldErr(f, "bin", "БИН состоит из 12 цифр"); ok = false; }
+    if (CO.d !== "pickup" && !addr) { fieldErr(f, "addr", "Куда везти?"); ok = false; }
+    if (!ok) { const first = $("[aria-invalid]", f); if (first) first.focus(); return; }
+    const T = cartTotals(CO.d);
+    const items = db.cart.map(x => { const p = prod(x.pid), r = calc(p, x.u, x.q); return { pid: p.id, name: pname(p), u: x.u, q: x.q, kg: r.kg, price: p.price, sum: r.sum }; });
+    const o = { id: nextId(db.orders), status: "new", createdAt: Date.now(), company: CO.buyer === "org" ? f.company.value.trim().slice(0, 80) : "", bin: CO.buyer === "org" ? bin : "", name: name.slice(0, 60), phone: "+" + ph, items,
+      dlv: { type: CO.d, addr: addr.slice(0, 120), truck: CO.d === "city" ? T.truck.name : "", cost: T.dl }, cut: f.cut.checked, comment: f.comment.value.trim().slice(0, 400) };
+    o.no = "ТК-" + (1030 + o.id); db.orders.push(o); db.cart = []; save(); cartBadge();
+    $("#dyn").innerHTML = `<section class="pg"><div class="wrap" style="max-width:760px"><div class="panel ok-box" style="padding:clamp(24px,4vw,44px)"><i class="ph ph-check-circle"></i>
+      <h3 style="font-size:clamp(30px,4vw,46px)">Заявка ${o.no} принята</h3><p>Счёт с НДС придёт в WhatsApp на ${fmtPhone(ph)} в течение 15 минут в рабочее время. Пока менеджер проверяет наличие, цены закреплены за вами.</p>
+      <div class="lines" style="width:100%;margin-top:6px">${items.map(i => `<div class="ln"><span>${esc(i.name)}, ${qtyText(i.u, i.q)}</span><i></i><span>${money(i.sum)}</span></div>`).join("")}
+        ${o.dlv.cost ? `<div class="ln"><span>Доставка, ${esc(o.dlv.truck)}</span><i></i><span>${money(o.dlv.cost)}</span></div>` : ""}<div class="ln"><span><b>Итого, ${kgf(T.kg)}</b></span><i></i><span><b>${money(T.sum + o.dlv.cost)}</b></span></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px"><a class="btn btn-light btn-sm" href="#/admin/orders?o=${o.id}">Открыть в админке</a><a class="btn btn-line btn-sm" href="#/catalog">Вернуться в каталог</a></div></div></div></section>`;
+    window.scrollTo(0, 0);
+  };
+}
+function renderCartItems() {
+  $("#cItems").innerHTML = db.cart.map((x, i) => { const p = prod(x.pid); if (!p) return ""; const r = calc(p, x.u, x.q);
+    return `<div class="ci" data-i="${i}"><div class="art">${sectionSVG(p, 72, 56, { stroke: 1, hatch: 3, hw: .7 })}</div>
+      <div class="nm"><a href="#/p/${p.id}">${esc(pname(p))}</a><small>${kgf(r.kg)} · ${isSheet(p) ? nf(r.pcs, 1) + " листа" : nf(r.m, 1) + " м"} · ${nf(p.price)} ₸/т</small></div>
+      <div class="rt"><span class="sum">${money(r.sum)}</span></div>
+      <div class="ctl"><div class="qty"><input type="number" min="0" step="any" inputmode="decimal" value="${x.q}" data-ci="${i}" aria-label="Количество"><select data-cu2="${i}" aria-label="Единица">${UNITS(p).map(([k, t]) => `<option value="${k}" ${k === x.u ? "selected" : ""}>${t}</option>`).join("")}</select></div>
+        <button type="button" class="rm" data-rm="${i}"><i class="ph ph-trash"></i>Убрать</button></div></div>`; }).join("");
+}
+function renderCartSum() {
+  const T = cartTotals(CO.d), vat = (T.total) * VAT / (1 + VAT);
+  const tr = truckFor(T.kg, T.maxLen); const dc = $("#dCity"); if (dc) dc.textContent = money(tr.cost);
+  $("#cSum").innerHTML = `<div class="lines"><div class="ln"><span>Металл, ${db.cart.length} ${plural(db.cart.length, ["позиция","позиции","позиций"])}</span><i></i><span>${money(T.sum)}</span></div>
+      <div class="ln"><span>Общий вес</span><i></i><span>${kgf(T.kg)}</span></div>
+      <div class="ln"><span>${CO.d === "city" ? "Доставка" : CO.d === "region" ? "Доставка по области" : "Самовывоз"}</span><i></i><span>${CO.d === "city" ? money(T.dl) : CO.d === "region" ? "по маршруту" : "0 ₸"}</span></div></div>
+    ${CO.d === "city" ? `<div class="truck"><i class="ph ph-truck"></i><span>Подобрали машину: <b>${esc(tr.name)}</b>${T.maxLen > 6 ? ", везём хлысты целиком" : ""}</span></div>` : ""}
+    <div class="grand"><span>Итого с НДС</span><b>${money(T.total)}</b><span>в т.ч. НДС 16%: ${money(vat)}</span></div>`;
+}
+$("#dyn").addEventListener("change", e => {
+  const qi = e.target.dataset.ci, ui = e.target.dataset.cu2;
+  if (qi !== undefined) { const v = +e.target.value; if (v > 0) db.cart[qi].q = v; save(); renderCartItems(); renderCartSum(); }
+  if (ui !== undefined) { const x = db.cart[ui], p = prod(x.pid), was = calc(p, x.u, x.q); x.u = e.target.value; x.q = +(x.u === "t" ? was.kg / 1000 : x.u === "m" ? was.m : was.pcs).toFixed(x.u === "t" ? 3 : 1); save(); renderCartItems(); renderCartSum(); }
+});
+$("#dyn").addEventListener("click", e => {
+  const rm = e.target.closest("[data-rm]"); if (!rm) return;
+  db.cart.splice(+rm.dataset.rm, 1); save(); cartBadge(); if (!db.cart.length) cartPage(); else { renderCartItems(); renderCartSum(); }
+});
+
+/* ================= CHAT ================= */
+const QUICK = ["Есть арматура 12 в наличии?", "Сколько стоит доставка?", "Нужен счёт на ТОО", "Режете в размер?"];
+function myThread(create) {
+  let t = db.chats.find(c => c.mine);
+  if (!t && create) { t = { id: nextId(db.chats), name: "Посетитель сайта", mine: true, unreadA: 0, unreadC: 0, msgs: [] }; db.chats.push(t); }
+  return t;
+}
+function renderChat() {
+  const t = myThread(false), msgs = t ? t.msgs : [];
+  const greet = `<div class="msg"><span class="who">Айгерим</span>Здравствуйте! Подскажу наличие, посчитаю вес и доставку. Что нужно?</div>`;
+  $("#msgs").innerHTML = greet + msgs.map(m => `<div class="msg ${m.f === "c" ? "me" : ""}">${m.f !== "c" ? `<span class="who">${m.f === "b" ? "Айгерим · автоответ" : "Айгерим"}</span>` : ""}${esc(m.t)}<small>${hm(new Date(m.at))}</small></div>`).join("");
+  $("#quick").innerHTML = msgs.length ? "" : QUICK.map(q => `<button type="button" data-qk="${esc(q)}">${esc(q)}</button>`).join("");
+  $("#msgs").scrollTop = 1e6;
+  const n = t ? t.unreadC : 0, b = $("#chatN"); b.hidden = !n; b.textContent = n;
+}
+function openChat() { const t = myThread(false); if (t && t.unreadC) { t.unreadC = 0; save(); } renderChat(); $("#chat").classList.add("open"); $("#chat").setAttribute("aria-hidden", "false"); document.body.classList.add("chat-open"); if (matchMedia("(pointer:fine)").matches) setTimeout(() => $("#chatIn").focus({ preventScroll: true }), 120); }
+function closeChat() { $("#chat").classList.remove("open"); $("#chat").setAttribute("aria-hidden", "true"); document.body.classList.remove("chat-open"); }
+function sendChat(text) {
+  text = text.trim().slice(0, 500); if (!text) return;
+  const t = myThread(true), first = !t.msgs.length;
+  t.msgs.push({ f: "c", t: text, at: Date.now() }); t.unreadA++; save(); renderChat();
+  if (first) setTimeout(() => { db = load(); const tt = myThread(false); if (!tt) return;
+    tt.msgs.push({ f: "b", t: "Приняли! Менеджер ответит в течение пары минут. В демо ответить можно самому: админка → «Чаты».", at: Date.now() }); save(); renderChat(); }, 1200);
+}
+document.addEventListener("click", e => { if (e.target.closest(".js-chat")) { e.preventDefault(); $("#chat").classList.contains("open") ? closeChat() : openChat(); } });
+$("#chatX").onclick = closeChat;
+$("#chatForm").onsubmit = e => { e.preventDefault(); sendChat($("#chatIn").value); $("#chatIn").value = ""; };
+$("#quick").onclick = e => { const b = e.target.closest("[data-qk]"); if (b) sendChat(b.dataset.qk); };
+
+/* ================= 3D: the bar ================= */
+const hero = { cat: "beam", auto: true, set: null };
+function init3D() {
+  const stage = $("#stage3d"), canvas = $("#bar3d");
+  const fallback = () => { canvas.remove(); const d = document.createElement("div"); d.className = "fallback"; stage.prepend(d); hero.set = k => { d.innerHTML = sectionSVG(prod(HERO_PICK[k]), 420, 320, { stroke: 2, hatch: 7 }); }; hero.set(hero.cat); };
+  if (!window.THREE) return fallback();
+  let R; try { R = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch { return fallback(); }
+  R.setPixelRatio(Math.min(devicePixelRatio, 1.5)); R.outputEncoding = THREE.sRGBEncoding; R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.05;
+  const scene = new THREE.Scene(); scene.fog = new THREE.Fog(0x0D1013, 7.5, 15);
+  // a studio environment of light panels, so steel reflects something
+  const env = new THREE.Scene(); env.background = new THREE.Color(0x101316);
+  const panel = (w, h, pos, rot, col, k) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(col).multiplyScalar(k), side: THREE.DoubleSide })); m.position.set(...pos); m.rotation.set(...rot); env.add(m); };
+  panel(12, 5, [0, 7, 0], [Math.PI / 2, 0, 0], 0xffffff, 2.6);
+  panel(1.4, 9, [-7, 1.5, 2], [0, Math.PI / 2, 0], 0xffffff, 2.2);
+  panel(1.2, 9, [7, 1.5, -1], [0, -Math.PI / 2, 0], 0xdde6ff, 1.3);
+  panel(9, .7, [0, -.6, -7], [0, 0, 0], 0xff6a48, 1.4);
+  panel(30, 30, [0, -5, 0], [-Math.PI / 2, 0, 0], 0x262b31, 1);
+  const pm = new THREE.PMREMGenerator(R); scene.environment = pm.fromScene(env, .035).texture; pm.dispose();
+  const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(3, 6, 5); scene.add(key, new THREE.AmbientLight(0xffffff, .12));
+  const cam = new THREE.PerspectiveCamera(27, 1, .1, 60);
+  const root = new THREE.Group(); scene.add(root);
+  // soft contact shadow
+  const sc = document.createElement("canvas"); sc.width = sc.height = 128; const g = sc.getContext("2d");
+  const grd = g.createRadialGradient(64, 64, 4, 64, 64, 64); grd.addColorStop(0, "rgba(0,0,0,.75)"); grd.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = grd; g.fillRect(0, 0, 128, 128);
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.set(0, -.86, -1.9); shadow.scale.set(2.4, 7.4, 1); root.add(shadow);
+  const capMat = new THREE.MeshStandardMaterial({ color: 0xc8361a, roughness: .78, metalness: 0, envMapIntensity: .25 });
+  const LEN = 5.2, FRONT = .7;
+  function build(k) {
+    const p = prod(HERO_PICK[k]), c = CAT[k], grp = new THREE.Group();
+    const side = new THREE.MeshStandardMaterial({ color: c.look[0], metalness: 1, roughness: c.look[1], envMapIntensity: 1.15 });
+    let shapes, hh, R0 = 0;
+    if (k === "sheet") {
+      shapes = []; const th = .07, gap = .045, w = 2.3;
+      for (let i = 0; i < 3; i++) { const y0 = i * (th + gap), dx = (i - 1) * .05; const s = new THREE.Shape(); s.moveTo(-w / 2 + dx, y0); s.lineTo(w / 2 + dx, y0); s.lineTo(w / 2 + dx, y0 + th); s.lineTo(-w / 2 + dx, y0 + th); s.closePath(); shapes.push(s); }
+      hh = 0;
+    } else {
+      const sh = shapeOf(p, false), s = 1.6 / Math.max(sh.w, sh.h);
+      const toV = pts => pts.map(([x, y]) => new THREE.Vector2(x * s, y * s));
+      const shape = new THREE.Shape(toV(sh.outer)); sh.holes.forEach(hp => shape.holes.push(new THREE.Path(toV(hp))));
+      shapes = [shape]; hh = sh.h * s / 2; R0 = hh;
+    }
+    const geo = new THREE.ExtrudeGeometry(shapes, { depth: LEN, bevelEnabled: true, bevelThickness: .012, bevelSize: .008, bevelSegments: 2, curveSegments: 4, steps: 1 });
+    geo.translate(0, 0, -LEN + FRONT);
+    const mesh = new THREE.Mesh(geo, [capMat, side]); grp.add(mesh);
+    if (k === "rebar") { // transverse ribs
+      const n = 40, ribs = new THREE.InstancedMesh(new THREE.TorusGeometry(R0 * .985, R0 * .055, 4, 32), side, n), m = new THREE.Object3D();
+      for (let i = 0; i < n; i++) { m.position.set(0, 0, FRONT - .12 - i * (LEN - .25) / n); m.rotation.set(.18, 0, 0); m.updateMatrix(); ribs.setMatrixAt(i, m.matrix); }
+      grp.add(ribs);
+    }
+    grp.position.y = k === "sheet" ? -.84 : -.86 + hh;
+    grp.userData.k = k;
+    return grp;
+  }
+  let cur = null, old = null, t0 = 0;
+  function show(k) {
+    if (old) { root.remove(old); old.traverse(o => o.geometry && o.geometry.dispose()); }
+    old = cur; cur = build(k); root.add(cur); t0 = performance.now(); kick();
+  }
+  hero.set = show;
+  let yaw = 0, pitch = 0, tYaw = 0, tPitch = 0, visible = true, raf = 0, last = 0;
+  function frame() {
+    const r = stage.getBoundingClientRect(); if (!r.width) return;
+    R.setSize(r.width, r.height, false); cam.aspect = r.width / r.height;
+    const f = cam.aspect < 1.25 ? 1.25 / cam.aspect : 1;
+    // lift the bar by part of the spec plate's height, so the plate sits under it rather than on it
+    const sp = $("#spec"), on = getComputedStyle(sp).display !== "none" && r.width > 700;
+    const visH = 2 * 6.6 * f * Math.tan(27 / 2 * Math.PI / 180), lift = on ? sp.offsetHeight * .62 / (r.height / visH) : 0;
+    cam.position.set(3.5 * f, 1.75 * f, 5.3 * f); cam.lookAt(-.15 + (on ? .3 : 0), -.25 - lift, -1.2); cam.updateProjectionMatrix();
+  }
+  stage.addEventListener("pointermove", e => { if (e.pointerType !== "mouse") return; const r = stage.getBoundingClientRect(); tYaw = ((e.clientX - r.left) / r.width - .5) * .5; tPitch = ((e.clientY - r.top) / r.height - .5) * .16; kick(); });
+  stage.addEventListener("pointerleave", () => { tYaw = 0; tPitch = 0; });
+  const ease = k => 1 - Math.pow(1 - k, 3), easeIn = k => k * k * k;
+  function loop(now) {
+    raf = 0; if (!visible || document.hidden) return;
+    raf = requestAnimationFrame(loop);
+    if (now - last < 30) return; // ~30 fps is plenty for a slow object
+    last = now;
+    yaw += (tYaw - yaw) * .08; pitch += (tPitch - pitch) * .08;
+    const t = now / 1000;
+    root.rotation.y = -.32 + (RM ? 0 : Math.sin(t * .35) * .1) + yaw; root.rotation.x = pitch * .5;
+    const k = clamp((now - t0) / 900, 0, 1);
+    if (old) { const ko = clamp((now - t0) / 380, 0, 1); old.position.z = -9 * easeIn(ko); if (ko >= 1) { root.remove(old); old.traverse(o => o.geometry && o.geometry.dispose()); old = null; } }
+    if (cur) { const ki = clamp((k - .25) / .75, 0, 1); cur.position.z = -9 * (1 - ease(ki)); }
+    R.render(scene, cam);
+  }
+  function kick() { if (!raf && visible && !document.hidden) { raf = requestAnimationFrame(loop); } }
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; kick(); }).observe(stage);
+  document.addEventListener("visibilitychange", kick);
+  new ResizeObserver(frame).observe(stage);
+  frame(); show(hero.cat); if (cur) cur.position.z = 0; t0 = -1e5;
+}
+/* category switcher with an auto-advance that stops once the visitor chooses */
+let autoT = 0, autoStart = 0;
+function heroSet(k, user) {
+  hero.cat = k; if (user) hero.auto = false;
+  $$("#catSw button").forEach(b => { b.classList.toggle("on", b.dataset.hero === k); b.style.setProperty("--p", 0); });
+  const sp = $("#spec"); sp.classList.add("swap"); setTimeout(() => { renderSpec(k); sp.classList.remove("swap"); }, 200);
+  hero.set && hero.set(k); autoStart = performance.now();
+}
+$("#catSw").addEventListener("click", e => { const b = e.target.closest("[data-hero]"); if (b) heroSet(b.dataset.hero, true); });
+let heroVisible = true;
+new IntersectionObserver(([en]) => { heroVisible = en.isIntersecting; }).observe($("#stage3d"));
+function autoLoop(now) {
+  autoT = requestAnimationFrame(autoLoop);
+  if (!hero.auto || RM || !heroVisible || document.body.classList.contains("is-admin") || $("#home").hidden) { autoStart = now; return; }
+  const k = (now - autoStart) / 5200, b = $(`#catSw [data-hero="${hero.cat}"]`);
+  if (b) b.style.setProperty("--p", Math.min(1, k));
+  if (k >= 1) { const i = CATS.findIndex(c => c.k === hero.cat); heroSet(CATS[(i + 1) % CATS.length].k, false); }
+}
+$("#stage3d").addEventListener("pointerdown", () => { hero.auto = false; $$("#catSw button").forEach(b => b.style.setProperty("--p", 0)); });
+
+/* ================= ADMIN ================= */
+const OST = { new: "Новая", invoice: "Счёт выставлен", paid: "Оплачена", shipped: "Отгружена", cancel: "Отмена" };
+const oTotal = o => o.items.reduce((s, i) => s + i.sum, 0) + (o.dlv.cost || 0);
+const oKg = o => o.items.reduce((s, i) => s + i.kg, 0);
+let aview = "home", ofilter = "all", athread = null, scat = "rebar";
+function renderAdmin() {
+  $$("#anav a").forEach(a => a.classList.toggle("on", a.dataset.v === aview));
+  const nO = db.orders.filter(o => o.status === "new").length, nC = db.chats.reduce((s, c) => s + (c.unreadA ? 1 : 0), 0), nR = db.reviews.filter(r => r.status === "pending").length;
+  [["#bOrders", nO], ["#bChats", nC], ["#bReviews", nR]].forEach(([s, n]) => { const b = $(s); b.hidden = !n; b.textContent = n; });
+  ({ home: aHome, orders: aOrders, stock: aStock, chats: aChats, reviews: aReviews }[aview] || aHome)($("#page"));
+}
+function orderRow(o) {
+  return `<button type="button" class="lrow" data-order="${o.id}"><span class="grow"><b>${esc(o.no)} · ${esc(o.company || o.name)}</b><small>${fmtDT(o.createdAt)} · ${o.type === "smeta" ? "смета файлом" : `${o.items.length} ${plural(o.items.length, ["позиция","позиции","позиций"])}, ${kgf(oKg(o))}`}</small></span>${o.type === "smeta" ? "" : `<span class="sum">${money(oTotal(o))}</span>`}<span class="st ${o.status}">${OST[o.status]}</span></button>`;
+}
+function aHome(page) {
+  const O = db.orders, live = O.filter(o => ["new", "invoice"].includes(o.status)), month = O.filter(o => o.status !== "cancel" && Date.now() - o.createdAt < 30 * 864e5);
+  const tons = {}; month.forEach(o => o.items.forEach(i => { const p = prod(i.pid); if (p) tons[p.c] = (tons[p.c] || 0) + i.kg / 1000; }));
+  const tl = CATS.map(c => ({ t: c.t, v: tons[c.k] || 0 })).sort((a, b) => b.v - a.v), max = Math.max(1, ...tl.map(x => x.v));
+  const low = db.products.filter(p => p.stock < 8).sort((a, b) => a.stock - b.stock).slice(0, 6);
+  page.innerHTML = `<div class="ptitle"><h1>Сводка</h1><a class="btn btn-light btn-sm" href="#/admin/orders"><i class="ph ph-clipboard-text"></i>Все заявки</a></div>
+    <div class="kpis"><div class="kpi hi"><span>Новые заявки</span><b>${O.filter(o => o.status === "new").length}</b></div>
+      <div class="kpi"><span>Сумма в работе</span><b>${nf(live.reduce((s, o) => s + oTotal(o), 0) / 1e6, 1)} млн ₸</b></div>
+      <div class="kpi"><span>Тоннаж за 30 дней</span><b>${nf(month.reduce((s, o) => s + oKg(o), 0) / 1000, 1)} т</b></div>
+      <div class="kpi"><span>Чаты без ответа</span><b>${db.chats.filter(c => c.unreadA).length}</b></div></div>
+    <div class="grid3"><div class="box"><h2>Последние заявки <a href="#/admin/orders">Все</a></h2>${[...O].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6).map(orderRow).join("")}</div>
+      <div style="display:grid;gap:12px;align-content:start"><div class="box"><h2>Спрос по категориям, т</h2><div class="bars">${tl.map(x => `<div><span>${esc(x.t)}</span><i style="--w:${x.v / max * 100}%"></i><span>${nf(x.v, 1)}</span></div>`).join("")}</div></div>
+        <div class="box"><h2>Заканчивается <a href="#/admin/stock">Склад</a></h2>${low.length ? low.map(p => `<div class="lrow"><span class="grow"><b>${esc(pname(p))}</b></span>${stockHTML(p)}</div>`).join("") : `<p class="muted">Всё в наличии</p>`}</div></div></div>`;
+}
+function aOrders(page) {
+  const list = db.orders.filter(o => ofilter === "all" || o.status === ofilter).sort((a, b) => b.createdAt - a.createdAt);
+  page.innerHTML = `<div class="ptitle"><h1>Заявки</h1><p>Нажмите на заявку, чтобы сменить статус или выставить счёт</p></div>
+    <div class="filters">${[["all", "Все"], ...Object.entries(OST)].map(([k, t]) => `<button type="button" class="chip" data-of="${k}" aria-pressed="${ofilter === k}">${t}<span class="muted mono" style="margin-left:6px;font-size:12px">${k === "all" ? db.orders.length : db.orders.filter(o => o.status === k).length}</span></button>`).join("")}</div>
+    <div class="box" style="padding:6px 14px">${list.length ? `<table class="tb adm"><thead><tr><th>№</th><th>Клиент</th><th class="hide-m hide-l">Состав</th><th class="num">Вес</th><th class="num">Сумма</th><th>Статус</th></tr></thead><tbody>${list.map(o => `<tr data-order="${o.id}">
+      <td class="nm"><b class="mono">${esc(o.no)}</b><small>${fmtDT(o.createdAt)}</small></td><td class="nm"><b>${esc(o.company || o.name)}</b><small>${esc(o.name)} · ${esc(o.phone)}</small></td>
+      <td class="hide-m hide-l">${o.type === "smeta" ? `<span class="file-chip"><i class="ph ph-paperclip"></i>${esc(o.file)}</span>` : esc(o.items.map(i => i.name.replace(/^(Арматура|Труба профильная|Труба электросварная|Уголок равнополочный|Швеллер|Балка двутавровая|Лист горячекатаный)/, m => CATS.find(c => c.one === m)?.t || m)).join(", "))}</td>
+      <td class="num">${o.type === "smeta" ? "—" : kgf(oKg(o))}</td><td class="num">${o.type === "smeta" ? "—" : money(oTotal(o))}</td><td><span class="st ${o.status}">${OST[o.status]}</span></td></tr>`).join("")}</tbody></table>` : `<p class="empty">Заявок с таким статусом нет</p>`}</div>`;
+}
+function orderModal(id) {
+  const o = db.orders.find(x => x.id === id); if (!o) return;
+  const dl = o.dlv.type === "pickup" ? "Самовывоз" : o.dlv.type === "region" ? "По области, по маршруту" : `Доставка: ${o.dlv.truck}, ${money(o.dlv.cost)}`;
+  openModal(`<div class="mh"><h3>Заявка ${esc(o.no)}</h3><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <dl class="kv"><dt>Клиент</dt><dd>${esc(o.company || "частное лицо")}${o.bin ? ` · БИН <span class="mono">${esc(o.bin)}</span>` : ""}</dd><dt>Контакт</dt><dd>${esc(o.name)}, <span class="mono">${esc(o.phone)}</span></dd>
+      <dt>Получение</dt><dd>${esc(dl)}${o.dlv.addr ? `<br>${esc(o.dlv.addr)}` : ""}</dd>${o.cut ? `<dt>Резка</dt><dd>нужна</dd>` : ""}${o.comment ? `<dt>Комментарий</dt><dd>${esc(o.comment)}</dd>` : ""}<dt>Создана</dt><dd>${fmtDT(o.createdAt)}</dd></dl>
+    ${o.type === "smeta" ? `<div class="truck"><i class="ph ph-paperclip"></i><span>Клиент прислал файл <b>${esc(o.file)}</b>. Посчитайте по смете и выставьте счёт.</span></div>` :
+      `<div style="overflow-x:auto"><table class="items-t"><thead><tr><th>Позиция</th><th class="r">Кол-во</th><th class="r w">Вес</th><th class="r">Сумма</th></tr></thead><tbody>${o.items.map(i => `<tr><td>${esc(i.name)}</td><td class="r">${qtyText(i.u, i.q)}</td><td class="r w">${kgf(i.kg)}</td><td class="r">${money(i.sum)}</td></tr>`).join("")}
+      ${o.dlv.cost ? `<tr><td>Доставка, ${esc(o.dlv.truck)}</td><td></td><td class="w"></td><td class="r">${money(o.dlv.cost)}</td></tr>` : ""}<tr><td><b>Итого</b></td><td></td><td class="r w"><b>${kgf(oKg(o))}</b></td><td class="r"><b>${money(oTotal(o))}</b></td></tr></tbody></table></div>`}
+    <div><div class="muted" style="font-size:13.5px;margin-bottom:8px">Статус</div><div class="chips">${Object.entries(OST).map(([k, t]) => `<button type="button" class="chip" data-ost="${k}" data-id="${o.id}" aria-pressed="${o.status === k}">${t}</button>`).join("")}</div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${o.type === "smeta" ? "" : `<button type="button" class="btn btn-acc btn-sm" data-inv="${o.id}"><i class="ph ph-file-text"></i>Счёт на оплату</button>`}
+      <a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="https://wa.me/${o.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Здравствуйте, ${o.name}! Это «Темір Қор». По заявке ${o.no} ${o.type === "smeta" ? "смету получили, считаем." : `сумма ${money(oTotal(o))}, счёт во вложении.`}`)}"><i class="ph ph-whatsapp-logo"></i>Написать в WhatsApp</a></div>`);
+}
+function invoiceModal(id) {
+  const o = db.orders.find(x => x.id === id); if (!o) return;
+  const d = new Date(), total = oTotal(o), vat = total * VAT / (1 + VAT);
+  const rows = o.items.map((i, n) => { const unit = i.u === "t" ? "т" : i.u === "m" ? "м" : i.u === "sh" ? "лист" : "хлыст"; return `<tr><td>${n + 1}</td><td>${esc(i.name)}</td><td class="r">${nf(i.q, 3)}</td><td>${unit}</td><td class="r">${nf(i.sum / i.q, 2)}</td><td class="r">${nf(i.sum, 2)}</td></tr>`; });
+  if (o.dlv.cost) rows.push(`<tr><td>${o.items.length + 1}</td><td>Доставка, ${esc(o.dlv.truck)}</td><td class="r">1</td><td>усл.</td><td class="r">${nf(o.dlv.cost, 2)}</td><td class="r">${nf(o.dlv.cost, 2)}</td></tr>`);
+  openModal(`<div class="mh"><h3>Счёт на оплату</h3><div style="display:flex;gap:8px"><button type="button" class="btn btn-light btn-sm" onclick="window.print()"><i class="ph ph-printer"></i>Печать</button><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div></div>
+    <div class="inv-wrap"><div class="inv">
+      <dl class="req"><dt>Бенефициар</dt><dd><b>ТОО «Темір Қор»</b> (демо), БИН 000000000000</dd><dt>ИИК</dt><dd class="mono">KZ00 0000 0000 0000 0000 (демо)</dd><dt>Банк</dt><dd>АО «Демо Банк», БИК DEMOKZKA, Кбе 17</dd></dl>
+      <h4>Счёт на оплату № ${o.id + 1040} от ${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()} г.</h4>
+      <dl class="req"><dt>Поставщик</dt><dd>ТОО «Темір Қор», г. Атырау, промзона «Северная», ул. Промышленная, 7</dd><dt>Покупатель</dt><dd>${esc(o.company || o.name)}${o.bin ? `, БИН ${esc(o.bin)}` : ""}</dd><dt>Договор</dt><dd>Без договора, заявка ${esc(o.no)}</dd></dl>
+      <table><thead><tr><th>№</th><th>Наименование</th><th class="r">Кол-во</th><th>Ед.</th><th class="r">Цена, ₸</th><th class="r">Сумма, ₸</th></tr></thead><tbody>${rows.join("")}</tbody></table>
+      <div class="tot"><b>Итого: ${nf(total, 2)} ₸</b><span>в том числе НДС 16%: ${nf(vat, 2)} ₸</span></div>
+      <p class="note">Всего наименований ${rows.length}, на сумму ${nf(total, 2)} ₸. Счёт действителен 3 банковских дня. Общий вес ${kgf(oKg(o))}. Документ сформирован в демо-версии и не является платёжным.</p>
+      <div class="sign"><div>Руководитель<span></span></div><div>Бухгалтер<span></span></div></div>
+    </div></div>`, true);
+  if (o.status === "new") { o.status = "invoice"; save(); renderAdmin(); toast("Статус заявки: счёт выставлен"); }
+}
+function aStock(page) {
+  const list = db.products.filter(p => p.c === scat), c = CAT[scat];
+  page.innerHTML = `<div class="ptitle"><h1>Склад и цены</h1><p>Цены и остатки сразу меняются на сайте: в каталоге, калькуляторе и «Ценах на сегодня»</p></div>
+    <div class="filters">${CATS.map(x => `<button type="button" class="chip" data-sc="${x.k}" aria-pressed="${x.k === scat}">${esc(x.t)}</button>`).join("")}</div>
+    <div class="bulk"><span>Изменить все цены «${esc(c.t)}» на</span><input id="bulkP" type="number" step="0.5" value="2" aria-label="Процент"><span>%</span><button type="button" class="btn btn-light btn-sm" id="bulkGo">Применить</button><span class="muted">Минус, чтобы снизить</span></div>
+    <div class="box pe" style="padding:6px 14px"><table class="tb adm"><thead><tr><th>Позиция</th><th class="num hide-m">Вес</th><th class="num">Цена, ₸/т</th><th class="num">Остаток, т</th><th class="num hide-m">₸ за ${scat === "sheet" ? "лист" : "м"}</th></tr></thead><tbody>
+      ${list.map(p => `<tr data-sp="${p.id}"><td class="nm"><b>${esc(c.t)} ${esc(p.size)}</b><small>${esc(c.grade)}</small></td><td class="num hide-m">${dec(p.kgm)} кг</td>
+        <td class="num"><input data-f="price" inputmode="numeric" value="${p.price}" aria-label="Цена за тонну"></td><td class="num"><input data-f="stock" inputmode="decimal" value="${p.stock}" aria-label="Остаток"></td><td class="num hide-m" data-ppm>${nf(isSheet(p) ? perPiece(p) : perM(p))}</td></tr>`).join("")}</tbody></table></div>`;
+  $("#bulkGo").onclick = () => { const k = +$("#bulkP").value; if (!k) return; list.forEach(p => { p.delta = +(p.delta + k).toFixed(1); p.price = Math.round(p.price * (1 + k / 100) / 500) * 500; }); save(); aStock(page); toast(`Цены «${c.t}» изменены на ${k > 0 ? "+" : ""}${dec(k)}%`); };
+}
+function aChats(page) {
+  const list = [...db.chats].sort((a, b) => (b.msgs.at(-1)?.at || 0) - (a.msgs.at(-1)?.at || 0));
+  if (athread && !db.chats.some(c => c.id === athread)) athread = null;
+  const t = db.chats.find(c => c.id === athread);
+  if (t && t.unreadA) { t.unreadA = 0; save(); setTimeout(renderBadges, 0); }
+  page.innerHTML = `<div class="ptitle"><h1>Чаты</h1><p>Ответ клиент увидит в окне чата на сайте</p></div>
+    <div class="chats ${t ? "has" : ""}"><div class="threads">${list.length ? list.map(c => { const m = c.msgs.at(-1); return `<button type="button" class="thr ${c.id === athread ? "on" : ""}" data-th="${c.id}"><b>${esc(c.name)}</b><small>${m ? esc((m.f === "c" ? "" : "Вы: ") + m.t) : "нет сообщений"}</small>${c.unreadA ? `<em>${c.unreadA}</em>` : ""}</button>`; }).join("") : `<p class="empty">Пока никто не писал</p>`}</div>
+      <div class="conv">${t ? `<div class="chat-h"><button type="button" class="icon-btn" data-th="0" aria-label="К списку чатов" style="margin:0"><i class="ph ph-arrow-left"></i></button><div><b>${esc(t.name)}</b><small>${t.mine ? "вы с сайта, в этом браузере" : "клиент"}</small></div></div>
+        <div class="msgs" id="amsgs">${t.msgs.map(m => `<div class="msg ${m.f === "c" ? "me" : "mgr"}">${m.f === "b" ? `<span class="who">автоответ</span>` : ""}${esc(m.t)}<small>${hm(new Date(m.at))}</small></div>`).join("")}</div>
+        <div class="quick">${["Есть в наличии, привезём сегодня", "Счёт отправили в WhatsApp", "Пришлите реквизиты, пожалуйста"].map(q => `<button type="button" data-aq="${esc(q)}">${esc(q)}</button>`).join("")}</div>
+        <form class="chat-f" id="aform"><input id="ain" autocomplete="off" placeholder="Ответ клиенту" aria-label="Ответ"><button type="submit" aria-label="Отправить"><i class="ph ph-paper-plane-right"></i></button></form>` : `<p class="empty">Выберите чат слева</p>`}</div></div>`;
+  const box = $("#amsgs"); if (box) box.scrollTop = 1e6;
+  const f = $("#aform"); if (f) f.onsubmit = e => { e.preventDefault(); replyChat($("#ain").value); };
+}
+function replyChat(text) { text = text.trim(); const t = db.chats.find(c => c.id === athread); if (!t || !text) return; t.msgs.push({ f: "m", t: text.slice(0, 500), at: Date.now() }); t.unreadC = (t.unreadC || 0) + 1; save(); aChats($("#page")); toast(t.mine ? "Ответ отправлен. Вернитесь на сайт и откройте чат" : "Ответ отправлен"); }
+function aReviews(page) {
+  const list = [...db.reviews].sort((a, b) => (a.status === "pending" ? -1 : 0) - (b.status === "pending" ? -1 : 0) || b.at - a.at);
+  const lbl = { pub: ["Опубликован", "paid"], pending: ["На модерации", "new"], hidden: ["Скрыт", "cancel"] };
+  page.innerHTML = `<div class="ptitle"><h1>Отзывы</h1><p>Новые отзывы с сайта появляются здесь и ждут публикации</p></div>
+    <div class="rvm">${list.map(r => `<article class="rv"><div style="display:grid;gap:10px">${stars(r.rating)}<p>${esc(r.text)}</p><div class="muted" style="font-size:14px"><b style="color:var(--text)">${esc(r.name)}</b>${r.org ? ` · ${esc(r.org)}` : ""} · ${fmtDT(r.at)}</div></div>
+      <div class="acts"><span class="st ${lbl[r.status][1]}">${lbl[r.status][0]}</span>${r.status !== "pub" ? `<button type="button" class="btn btn-light btn-sm" data-rv="pub" data-id="${r.id}">Опубликовать</button>` : `<button type="button" class="btn btn-line btn-sm" data-rv="hidden" data-id="${r.id}">Скрыть</button>`}<button type="button" class="icon-btn" data-rvdel="${r.id}" aria-label="Удалить отзыв"><i class="ph ph-trash"></i></button></div></article>`).join("")}</div>`;
+}
+function renderBadges() { const sv = aview; renderAdminBadgesOnly(); aview = sv; }
+function renderAdminBadgesOnly() { const nO = db.orders.filter(o => o.status === "new").length, nC = db.chats.filter(c => c.unreadA).length, nR = db.reviews.filter(r => r.status === "pending").length; [["#bOrders", nO], ["#bChats", nC], ["#bReviews", nR]].forEach(([s, n]) => { const b = $(s); b.hidden = !n; b.textContent = n; }); }
+$("#admin").addEventListener("click", e => {
+  const el = e.target.closest("[data-order],[data-of],[data-sc],[data-th],[data-aq],[data-rv],[data-rvdel]"); if (!el) return;
+  if (el.dataset.order) return orderModal(+el.dataset.order);
+  if (el.dataset.of) { ofilter = el.dataset.of; return aOrders($("#page")); }
+  if (el.dataset.sc) { scat = el.dataset.sc; return aStock($("#page")); }
+  if (el.dataset.th !== undefined) { athread = +el.dataset.th || null; return aChats($("#page")); }
+  if (el.dataset.aq) return replyChat(el.dataset.aq);
+  if (el.dataset.rv) { const r = db.reviews.find(x => x.id === +el.dataset.id); r.status = el.dataset.rv; save(); renderAdmin(); toast(r.status === "pub" ? "Отзыв опубликован на сайте" : "Отзыв скрыт"); return; }
+  if (el.dataset.rvdel) { db.reviews = db.reviews.filter(x => x.id !== +el.dataset.rvdel); save(); renderAdmin(); toast("Отзыв удалён"); }
+});
+$("#admin").addEventListener("change", e => {
+  const tr = e.target.closest("tr[data-sp]"); if (!tr) return;
+  const p = prod(tr.dataset.sp), v = parseFloat(String(e.target.value).replace(",", ".")); if (!(v >= 0)) { e.target.value = p[e.target.dataset.f]; return; }
+  if (e.target.dataset.f === "price") { p.delta = +(p.delta + (v - p.price) / p.price * 100).toFixed(1); p.price = Math.round(v); } else p.stock = Math.round(v * 10) / 10;
+  save(); $("[data-ppm]", tr).textContent = nf(isSheet(p) ? perPiece(p) : perM(p)); toast("Сохранено, на сайте уже новые данные");
+});
+$("#modal").addEventListener("click", e => {
+  const s = e.target.closest("[data-ost]"), inv = e.target.closest("[data-inv]");
+  if (s) { const o = db.orders.find(x => x.id === +s.dataset.id); o.status = s.dataset.ost; save(); renderAdmin(); orderModal(o.id); }
+  if (inv) invoiceModal(+inv.dataset.inv);
+});
+$("#resetDemo").onclick = () => { if (confirm("Вернуть демо к исходному виду? Ваши заявки, цены и сообщения удалятся.")) { db = seed(); save(); renderAll(); toast("Демо-данные сброшены"); } };
+
+/* ================= routing ================= */
+function parse() { const h = location.hash.slice(1) || "/"; const [path, qs] = h.split("?"); return { parts: path.split("/").filter(Boolean), q: new URLSearchParams(qs || "") }; }
+function renderAll() { cartBadge(); renderChat(); if (document.body.classList.contains("is-admin")) renderAdmin(); else route(true); }
+function route(soft) {
+  closeModal();
+  const { parts, q } = parse();
+  if (parts[0] === "admin") {
+    aview = parts[1] || "home"; document.body.classList.add("is-admin"); document.title = "Админка | Темір Қор"; closeChat();
+    renderAdmin(); if (!soft) window.scrollTo(0, 0);
+    const oid = +q.get("o"); if (oid) orderModal(oid);
+    return;
+  }
+  const wasAdmin = document.body.classList.contains("is-admin");
+  document.body.classList.remove("is-admin"); document.title = "Темір Қор | Металлопрокат со склада в Атырау";
+  const page = parts[0] || "home";
+  const isHome = page === "home" || page === "s";
+  $("#home").hidden = !isHome; $("#dyn").hidden = isHome;
+  $$(".nav a").forEach(a => a.classList.toggle("on", (page === "catalog" && a.dataset.nav === "catalog") || (page === "s" && a.dataset.nav === parts[1])));
+  if (isHome) {
+    renderHome();
+    if (page === "s" && !soft) { const el = document.getElementById(parts[1]); if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: RM || wasAdmin ? "auto" : "smooth" })); }
+    else if (!soft) window.scrollTo(0, 0);
+  } else {
+    if (page === "catalog") catalogPage(q); else if (page === "p") productPage(parts[1]); else if (page === "cart") cartPage(); else { location.hash = "#/"; return; }
+    if (!soft) window.scrollTo(0, 0);
+  }
+}
+// same-hash clicks on section links still scroll
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#/s/"]'); if (!a) return;
+  if (location.hash === a.getAttribute("href")) { e.preventDefault(); const el = document.getElementById(a.getAttribute("href").split("/")[2]); if (el) el.scrollIntoView({ behavior: RM ? "auto" : "smooth" }); }
+});
+window.addEventListener("hashchange", () => route(false));
+
+/* first-visit hint */
+(() => { let seen = false; try { seen = !!sessionStorage.getItem("temir-hint"); sessionStorage.setItem("temir-hint", "1"); } catch {}
+  if (seen) return; setTimeout(() => $("#hint").classList.add("show"), 3000); setTimeout(() => $("#hint").classList.remove("show"), 12000); $("#hintX").onclick = () => $("#hint").classList.remove("show"); })();
+
+renderSmeta();
+cartBadge();
+renderChat();
+route(false);
+init3D();
+autoStart = performance.now();
+autoT = requestAnimationFrame(autoLoop);
+})();
+</script>
+</body>
+</html>
