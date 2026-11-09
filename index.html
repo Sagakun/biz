@@ -413,7 +413,9 @@ p{margin:0}
 .w-go .ic{transition:transform 200ms var(--ease-out)}
 .work.soon{cursor:default}
 .work.soon .w-go{color:var(--muted)}
-.work.next{justify-content:center;align-items:flex-start;padding:clamp(26px,3vw,38px);background:none;border-style:dashed;border-color:var(--line-2)}
+.work.next{grid-column:1 / -1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:28px;row-gap:6px;align-items:center;padding:clamp(24px,3vw,36px);background:none;border-style:dashed;border-color:var(--line-2)}
+.work.next .ic.big{grid-row:span 2}.work.next .btn{grid-column:3;grid-row:1 / span 2;margin-top:0!important}
+@media (max-width:720px){.work.next{grid-template-columns:1fr}.work.next .ic.big,.work.next .btn{grid-row:auto;grid-column:auto}.work.next .btn{justify-self:start;margin-top:8px!important}}
 .work.next .ic.big{font-size:30px;color:var(--accent)}
 .work.next h3{font:400 24px/1.15 var(--display);letter-spacing:-.04em}
 .work.next p{color:var(--muted);font-size:16px}
@@ -993,7 +995,8 @@ ru: {
   "works.open":"Открыть сайт","works.soon":"Скоро по ссылке",
   "works.items":{
     "autoshumka":{"tag":"Лендинг · автостудия","title":"Autoshumka","desc":"Шумоизоляция, оклейка плёнкой и тонировка в Атырау. Анимации, переключение RU/KZ, заявки в WhatsApp."},
-    "mebel":{"tag":"Интернет-магазин · концепт","title":"Мебельный магазин","desc":"Многостраничный сайт: каталог, корзина и заказ, отзывы, чат с менеджером и админ-панель."}
+    "mebel":{"tag":"Интернет-магазин · концепт","title":"Мебельный магазин","desc":"Многостраничный сайт: каталог, корзина и заказ, отзывы, чат с менеджером и админ-панель."},
+    "barber":{"tag":"Онлайн-запись · концепт","title":"Барбершоп «Қайрақ»","desc":"Запись к мастеру на свободное время, прайс, RU/KZ. В админке расписание по мастерам, клиенты и услуги."}
   },
   "works.next.title":"Здесь может быть ваш сайт",
   "works.next.p":"Расскажите о бизнесе в WhatsApp, и мы предложим, каким может быть ваш сайт.",
@@ -1126,7 +1129,8 @@ kk: {
   "works.open":"Сайтты ашу","works.soon":"Жақында ашылады",
   "works.items":{
     "autoshumka":{"tag":"Лендинг · автостудия","title":"Autoshumka","desc":"Атыраудағы шумоизоляция, пленка жапсыру және тонировка. Анимациялар, RU/KZ ауыстыру, WhatsApp-қа өтінімдер."},
-    "mebel":{"tag":"Интернет-дүкен · концепт","title":"Жиһаз дүкені","desc":"Көп бетті сайт: каталог, себет және тапсырыс, пікірлер, менеджермен чат және әкімші панелі."}
+    "mebel":{"tag":"Интернет-дүкен · концепт","title":"Жиһаз дүкені","desc":"Көп бетті сайт: каталог, себет және тапсырыс, пікірлер, менеджермен чат және әкімші панелі."},
+    "barber":{"tag":"Онлайн жазылу · концепт","title":"«Қайрақ» барбершопы","desc":"Шеберге бос уақытқа жазылу, баға тізімі, RU/KZ. Әкімші панелінде шеберлер кестесі, клиенттер мен қызметтер."}
   },
   "works.next.title":"Мұнда сіздің сайтыңыз болуы мүмкін",
   "works.next.p":"WhatsApp-қа бизнесіңіз туралы жазыңыз, біз сайтыңыз қандай болатынын ұсынамыз.",
@@ -1259,7 +1263,8 @@ en: {
   "works.open":"Open site","works.soon":"Link coming soon",
   "works.items":{
     "autoshumka":{"tag":"Landing page · car studio","title":"Autoshumka","desc":"Soundproofing, paint protection film and tinting in Atyrau. Animations, RU/KZ switch, leads straight to WhatsApp."},
-    "mebel":{"tag":"Online store · concept","title":"Furniture store","desc":"Multi-page site: catalog, cart and checkout, reviews, chat with a manager and an admin panel."}
+    "mebel":{"tag":"Online store · concept","title":"Furniture store","desc":"Multi-page site: catalog, cart and checkout, reviews, chat with a manager and an admin panel."},
+    "barber":{"tag":"Online booking · concept","title":"Qairaq barbershop","desc":"Book a barber for a free time slot, price list, RU/KZ. The admin panel has a schedule per barber, clients and services."}
   },
   "works.next.title":"Your site could be here",
   "works.next.p":"Tell us about your business on WhatsApp and we'll suggest what your site could look like.",
@@ -1363,6 +1368,7 @@ function applyStatic(){
 const WORKS = [
   { key:"autoshumka", url:"https://sagakun.github.io/autoshumka1/", icon:"car-profile", c:{bg:"#14171B",ink:"#F1F0EC",acc:"#E0A33A",soft:"#232830"} },
   { key:"mebel",      url:"https://sagakun.github.io/biz/mebel/",   icon:"couch",       c:{bg:"#EFE6DA",ink:"#2E2620",acc:"#8A5A3B",soft:"#E1D2BE"} },
+  { key:"barber",     url:"https://sagakun.github.io/biz/barber/",  icon:"scissors",    c:{bg:"#F3F4F5",ink:"#141619",acc:"#2B4FD6",soft:"#DCE3FA"} },
 ];
 function renderWorks(){
   const items = t("works.items");
