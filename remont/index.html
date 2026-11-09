@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сызба | Ремонт квартир под ключ в Атырау</title>
+<meta name="description" content="Ремонт квартир под ключ с фиксированной сметой в договоре. Посчитайте стоимость онлайн и вызовите замерщика бесплатно.">
+<meta name="theme-color" content="#E4E3DF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2317181A'/%3E%3Cpath d='M14 46V18h36' fill='none' stroke='%23FF5A1F' stroke-width='6'/%3E%3Cpath d='M26 46h24V30' fill='none' stroke='%23E4E3DF' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+/* «Сызба» renovation demo.
+   Construction vernacular: concrete grey, graphite, one signal orange (warning tape), drawings and estimates.
+   The loud element is the 3D room that renovates itself as you scroll; the rest is calm and exact.
+   Shape rule: buttons and chips are pills, panels 18px, inner tiles 12px. Mono type only for measurements and money in the estimate. */
+:root{
+  --bg:#E4E3DF; --surface:#F4F4F2; --white:#FBFBFA; --ink:#17181A; --ink-2:#3A3C40; --muted:#6C6E72; --line:#CBCAC5; --line-2:#B5B4AE;
+  --accent:#FF5A1F; --accent-hi:#E84B12; --accent-soft:#FFE3D8;
+  --ok:#2E7D4F; --ok-soft:#DCEFE3;
+  --display:"Dela Gothic One","Arial Black",sans-serif; --body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --r-panel:18px; --r-tile:12px; --r-pill:999px;
+  --ease-out:cubic-bezier(.23,1,.32,1); --ease-drawer:cubic-bezier(.32,.72,0,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+p{margin:0}
+.ph{line-height:1}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+::selection{background:var(--accent);color:#fff}
+.wrap{max-width:1320px;margin-inline:auto;padding-inline:clamp(18px,4vw,44px)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.d{font-family:var(--display);letter-spacing:-.01em;line-height:1.02}
+h2.d{font-size:clamp(36px,5.4vw,80px)}
+.sub{color:var(--ink-2);font-size:clamp(17px,1.35vw,19px);max-width:52ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:var(--r-pill);border:1.5px solid transparent;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;
+  transition:transform 160ms var(--ease-out),background-color 180ms ease,border-color 180ms ease,color 180ms ease}
+.btn:active{transform:scale(.97)}
+.btn .ph{font-size:20px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-line{border-color:var(--ink);background:transparent}
+.btn-sm{min-height:42px;padding:0 18px;font-size:15px}
+@media (hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--accent-hi)}.btn-dark:hover{background:#2C2E31}.btn-line:hover{background:var(--ink);color:#fff}}
+
+/* ---------- header ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(228,227,223,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:26px;height:70px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:400 22px/1 var(--display)}
+.logo svg{width:26px;height:26px}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{padding:8px 12px;border-radius:var(--r-pill);text-decoration:none;color:var(--ink-2);font-weight:500;font-size:15px;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){.nav a:hover{background:rgba(23,24,26,.06);color:var(--ink)}}
+.hdr .phone{font-family:var(--mono);font-size:14.5px;text-decoration:none;white-space:nowrap}
+.hdr-demo{display:none;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:var(--r-pill);border:1.5px solid var(--ink);text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap}
+.hdr-demo .ph{font-size:17px}
+.hdr .short{display:none}
+.hero-a .btn .sm{display:none}
+@media (max-width:1180px){.nav{display:none}.hdr .phone{margin-left:auto}}
+@media (max-width:640px){.hdr-demo{display:inline-flex}.demo{display:none!important}}
+@media (max-width:380px){.hdr-demo .lbl{display:none}.hdr-demo{padding:0 11px}}
+@media (max-width:560px){.hdr .phone{display:none}.hdr-demo{margin-left:auto}.hdr .wrap{gap:8px}.hdr .full{display:none}.hdr .short{display:inline}}
+
+/* ---------- story: the room renovates as you scroll ---------- */
+.story{position:relative;height:640vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);padding-top:70px}
+.stage .copy{position:relative;z-index:2;display:grid;align-items:center;padding:clamp(20px,3vw,40px) 0 120px clamp(18px,4vw,44px);max-width:640px}
+.panel-x{grid-area:1/1;transition:opacity 320ms ease,transform 420ms var(--ease-out)}
+.panel-x[hidden]{display:block;opacity:0;transform:translateY(14px);pointer-events:none}
+.hero-h{font-size:clamp(44px,5.6vw,92px);line-height:.98}
+.hero-h em{font-style:normal;color:var(--accent)}
+.hero-p{margin-top:24px}
+.hero-a{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.scroll-cue{margin-top:28px;display:inline-flex;align-items:center;gap:10px;font-size:14.5px;color:var(--muted)}
+.scroll-cue i{display:block;width:44px;height:2px;background:var(--line-2);position:relative;overflow:hidden}
+.scroll-cue i::after{content:"";position:absolute;inset:0;background:var(--accent);transform:translateX(-100%)}
+@media (prefers-reduced-motion: no-preference){.scroll-cue i::after{animation:cue 1.8s var(--ease-out) infinite}}
+@keyframes cue{to{transform:translateX(100%)}}
+.st-n{font-family:var(--mono);font-size:14px;color:var(--accent)}
+.st-h{font-size:clamp(32px,3.6vw,56px);margin-top:12px}
+.st-p{margin-top:18px;font-size:18px;color:var(--ink-2);max-width:42ch}
+.st-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:28px;border-top:1.5px solid var(--ink);max-width:440px}
+.st-meta div{padding:14px 0;display:grid;gap:4px}
+.st-meta div+div{padding-left:20px;border-left:1px solid var(--line)}
+.st-meta b{font:400 30px/1 var(--display)}
+.st-meta span{font-size:14px;color:var(--muted)}
+.view{position:relative;min-width:0}
+#room{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.dim{position:absolute;z-index:2;pointer-events:none;font:500 12.5px/1 var(--mono);color:var(--accent);background:var(--bg);padding:2px 5px;border-radius:4px;transform:translate(-50%,-50%);transition:opacity 300ms ease;white-space:nowrap}
+.rail{position:absolute;z-index:3;left:clamp(18px,4vw,44px);right:clamp(18px,4vw,44px);bottom:clamp(18px,3vh,32px);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.rail button{border:0;background:none;padding:12px 0 0;text-align:left;font-size:13.5px;font-weight:600;color:var(--muted);position:relative;transition:color 200ms ease}
+.rail button::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:2px;background:var(--line)}
+.rail button::after{content:"";position:absolute;left:0;top:0;height:3px;border-radius:2px;background:var(--accent);width:calc(var(--f,0) * 100%)}
+.rail button.on{color:var(--ink)}
+.rail button span{display:block;font:500 12px/1 var(--mono);color:var(--muted);margin-bottom:4px}
+.done-card{display:grid;gap:18px}
+@media (min-width:641px){.rail{right:calc(clamp(18px,4vw,44px) + 196px)}}
+.done-card .big{font-size:clamp(40px,4.6vw,72px);line-height:1}
+@media (max-width:900px){
+  .story{height:560vh}
+  .stage{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,50fr) minmax(0,50fr)}
+  .view{grid-row:1}
+  .stage .copy{grid-row:2;align-items:start;padding:8px clamp(18px,4vw,44px) 76px;max-width:none}
+  .hero-h{font-size:clamp(34px,9vw,52px)}
+  .hero-p{margin-top:12px;font-size:16px}
+  .hero-a{margin-top:16px}
+  .hero-a .btn{min-height:48px;padding:0 18px;font-size:15px}
+  .scroll-cue{display:none}
+  .st-h{font-size:clamp(26px,7vw,40px);margin-top:6px}
+  .st-p{margin-top:10px;font-size:16px}
+  .st-meta{margin-top:14px}
+  .st-meta div{padding:10px 0}
+  .st-meta b{font-size:24px}
+  .rail{bottom:14px}
+  .rail button{font-size:0;padding-top:14px}
+  .rail button span{display:none}
+  .stage .copy{padding-bottom:44px}
+  .hero-a{flex-wrap:nowrap}
+  .hero-a .btn .lg{display:none}
+  .hero-a .btn .sm{display:inline}
+}
+@media (max-width:900px) and (max-height:700px){.hero-p{display:none}}
+@media (max-width:900px) and (max-height:820px){.done-card .st-p{display:none}}
+
+/* ---------- sections ---------- */
+.section{padding-block:clamp(80px,10vw,144px)}
+.shead{display:grid;gap:18px;margin-bottom:clamp(36px,4vw,60px)}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.c-in{background:var(--surface);border-radius:var(--r-panel);padding:clamp(20px,3vw,36px);display:grid;gap:28px}
+.q{display:grid;gap:12px}
+.q>label,.q>span{font-weight:600;font-size:15px}
+.seg{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;border-radius:var(--r-pill);background:var(--bg);width:max-content;max-width:100%}
+.seg button{height:42px;padding:0 18px;border:0;border-radius:var(--r-pill);background:none;font-weight:600;font-size:15px;color:var(--ink-2);white-space:nowrap;transition:background-color 180ms ease,color 180ms ease}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.area{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center}
+.area output{font:400 34px/1 var(--display);min-width:118px;text-align:right}
+.area output small{font:500 15px var(--body);color:var(--muted);margin-left:4px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--ink) var(--p,50%),var(--line) var(--p,50%))}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:var(--line)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:3px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--accent);border:5px solid var(--surface);box-shadow:0 0 0 1.5px var(--accent)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);border:4px solid var(--surface)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{height:42px;min-width:48px;padding:0 16px;border-radius:var(--r-pill);border:1.5px solid var(--line-2);background:none;font-weight:600;font-size:15px;transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lvl{display:grid;gap:6px;align-content:start;padding:16px;border-radius:var(--r-tile);border:1.5px solid var(--line);background:var(--white);text-align:left;transition:border-color 160ms ease,box-shadow 160ms ease}
+.lvl b{font-size:16px}
+.lvl .pr{font:500 14px/1.2 var(--mono);color:var(--accent)}
+.lvl small{color:var(--muted);font-size:13.5px;line-height:1.4}
+.lvl[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.opt{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r-tile);background:var(--white);border:1.5px solid var(--line);cursor:pointer;font-size:15px}
+.opt input{appearance:none;width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid var(--line-2);display:grid;place-items:center;margin:0;transition:background-color 140ms ease,border-color 140ms ease}
+.opt input::after{content:"";width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+.opt input:checked{background:var(--accent);border-color:var(--accent)}
+.opt input:checked::after{opacity:1}
+.opt span{flex:1}
+.opt em{font:normal 500 12.5px var(--mono);color:var(--muted);white-space:nowrap}
+@media (max-width:1080px){.calc{grid-template-columns:minmax(0,1fr)}.receipt{position:static!important}}
+@media (max-width:640px){.levels,.opts{grid-template-columns:minmax(0,1fr)}.area output{font-size:28px;min-width:96px}}
+/* the estimate looks like a printed receipt */
+.receipt{position:sticky;top:88px;background:var(--white);border-radius:var(--r-panel) var(--r-panel) 0 0;padding:clamp(22px,3vw,34px) clamp(20px,3vw,32px) 34px;
+  -webkit-mask:radial-gradient(circle 9px at 50% 100%,transparent 98%,#000) 0 0/22px 100% repeat-x,linear-gradient(#000,#000) top/100% calc(100% - 9px) no-repeat;
+          mask:linear-gradient(#000,#000) top/100% calc(100% - 10px) no-repeat,radial-gradient(circle 10px at 11px 100%,transparent 9.5px,#000 10px) bottom/22px 20px repeat-x}
+.receipt h3{font:400 24px/1.1 var(--display)}
+.receipt .meta{font:400 13px var(--mono);color:var(--muted);margin-top:6px}
+.lines{margin-top:20px;display:grid;gap:10px;font-family:var(--mono);font-size:14px}
+.ln{display:grid;grid-template-columns:auto minmax(12px,1fr) auto;gap:8px;align-items:baseline}
+.ln i{border-bottom:1.5px dotted var(--line-2);transform:translateY(-4px)}
+.ln span:first-child{font-family:var(--body);font-size:15px}
+.total{margin-top:20px;padding-top:18px;border-top:1.5px dashed var(--ink);display:grid;gap:6px}
+.total span{font-size:14px;color:var(--muted)}
+.total b{font:400 clamp(36px,3.6vw,52px)/1 var(--display);letter-spacing:-.02em}
+.split{display:flex;height:12px;border-radius:3px;overflow:hidden;margin-top:18px;gap:2px}
+.split s{display:block;height:100%;transition:flex-basis 400ms var(--ease-out)}
+.split s:nth-child(1){background:var(--ink)}.split s:nth-child(2){background:var(--accent)}.split s:nth-child(3){background:var(--line-2)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:10px;height:10px;border-radius:2px}
+.term{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding:14px 16px;border-radius:var(--r-tile);background:var(--bg);font-size:15px}
+.term b{font:400 22px/1 var(--display)}
+.receipt .btn{width:100%;margin-top:20px}
+.receipt .note{margin-top:12px;font-size:13px;color:var(--muted);text-align:center}
+
+/* works: drawings */
+.works{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,1fr);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin}
+.work{scroll-snap-align:start;background:var(--surface);border-radius:var(--r-panel);padding:14px 14px 22px;display:grid;gap:16px;align-content:start}
+.plan-box{aspect-ratio:4/3;border-radius:var(--r-tile);background:#1C1E21;display:grid;place-items:center;padding:14px;position:relative;overflow:hidden}
+.plan-box::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:16px 16px}
+.plan-box svg{position:relative;width:100%;height:100%}
+.work .tag{font:500 12.5px var(--mono);color:var(--accent)}
+.work h3{font:400 24px/1.1 var(--display)}
+.work .specs{display:flex;flex-wrap:wrap;gap:6px 16px;font:400 13.5px var(--mono);color:var(--ink-2)}
+.work blockquote{margin:0;padding-top:14px;border-top:1px solid var(--line);font-size:15.5px;color:var(--ink-2)}
+.work blockquote b{display:block;margin-top:8px;font-size:14px;color:var(--ink);font-weight:600}
+
+/* packages */
+.pk-wrap{overflow-x:auto;border-radius:var(--r-panel)}
+.pk{width:100%;min-width:720px;border-collapse:separate;border-spacing:0;background:var(--surface);border-radius:var(--r-panel)}
+.pk th,.pk td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:15.5px;vertical-align:middle}
+.pk thead th{vertical-align:bottom;padding-top:24px}
+.pk thead th b{display:block;font:400 22px/1.1 var(--display)}
+.pk thead th span{display:block;font:500 14px var(--mono);color:var(--accent);margin-top:8px;font-weight:500}
+.pk tbody th{font-weight:500;color:var(--ink-2);width:30%}
+.pk .hi{background:var(--ink);color:#fff}
+.pk thead .hi{border-radius:var(--r-tile) var(--r-tile) 0 0}
+.pk tr:last-child .hi{border-radius:0 0 var(--r-tile) var(--r-tile)}
+.pk tr:last-child td,.pk tr:last-child th{border-bottom:0}
+.pk .hi span{color:#FF8A5E}
+.pk .y{color:var(--ok);font-size:20px}.pk .hi .y{color:#7FD9A3}
+.pk .n{color:var(--line-2);font-size:20px}
+.pk .pop,.pk .hi .pop{display:inline-block;margin-bottom:10px;font:500 11.5px var(--mono);padding:4px 8px;border-radius:6px;background:var(--accent);color:#fff}
+.pkc{display:none;gap:10px}
+.pkc article{background:var(--surface);border-radius:var(--r-panel);padding:20px;display:grid;gap:12px}
+.pkc article.hi{background:var(--ink);color:#fff}
+.pkc h3{font:400 24px/1.1 var(--display)}
+.pkc .pkp{font:500 14px var(--mono);color:var(--accent)}
+.pkc .hi .pkp{color:#FF8A5E}
+.pkc ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15.5px}
+.pkc li{display:flex;gap:10px;align-items:flex-start}
+.pkc li .ph{font-size:19px;flex:none;margin-top:1px}
+.pkc li.off{color:var(--muted)}
+.pkc .hi li.off{color:#8A8C90}
+.pkc .pop{justify-self:start;font:500 11.5px var(--mono);padding:4px 8px;border-radius:6px;background:var(--accent);color:#fff}
+@media (max-width:700px){.pk-wrap{display:none}.pkc{display:grid}}
+
+/* promises: oversized numbers */
+.prom{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1.5px solid var(--ink)}
+.prom div{padding:clamp(24px,3vw,40px) clamp(0px,2vw,32px) clamp(24px,3vw,40px) 0;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.prom div:nth-child(2n){padding-left:clamp(20px,3vw,40px);border-left:1px solid var(--line)}
+.prom b{font:400 clamp(52px,7vw,104px)/.95 var(--display);color:var(--accent);letter-spacing:-.02em}
+.prom p{font-size:18px;max-width:30ch}
+@media (max-width:700px){.prom{grid-template-columns:minmax(0,1fr)}.prom div:nth-child(2n){padding-left:0;border-left:0}}
+
+/* call to measure */
+.cta{background:var(--accent);color:#fff;border-radius:calc(var(--r-panel) + 6px);padding:clamp(28px,5vw,72px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start;position:relative;overflow:hidden;isolation:isolate}
+.cta::before{content:"";position:absolute;right:-40px;bottom:-40px;width:340px;height:340px;z-index:-1;border:2px solid rgba(255,255,255,.18);border-radius:50%}
+.cta h2{font-size:clamp(36px,4.6vw,68px)}
+.cta .sub{color:#FFE7DD;margin-top:18px}
+.cta .contacts{display:grid;gap:14px;margin-top:32px;font-size:16px}
+.cta .contacts div{display:flex;gap:12px;align-items:flex-start}
+.cta .contacts .ph{font-size:20px;margin-top:2px}
+.cta form{background:var(--white);color:var(--ink);border-radius:var(--r-panel);padding:clamp(20px,3vw,32px);display:grid;gap:14px}
+@media (max-width:900px){.cta{grid-template-columns:minmax(0,1fr)}}
+.field{display:grid;gap:7px}
+.field label{font-weight:600;font-size:14.5px}
+.field input,.field select,.field textarea{min-height:52px;padding:0 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--white);font-size:16px}
+.field textarea{padding:12px 16px;min-height:80px;resize:vertical}
+.field input::placeholder{color:#9A9C9F}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(23,24,26,.1)}
+.field input[aria-invalid="true"]{border-color:#C8321A}
+.ferr{color:#C8321A;font-size:14px;min-height:1em}
+.ok-msg{display:grid;gap:12px;justify-items:start}
+.ok-msg .ph{font-size:38px;color:var(--ok)}
+.ok-msg h3{font:400 28px/1.1 var(--display)}
+.ok-msg p{color:var(--ink-2)}
+.foot{padding-block:28px 100px;color:var(--muted);font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px}
+
+/* demo switch */
+.demo{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:45}
+.demo a{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 18px 0 16px;border-radius:var(--r-pill);background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:15px;box-shadow:0 14px 30px -14px rgba(23,24,26,.6);transition:transform 160ms var(--ease-out)}
+.demo a:active{transform:scale(.97)}
+.demo a .ph{font-size:20px;color:var(--accent)}
+.demo a em{font-style:normal;font:500 11px var(--mono);padding:3px 7px;border-radius:6px;background:#2C2E31;color:#B9BBBE}
+.hint{position:absolute;right:0;bottom:calc(100% + 10px);width:280px;padding:14px 36px 14px 16px;border-radius:14px;background:var(--white);border:1.5px solid var(--ink);font-size:14px;line-height:1.45;
+  opacity:0;transform:translateY(8px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:opacity 220ms ease,transform 260ms var(--ease-out)}
+.hint.show{opacity:1;transform:none;pointer-events:auto}
+.hint button{position:absolute;top:6px;right:6px;width:28px;height:28px;border:0;background:none;border-radius:50%}
+
+/* modal + toast */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(23,24,26,.5);opacity:0;pointer-events:none;transition:opacity 200ms ease}
+.scrim.open{opacity:1;pointer-events:auto}
+.modal{position:fixed;z-index:61;left:50%;top:50%;width:min(500px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;background:var(--white);border-radius:var(--r-panel);
+  transform:translate(-50%,-48%) scale(.97);opacity:0;pointer-events:none;transition:opacity 180ms ease,transform 240ms var(--ease-out)}
+.modal.open{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+.modal .mb{padding:22px;display:grid;gap:16px}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mh h3{font:400 26px/1.1 var(--display)}
+.icon-btn{width:40px;height:40px;flex:none;border-radius:50%;border:1.5px solid var(--line);background:var(--white);display:grid;place-items:center;font-size:18px;transition:transform 160ms var(--ease-out)}
+.icon-btn:active{transform:scale(.94)}
+.snap{padding:14px 16px;border-radius:var(--r-tile);background:var(--bg);font:400 13.5px/1.6 var(--mono)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:90;padding:12px 18px;border-radius:12px;background:var(--ink);color:#fff;font-weight:500;font-size:15px;
+  transform:translate(-50%,160%);opacity:0;transition:transform 300ms var(--ease-out),opacity 200ms ease;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* ================= ADMIN ================= */
+#admin{display:none;min-height:100dvh;grid-template-columns:236px minmax(0,1fr)}
+body.is-admin #site{display:none}
+body.is-admin #admin{display:grid}
+.side{background:var(--ink);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100dvh;padding:18px 12px}
+.side .logo{padding:6px 10px 24px;color:#fff}
+.side nav{display:grid;gap:2px}
+.side nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#A7A9AD;font-weight:500;font-size:15px}
+.side nav a .ph{font-size:20px}
+.side nav a.on{background:#2A2C30;color:#fff}
+.side nav a .badge{margin-left:auto;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+@media (hover:hover) and (pointer:fine){.side nav a:hover{color:#fff}}
+.side .bottom{margin-top:auto;display:grid;gap:6px;padding-top:14px;border-top:1px solid #2A2C30}
+.side .back{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:var(--r-pill);background:#fff;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px}
+.side .reset{border:0;background:none;color:#8A8C90;font-size:13px;padding:8px 12px;text-align:left;display:flex;gap:10px;align-items:center}
+.amain{min-width:0}
+.demo-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;padding:10px clamp(18px,3vw,36px);background:var(--surface);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.demo-bar a{color:var(--ink);font-weight:600;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.page{padding:clamp(18px,3vw,36px)}
+.ptitle{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.ptitle h1{font:400 clamp(30px,3.4vw,44px)/1 var(--display)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--surface);border-radius:var(--r-tile);padding:18px;display:grid;gap:8px}
+.kpi span{color:var(--muted);font-size:13.5px}
+.kpi b{font:400 clamp(20px,5vw,30px)/1 var(--display);white-space:nowrap}
+@media (min-width:900px){.kpi b{font-size:clamp(22px,2.2vw,30px)}}
+.kpi.hi{background:var(--accent);color:#fff}.kpi.hi span{color:#FFE2D6}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.box{background:var(--surface);border-radius:var(--r-panel);padding:18px}
+.box h2{font:400 20px/1.1 var(--display);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.box h2 a{font:500 14px var(--body);color:var(--muted)}
+.two{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+@media (max-width:1100px){.two{grid-template-columns:minmax(0,1fr)}}
+.lrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;width:100%;padding:12px 4px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left}
+.lrow:last-child{border-bottom:0}
+.lrow .grow{flex:1 1 200px;min-width:0}
+.lrow b{display:block;font-weight:600}
+.lrow small{color:var(--muted);font-size:13.5px}
+.lst{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:12px;font-size:12.5px;font-weight:600;white-space:nowrap;background:var(--bg)}
+.lst.new{background:var(--accent-soft);color:var(--accent-hi)}
+.lst.won{background:var(--ok-soft);color:var(--ok)}
+.funnel{display:grid;gap:8px}
+.funnel div{display:grid;grid-template-columns:130px minmax(0,1fr) 34px;gap:10px;align-items:center;font-size:14.5px}
+.funnel i{display:block;height:12px;border-radius:3px;background:var(--ink);width:var(--w);min-width:4px}
+.funnel div:last-child i{background:var(--ok)}
+.funnel span:last-child{text-align:right;font-family:var(--mono)}
+/* kanban */
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,1fr);gap:12px;overflow-x:auto;padding-bottom:10px;align-items:start}
+.col{background:var(--surface);border-radius:var(--r-panel);padding:12px;display:grid;gap:8px;min-height:200px;align-content:start;transition:box-shadow 160ms ease}
+.col.over{box-shadow:inset 0 0 0 2px var(--accent)}
+.col h3{display:flex;justify-content:space-between;align-items:center;font:600 15px var(--body);padding:4px 4px 6px}
+.col h3 span{font:500 13px var(--mono);color:var(--muted)}
+.card{background:var(--white);border:1.5px solid var(--line);border-radius:var(--r-tile);padding:12px;display:grid;gap:6px;text-align:left;cursor:grab;transition:transform 160ms var(--ease-out),box-shadow 160ms ease}
+.card:active{cursor:grabbing}
+.card.dragging{opacity:.5}
+.card b{font-weight:600}
+.card .sum{font:500 14px var(--mono)}
+.card small{color:var(--muted);font-size:13px}
+@media (hover:hover) and (pointer:fine){.card:hover{box-shadow:0 8px 20px -12px rgba(23,24,26,.4);transform:translateY(-1px)}}
+/* projects */
+.proj{display:grid;gap:12px}
+.pr{background:var(--surface);border-radius:var(--r-panel);padding:18px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr) auto;gap:18px;align-items:center}
+.pr h3{font:400 20px/1.15 var(--display)}
+.pr small{color:var(--muted);font-size:13.5px;display:block;margin-top:4px}
+.steps5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.steps5 button{border:0;background:none;padding:10px 0 0;font-size:12px;color:var(--muted);text-align:left;position:relative}
+.steps5 button::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;border-radius:3px;background:var(--line)}
+.steps5 button.d1::before{background:var(--ink)}
+.steps5 button.cur::before{background:var(--accent)}
+.steps5 button.cur{color:var(--ink);font-weight:600}
+.pr .days{font:400 13.5px var(--mono);text-align:right;white-space:nowrap}
+.pr .days b{display:block;font:400 22px var(--display)}
+@media (max-width:900px){.pr{grid-template-columns:minmax(0,1fr)}.pr .days{text-align:left}}
+@media (max-width:640px){.steps5 button{font-size:0;padding-top:14px;white-space:nowrap}.steps5 button.cur{font-size:12.5px}.steps5 button.cur:last-child{text-align:right;direction:rtl}}
+/* prices editor */
+.pe{display:grid;gap:12px;max-width:760px}
+.pe .row{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.pe .row:last-child{border-bottom:0}
+.pe input{height:46px;padding:0 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--white);font:500 15px var(--mono);width:100%}
+.pe small{display:block;color:var(--muted);font-size:13px}
+@media (max-width:900px){
+  #admin{grid-template-columns:minmax(0,1fr)}
+  .side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:8px;padding:10px 12px;overflow-x:auto}
+  .side .logo{padding:0 6px 0 2px;font-size:0;gap:0}
+  .side nav{display:flex}
+  .side nav a{padding:8px 10px;white-space:nowrap}
+  .side nav a .t{display:none}
+  .side .bottom{margin:0 0 0 auto;border:0;padding:0;display:flex}
+  .side .reset{display:none}
+  .side .back{width:40px;height:40px;padding:0;flex:none}
+  .side .back .t{display:none}
+  .funnel div{grid-template-columns:110px minmax(0,1fr) 30px}
+}
+@media (prefers-reduced-motion: reduce){.modal,.scrim,.hint,.toast,.panel-x{transition:opacity 150ms ease}}
+</style>
+</head>
+<body>
+
+<!-- ================= SITE ================= -->
+<div id="site">
+  <header class="hdr">
+    <div class="wrap">
+      <a class="logo" href="#top" aria-label="Сызба"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M4 22V4h18" fill="none" stroke="#FF5A1F" stroke-width="3.2"/><path d="M10 22h12V12" fill="none" stroke="#17181A" stroke-width="3.2"/></svg>Сызба</a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="#top">Этапы</a><a href="#calc">Калькулятор</a><a href="#works">Работы</a><a href="#packages">Пакеты</a><a href="#measure">Замер</a>
+      </nav>
+      <a class="phone" href="#measure">+7 700 000 00 00</a>
+      <a class="hdr-demo" href="#/admin"><i class="ph ph-gear-six"></i><span class="lbl">Админка</span></a>
+      <a class="btn btn-dark btn-sm" href="#calc"><span class="full">Рассчитать ремонт</span><span class="short">Расчёт</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="story" id="story" aria-label="Как идёт ремонт">
+      <div class="stage">
+        <div class="copy" id="copy">
+          <div class="panel-x" data-panel="0">
+            <h1 class="d hero-h">Ремонт под ключ <em>без доплат</em> сверх сметы</h1>
+            <p class="sub hero-p">Квартиры в новостройках и вторичке Атырау. Цена фиксируется в договоре, а вы каждый день видите фото с объекта.</p>
+            <div class="hero-a">
+              <a class="btn btn-primary" href="#calc"><i class="ph ph-calculator"></i>Рассчитать<span class="lg">&nbsp;стоимость</span></a>
+              <button type="button" class="btn btn-line js-measure"><i class="ph ph-ruler"></i><span class="lg">Бесплатный замер</span><span class="sm">Замер</span></button>
+            </div>
+            <div class="scroll-cue"><i></i>Листайте: квартира пройдёт весь ремонт</div>
+          </div>
+        </div>
+        <div class="view" id="view">
+          <canvas id="room" aria-label="3D-модель комнаты, которая проходит все этапы ремонта при прокрутке страницы"></canvas>
+        </div>
+        <div class="rail" id="rail"></div>
+      </div>
+    </section>
+
+    <section class="section" id="calc">
+      <div class="wrap">
+        <div class="shead"><h2 class="d">Сколько стоит ваш ремонт</h2><p class="sub">Ответьте на пять вопросов. Смета считается сразу, точную сумму закрепим в договоре после бесплатного замера.</p></div>
+        <div class="calc">
+          <div class="c-in" id="calcIn"></div>
+          <aside class="receipt" id="receipt" aria-live="polite"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="works" style="padding-top:0">
+      <div class="wrap">
+        <div class="shead"><h2 class="d">Квартиры, которые мы сдали</h2><p class="sub">Планировка, сроки и бюджет из подписанных актов.</p></div>
+        <div class="works" id="worksList"></div>
+      </div>
+    </section>
+
+    <section class="section" id="packages" style="padding-top:0">
+      <div class="wrap">
+        <div class="shead"><h2 class="d">Три уровня ремонта</h2></div>
+        <div class="pk-wrap" id="pkWrap"></div>
+        <div class="pkc" id="pkCards"></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="shead"><h2 class="d">Что мы пишем в договоре</h2></div>
+        <div class="prom">
+          <div><b>0 ₸</b><p>доплат сверх сметы. Если материалы подорожали, это наш риск.</p></div>
+          <div><b>0,1%</b><p>от суммы договора платим вам за каждый день задержки.</p></div>
+          <div><b>3 года</b><p>гарантии на все работы. Приезжаем за 48 часов.</p></div>
+          <div><b>18:00</b><p>каждый вечер фото и видео с объекта в вашем WhatsApp.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="measure" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta">
+          <div>
+            <h2 class="d">Бесплатный замер на этой неделе</h2>
+            <p class="sub">Инженер приедет с лазерным уровнем, проверит стены и проводку и через 2 дня пришлёт смету.</p>
+            <div class="contacts">
+              <div><i class="ph ph-map-pin"></i><span>Атырау, ул. Сатпаева, 19, офис 4</span></div>
+              <div><i class="ph ph-clock"></i><span>Пн–Сб, 9:00–19:00</span></div>
+              <div><i class="ph ph-phone"></i><span>+7 700 000 00 00 (демо-номер)</span></div>
+            </div>
+          </div>
+          <form id="measureForm" novalidate></form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="foot"><div class="wrap"><span>© 2026 Сызба, ремонт квартир</span><span>Демо-проект: компания, цены, объекты и номер вымышлены</span></div></footer>
+
+  <div class="demo">
+    <div class="hint" id="hint" role="status">Это демо. Посчитайте ремонт или запишитесь на замер, а потом откройте админку: там воронка заявок и объекты.<button type="button" id="hintX" aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <a href="#/admin"><i class="ph ph-gear-six"></i>Админ-панель<em>ДЕМО</em></a>
+  </div>
+</div>
+
+<!-- ================= ADMIN ================= -->
+<div id="admin">
+  <aside class="side">
+    <a class="logo" href="#/admin"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M4 22V4h18" fill="none" stroke="#FF5A1F" stroke-width="3.2"/><path d="M10 22h12V12" fill="none" stroke="#FFFFFF" stroke-width="3.2"/></svg>Сызба</a>
+    <nav id="anav">
+      <a href="#/admin" data-v="home"><i class="ph ph-squares-four"></i><span class="t">Сводка</span></a>
+      <a href="#/admin/funnel" data-v="funnel"><i class="ph ph-kanban"></i><span class="t">Воронка</span><span class="badge" id="badge" hidden></span></a>
+      <a href="#/admin/projects" data-v="projects"><i class="ph ph-hard-hat"></i><span class="t">Объекты</span></a>
+      <a href="#/admin/prices" data-v="prices"><i class="ph ph-currency-circle-dollar"></i><span class="t">Цены</span></a>
+    </nav>
+    <div class="bottom">
+      <a class="back" href="#/" aria-label="Вернуться на сайт"><i class="ph ph-arrow-left"></i><span class="t">Вернуться на сайт</span></a>
+      <button type="button" class="reset" id="resetDemo"><i class="ph ph-arrow-counter-clockwise"></i>Сбросить демо-данные</button>
+    </div>
+  </aside>
+  <div class="amain">
+    <div class="demo-bar"><span>Демо-режим: всё, что вы здесь меняете, сохраняется только в вашем браузере.</span><a href="#/"><i class="ph ph-arrow-left"></i>На сайт</a></div>
+    <div class="page" id="page"></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true"><div class="mb" id="mb"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const money = n => Math.round(n).toLocaleString("ru-RU").replace(/[ ,]/g, " ") + " ₸";
+const mln = n => (n / 1e6).toFixed(1).replace(".", ",") + " млн ₸";
+const nextId = rows => rows.reduce((m, r) => Math.max(m, r.id), 0) + 1;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+
+/* ================= data ================= */
+const KEY = "syzba-demo-v1";
+const STAGES = [
+  { short:"Бетон", h:"", p:"", days:"", share:"" },
+  { short:"Коммуникации", h:"Электрика и сантехника", p:"Прокладываем кабель и трубы по проекту, ставим щиток и коллектор. Перед тем как закрыть стены, вы получаете фото и схему каждой линии.", days:"7–10", share:"18%" },
+  { short:"Стены и пол", h:"Стены, стяжка, окна", p:"Штукатурка по маякам, ровная стяжка, откосы. Перепад не больше 2 мм на 2 метра, проверяем правилом при вас.", days:"14–18", share:"26%" },
+  { short:"Отделка", h:"Чистовая отделка", p:"Покраска, паркет или кварцвинил, плитка в санузлах, двери и плинтус. Материалы согласуем по образцам в шоуруме.", days:"18–25", share:"34%" },
+  { short:"Новоселье", h:"Свет, мебель, уборка", p:"Вешаем свет, собираем кухню и шкафы, делаем клининг и вывозим мусор. Вы заходите и заносите вещи.", days:"5–7", share:"22%" }
+];
+const PSTAGES = ["Демонтаж", "Коммуникации", "Стены и пол", "Отделка", "Сдача"];
+const FUNNEL = [
+  { k:"new", t:"Новые" }, { k:"measure", t:"Замер назначен" }, { k:"estimate", t:"Смета отправлена" }, { k:"won", t:"Договор" }, { k:"lost", t:"Отказ" }
+];
+function seed() {
+  const now = Date.now(), H = 3600000, D = 24 * H;
+  return {
+    v:1,
+    prices: {
+      levels: [
+        { k:"cosmetic", t:"Косметический", d:"Покраска, пол, замена дверей без выравнивания стен", m2:42000, days:28, split:[.46,.18,.36] },
+        { k:"capital",  t:"Капитальный",  d:"Новая электрика и сантехника, штукатурка, стяжка, вся отделка", m2:78000, days:52, split:[.42,.24,.34] },
+        { k:"design",   t:"Дизайнерский", d:"Капитальный плюс дизайн-проект, сложные потолки, авторский надзор", m2:132000, days:78, split:[.4,.2,.4] }
+      ],
+      bath: 680000, secondary: 0.12,
+      opts: [
+        { k:"floor", t:"Тёплый пол", price:9500, per:"м² санузлов", unit:"bathm2" },
+        { k:"ceil",  t:"Натяжные потолки", price:6500, per:"м²", unit:"m2" },
+        { k:"ac",    t:"Кондиционеры", price:185000, per:"шт, по 1 на комнату", unit:"room" },
+        { k:"trash", t:"Вывоз мусора", price:65000, per:"за объект", unit:"fixed" },
+        { k:"proj",  t:"Дизайн-проект", price:4500, per:"м²", unit:"m2" },
+        { k:"clean", t:"Клининг после ремонта", price:900, per:"м²", unit:"m2" }
+      ]
+    },
+    leads: [
+      { id:1, name:"Динара", phone:"+77015552080", address:"ЖК Нурсая, 2-комн.", status:"new", source:"Калькулятор", calc:{ type:"new", area:64, rooms:2, baths:1, level:"capital", opts:["floor","ceil","trash"], total:6150000, days:58 }, createdAt: now - 2 * H },
+      { id:2, name:"Арман", phone:"+77478880145", address:"мкр. Авангард, 3-комн., вторичка", status:"measure", source:"Замер", calc:null, createdAt: now - 1 * D },
+      { id:3, name:"Алия", phone:"+77052217731", address:"ЖК Атырау Сити", status:"estimate", source:"Калькулятор", calc:{ type:"new", area:92, rooms:3, baths:2, level:"design", opts:["proj","ac","floor"], total:15900000, days:88 }, createdAt: now - 3 * D },
+      { id:4, name:"Серик", phone:"+77079094410", address:"пр. Азаттык, 1-комн.", status:"estimate", source:"Калькулятор", calc:{ type:"secondary", area:38, rooms:1, baths:1, level:"cosmetic", opts:["trash"], total:2480000, days:30 }, createdAt: now - 4 * D },
+      { id:5, name:"Гаухар", phone:"+77019016622", address:"ЖК Жайык, 2-комн.", status:"won", source:"Замер", calc:{ type:"new", area:58, rooms:2, baths:1, level:"capital", opts:["ceil"], total:5320000, days:55 }, createdAt: now - 9 * D },
+      { id:6, name:"Ерлан", phone:"+77473334498", address:"мкр. Нурсая, 4-комн.", status:"lost", source:"Калькулятор", calc:null, createdAt: now - 12 * D }
+    ],
+    projects: [
+      { id:1, name:"ЖК Жайык, 2-комн., 58 м²", client:"Гаухар", stage:1, start: now - 9 * D, plan:55, budget:5320000, foreman:"Бригада Нурлана" },
+      { id:2, name:"ЖК Нурсая, 3-комн., 81 м²", client:"Тимур", stage:3, start: now - 41 * D, plan:62, budget:7900000, foreman:"Бригада Руслана" },
+      { id:3, name:"мкр. Авангард, 1-комн., 36 м²", client:"Мадина", stage:4, start: now - 27 * D, plan:30, budget:2350000, foreman:"Бригада Нурлана" }
+    ]
+  };
+}
+let db;
+function load() { try { const x = JSON.parse(localStorage.getItem(KEY)); if (x && x.v === 1) return x; } catch {} const s = seed(); save(s); return s; }
+function save(x = db) { try { localStorage.setItem(KEY, JSON.stringify(x)); } catch {} }
+db = load();
+function commit() { save(); render(); }
+window.addEventListener("storage", e => { if (e.key === KEY) { db = load(); render(); } });
+
+/* ================= calculator ================= */
+const C = { type:"new", area:60, rooms:2, baths:1, level:"capital", opts:["trash"] };
+function estimate(c = C) {
+  const P = db.prices, L = P.levels.find(l => l.k === c.level) || P.levels[1];
+  const lines = [];
+  const base = c.area * L.m2 * (c.type === "secondary" ? 1 + P.secondary : 1);
+  lines.push([`Работы и материалы, ${c.area} м²`, base]);
+  const bath = c.baths * P.bath * (c.level === "design" ? 1.35 : c.level === "cosmetic" ? .6 : 1);
+  lines.push([`Санузлы × ${c.baths}`, bath]);
+  for (const k of c.opts) {
+    const o = P.opts.find(x => x.k === k); if (!o) continue;
+    const q = o.unit === "m2" ? c.area : o.unit === "bathm2" ? c.baths * 4.5 : o.unit === "room" ? c.rooms : 1;
+    lines.push([o.t, o.price * q]);
+  }
+  const total = lines.reduce((s, l) => s + l[1], 0);
+  const days = Math.round(L.days * Math.pow(c.area / 50, .55) + (c.baths - 1) * 4 + (c.type === "secondary" ? 5 : 0));
+  return { lines, total, days, split: L.split, level: L };
+}
+function renderCalc() {
+  const P = db.prices;
+  $("#calcIn").innerHTML = `
+    <div class="q"><span>Какое жильё</span><div class="seg" role="group" aria-label="Тип жилья">
+      <button type="button" data-c="type" data-v="new" aria-pressed="${C.type === "new"}">Новостройка</button>
+      <button type="button" data-c="type" data-v="secondary" aria-pressed="${C.type === "secondary"}">Вторичка</button></div></div>
+    <div class="q"><label for="cArea">Площадь квартиры</label><div class="area"><input type="range" id="cArea" min="20" max="200" step="1" value="${C.area}" style="--p:${(C.area - 20) / 180 * 100}%"><output id="cAreaOut">${C.area}<small>м²</small></output></div></div>
+    <div class="q"><span>Комнат</span><div class="chips">${[1,2,3,4,5].map(n => `<button type="button" class="chip" data-c="rooms" data-v="${n}" aria-pressed="${C.rooms === n}">${n}${n === 5 ? "+" : ""}</button>`).join("")}</div></div>
+    <div class="q"><span>Санузлов</span><div class="chips">${[1,2,3].map(n => `<button type="button" class="chip" data-c="baths" data-v="${n}" aria-pressed="${C.baths === n}">${n}</button>`).join("")}</div></div>
+    <div class="q"><span>Уровень ремонта</span><div class="levels">${P.levels.map(l => `<button type="button" class="lvl" data-c="level" data-v="${l.k}" aria-pressed="${C.level === l.k}"><b>${esc(l.t)}</b><span class="pr">от ${money(l.m2)}/м²</span><small>${esc(l.d)}</small></button>`).join("")}</div></div>
+    <div class="q"><span>Дополнительно</span><div class="opts">${P.opts.map(o => `<label class="opt"><input type="checkbox" data-opt="${o.k}" ${C.opts.includes(o.k) ? "checked" : ""}><span>${esc(o.t)}</span><em>${money(o.price)}/${o.unit === "fixed" ? "объект" : o.unit === "room" ? "шт" : "м²"}</em></label>`).join("")}</div></div>`;
+  $("#cArea").oninput = e => { C.area = +e.target.value; e.target.style.setProperty("--p", (C.area - 20) / 180 * 100 + "%"); $("#cAreaOut").innerHTML = `${C.area}<small>м²</small>`; renderReceipt(); };
+  renderReceipt();
+}
+let shownTotal = null, countRaf = 0;
+function renderReceipt() {
+  const e = estimate();
+  const L = e.level;
+  const d = new Date();
+  $("#receipt").innerHTML = `
+    <h3>Предварительная смета</h3>
+    <div class="meta">№ ${String(d.getFullYear()).slice(2)}${String(d.getMonth() + 1).padStart(2, "0")}-${String(C.area).padStart(3, "0")} · ${C.type === "new" ? "новостройка" : "вторичка"} · ${esc(L.t.toLowerCase())}</div>
+    <div class="lines">${e.lines.map(([t, v]) => `<div class="ln"><span>${esc(t)}</span><i></i><span>${money(v)}</span></div>`).join("")}</div>
+    <div class="total"><span>Итого под ключ</span><b class="mono" id="tot" style="font-family:var(--display)">${money(shownTotal ?? e.total)}</b></div>
+    <div class="split" aria-hidden="true"><s style="flex-basis:${e.split[0] * 100}%"></s><s style="flex-basis:${e.split[1] * 100}%"></s><s style="flex-basis:${e.split[2] * 100}%"></s></div>
+    <div class="legend"><span><i style="background:var(--ink)"></i>Работы ${Math.round(e.split[0] * 100)}%</span><span><i style="background:var(--accent)"></i>Черновые материалы ${Math.round(e.split[1] * 100)}%</span><span><i style="background:var(--line-2)"></i>Чистовые ${Math.round(e.split[2] * 100)}%</span></div>
+    <div class="term"><span>Срок работ</span><b>~ ${e.days} дней</b></div>
+    <button type="button" class="btn btn-primary" id="getEst"><i class="ph ph-whatsapp-logo"></i>Получить смету в WhatsApp</button>
+    <p class="note">Точную смету закрепим в договоре после замера</p>`;
+  $("#getEst").onclick = () => openLead("calc");
+  // count the total up to its new value
+  const from = shownTotal ?? e.total, to = e.total;
+  cancelAnimationFrame(countRaf);
+  if (reduceMotion || from === to) { shownTotal = to; $("#tot").textContent = money(to); return; }
+  const t0 = performance.now();
+  const step = now => { const k = Math.min(1, (now - t0) / 420), v = from + (to - from) * (1 - Math.pow(1 - k, 3)); shownTotal = v; const el = $("#tot"); if (el) el.textContent = money(Math.round(v / 1000) * 1000); if (k < 1) countRaf = requestAnimationFrame(step); else shownTotal = to; };
+  countRaf = requestAnimationFrame(step);
+}
+$("#calcIn").addEventListener("click", e => {
+  const b = e.target.closest("[data-c]"); if (!b) return;
+  const k = b.dataset.c, v = b.dataset.v;
+  C[k] = k === "rooms" || k === "baths" ? +v : v;
+  $$(`[data-c="${k}"]`, $("#calcIn")).forEach(x => x.setAttribute("aria-pressed", String(x.dataset.v === v)));
+  renderReceipt();
+});
+$("#calcIn").addEventListener("change", e => {
+  const k = e.target.dataset.opt; if (!k) return;
+  C.opts = e.target.checked ? [...new Set([...C.opts, k])] : C.opts.filter(x => x !== k);
+  renderReceipt();
+});
+
+/* ================= works (drawn plans) ================= */
+const WORKS = [
+  { tag:"Капитальный", t:"ЖК Нурсая, 2-комнатная", s:["68 м²","64 дня","6,1 млн ₸"], q:"Смета не изменилась ни на тенге, хотя мы поменяли плитку в ванной на дороже. Разницу закрыли из резерва.", who:"Айгерим и Данияр",
+    rooms:[[0,0,46,40,"Гостиная"],[46,0,34,28,"Спальня"],[46,28,34,12,"С/у"],[0,40,30,20,"Кухня"],[30,40,50,20,"Холл"]] },
+  { tag:"Дизайнерский", t:"ЖК Атырау Сити, 3-комнатная", s:["94 м²","89 дней","14,2 млн ₸"], q:"Каждый вечер в WhatsApp было видео с объекта. Я ни разу не приехал проверять просто так.", who:"Руслан",
+    rooms:[[0,0,40,36,"Кухня-гостиная"],[40,0,40,22,"Спальня"],[40,22,22,14,"С/у"],[62,22,18,14,"С/у"],[0,36,30,24,"Детская"],[30,36,26,24,"Кабинет"],[56,36,24,24,"Холл"]] },
+  { tag:"Косметический", t:"Вторичка, мкр. Авангард", s:["41 м²","27 дней","2,3 млн ₸"], q:"Сдавали квартиру в аренду. Сделали за месяц, и через неделю квартиру уже сняли.", who:"Сауле",
+    rooms:[[0,0,48,36,"Комната"],[48,0,32,22,"Кухня"],[48,22,32,14,"С/у"],[0,36,80,24,"Прихожая и балкон"]] }
+];
+function planSVG(rooms) {
+  const W = 80, H = 60;
+  return `<svg viewBox="-6 -6 ${W + 12} ${H + 12}" aria-hidden="true">
+    ${rooms.map(([x, y, w, h, n]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#E4E3DF" stroke-width=".9"/>
+      <text x="${x + w / 2}" y="${y + h / 2 + 1}" text-anchor="middle" font-size="${w < 25 ? 2.6 : 3.2}" fill="#9A9C9F" font-family="Golos Text, sans-serif">${esc(n)}</text>`).join("")}
+    <rect x="0" y="0" width="${W}" height="${H}" fill="none" stroke="#FF5A1F" stroke-width="1.8"/>
+    <line x1="0" y1="-3.5" x2="${W}" y2="-3.5" stroke="#FF5A1F" stroke-width=".4"/><line x1="0" y1="-5" x2="0" y2="-2" stroke="#FF5A1F" stroke-width=".4"/><line x1="${W}" y1="-5" x2="${W}" y2="-2" stroke="#FF5A1F" stroke-width=".4"/>
+  </svg>`;
+}
+function renderWorks() {
+  $("#worksList").innerHTML = WORKS.map(w => `<article class="work"><div class="plan-box">${planSVG(w.rooms)}</div>
+    <span class="tag">${esc(w.tag)}</span><h3>${esc(w.t)}</h3><div class="specs">${w.s.map(x => `<span>${esc(x)}</span>`).join("")}</div>
+    <blockquote>«${esc(w.q)}»<b>${esc(w.who)}</b></blockquote></article>`).join("");
+}
+function renderPackages() {
+  const L = db.prices.levels;
+  const Y = `<i class="ph ph-check-circle y" aria-label="есть"></i>`, N = `<i class="ph ph-minus n" aria-label="нет"></i>`;
+  const rows = [
+    ["Срок для 50 м²", ...L.map(l => `~ ${l.days} дней`)],
+    ["Новая электрика и сантехника", N, Y, Y],
+    ["Выравнивание стен и стяжка", N, Y, Y],
+    ["Тёплый пол в санузлах", N, Y, Y],
+    ["Дизайн-проект и визуализация", N, N, Y],
+    ["Авторский надзор дизайнера", N, N, Y],
+    ["Гарантия", "1 год", "3 года", "3 года"]
+  ];
+  $("#pkWrap").innerHTML = `<table class="pk"><thead><tr><th></th>${L.map((l, i) => `<th class="${i === 1 ? "hi" : ""}">${i === 1 ? `<span class="pop">чаще всего</span>` : ""}<b>${esc(l.t)}</b><span>от ${money(l.m2)}/м²</span></th>`).join("")}</tr></thead>
+    <tbody>${rows.map(r => `<tr><th scope="row">${r[0]}</th>${r.slice(1).map((c, i) => `<td class="${i === 1 ? "hi" : ""}">${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  // phones get one card per level instead of a sideways-scrolling table
+  $("#pkCards").innerHTML = L.map((l, i) => `<article class="${i === 1 ? "hi" : ""}">${i === 1 ? `<span class="pop">чаще всего</span>` : ""}<h3>${esc(l.t)}</h3><span class="pkp">от ${money(l.m2)}/м² · ~ ${l.days} дней на 50 м²</span>
+    <ul>${rows.slice(1).map(r => { const c = r[i + 1], has = c !== N; const label = typeof c === "string" && !c.startsWith("<") ? `${r[0]}: ${c}` : r[0];
+      return `<li class="${has ? "" : "off"}"><i class="ph ${has ? "ph-check-circle" : "ph-minus"}"></i><span>${label}</span></li>`; }).join("")}</ul></article>`).join("");
+}
+
+/* ================= leads ================= */
+function digits(v) { let d = v.replace(/\D/g, ""); if (d.startsWith("8")) d = "7" + d.slice(1); if (!d.startsWith("7")) d = "7" + d; return d.slice(0, 11); }
+function fmtPhone(v) { const d = digits(v); if (d.length <= 1) return "+7 "; const p = d.slice(1); return ("+7 " + p.slice(0, 3) + (p.length > 3 ? " " + p.slice(3, 6) : "") + (p.length > 6 ? " " + p.slice(6, 8) : "") + (p.length > 8 ? " " + p.slice(8, 10) : "")).trim(); }
+function leadFields(kind, sfx) {
+  return `<div class="field"><label for="n${sfx}">Имя</label><input id="n${sfx}" name="name" autocomplete="given-name"><div class="ferr" data-e="name"></div></div>
+    <div class="field"><label for="p${sfx}">Телефон (WhatsApp)</label><input id="p${sfx}" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __"><div class="ferr" data-e="phone"></div></div>
+    ${kind === "measure" ? `<div class="field"><label for="a${sfx}">Адрес или ЖК</label><input id="a${sfx}" name="address" placeholder="Например: ЖК Нурсая, 2-комнатная"></div>` : ""}
+    <button type="submit" class="btn ${kind === "measure" ? "btn-dark" : "btn-primary"}">${kind === "measure" ? "Записаться на замер" : "Отправить смету мне в WhatsApp"}</button>`;
+}
+function bindLead(form, kind, done) {
+  form.addEventListener("input", e => { if (e.target.name === "phone") e.target.value = fmtPhone(e.target.value); });
+  form.onsubmit = ev => {
+    ev.preventDefault();
+    const fd = new FormData(form), name = String(fd.get("name") || "").trim(), ph = digits(String(fd.get("phone") || ""));
+    $$(".ferr", form).forEach(x => x.textContent = ""); $$("input", form).forEach(x => x.removeAttribute("aria-invalid"));
+    let ok = true;
+    if (!name) { $('[data-e="name"]', form).textContent = "Напишите имя"; form.name.setAttribute("aria-invalid", "true"); ok = false; }
+    if (ph.length !== 11) { $('[data-e="phone"]', form).textContent = "Нужно 10 цифр после +7"; form.phone.setAttribute("aria-invalid", "true"); ok = false; }
+    if (!ok) return;
+    const e = estimate();
+    db.leads.push({ id: nextId(db.leads), name: name.slice(0, 60), phone: "+" + ph, address: String(fd.get("address") || (kind === "calc" ? `${C.rooms}-комн., ${C.area} м²` : "")).slice(0, 120),
+      status: "new", source: kind === "calc" ? "Калькулятор" : "Замер", calc: kind === "calc" ? { ...C, opts: [...C.opts], total: e.total, days: e.days } : null, createdAt: Date.now() });
+    save(); done();
+  };
+}
+const okHTML = (modal) => `<div class="ok-msg"><i class="ph ph-check-circle"></i><h3>Заявка принята</h3><p>Менеджер напишет в WhatsApp в течение 15 минут в рабочее время. В демо заявка уже в воронке админки.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-dark btn-sm" href="#/admin/funnel">Открыть воронку</a>${modal ? `<button type="button" class="btn btn-line btn-sm" data-close>Закрыть</button>` : ""}</div></div>`;
+function renderMeasureForm() {
+  const f = $("#measureForm");
+  f.innerHTML = `<h3 class="d" style="font-size:24px">Записаться на замер</h3>` + leadFields("measure", "M");
+  bindLead(f, "measure", () => { f.innerHTML = okHTML(false); });
+}
+function openLead(kind) {
+  const e = estimate();
+  openModal(`<form id="mf" style="display:grid;gap:14px" novalidate><div class="mh"><h3>${kind === "calc" ? "Смета в WhatsApp" : "Бесплатный замер"}</h3><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    ${kind === "calc" ? `<div class="snap">${C.area} м² · ${C.rooms}-комн. · с/у ${C.baths} · ${esc(e.level.t.toLowerCase())}<br>Итого: ${money(e.total)} · ~${e.days} дней</div>` : ""}
+    ${leadFields(kind, "X")}</form>`);
+  const f = $("#mf"); bindLead(f, kind, () => { $("#mb").innerHTML = okHTML(true); });
+  setTimeout(() => f.name.focus(), 60);
+}
+$("#site").addEventListener("click", e => { if (e.target.closest(".js-measure")) openLead("measure"); });
+
+/* modal + toast */
+function openModal(html) { $("#mb").innerHTML = html; $("#modal").classList.add("open"); $("#scrim").classList.add("open"); $("#modal").setAttribute("aria-hidden", "false"); }
+function closeModal() { $("#modal").classList.remove("open"); $("#scrim").classList.remove("open"); $("#modal").setAttribute("aria-hidden", "true"); }
+$("#scrim").onclick = closeModal;
+$("#modal").addEventListener("click", e => { if (e.target.closest("[data-close]")) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+let tT; function toast(m) { const el = $("#toast"); el.textContent = m; el.classList.add("show"); clearTimeout(tT); tT = setTimeout(() => el.classList.remove("show"), 2400); }
+(() => {
+  let seen = false; try { seen = !!sessionStorage.getItem("syzba-hint"); sessionStorage.setItem("syzba-hint", "1"); } catch {}
+  if (seen) return;
+  setTimeout(() => $("#hint").classList.add("show"), 2500);
+  setTimeout(() => $("#hint").classList.remove("show"), 10500);
+  $("#hintX").onclick = () => $("#hint").classList.remove("show");
+})();
+
+/* ================= story panels + rail ================= */
+function buildStory() {
+  const copy = $("#copy");
+  STAGES.slice(1).forEach((s, i) => {
+    copy.insertAdjacentHTML("beforeend", `<div class="panel-x" data-panel="${i + 1}" hidden>
+      <span class="st-n">Этап ${i + 1} из 4</span><h2 class="d st-h">${s.h}</h2><p class="st-p">${s.p}</p>
+      <div class="st-meta"><div><b>${s.days}</b><span>дней</span></div><div><b>${s.share}</b><span>бюджета ремонта</span></div></div></div>`);
+  });
+  copy.insertAdjacentHTML("beforeend", `<div class="panel-x done-card" data-panel="5" hidden>
+    <span class="st-n">Готово</span><h2 class="d st-h">54 м² за 58 дней. Ключи ваши</h2>
+    <p class="st-p">Средний капитальный ремонт двухкомнатной квартиры у нас. Посчитайте свою.</p>
+    <div class="hero-a"><a class="btn btn-primary" href="#calc"><i class="ph ph-calculator"></i>Рассчитать стоимость</a></div></div>`);
+  $("#rail").innerHTML = STAGES.map((s, i) => `<button type="button" data-goto="${i}"><span>0${i}</span>${s.short}</button>`).join("");
+  $("#rail").addEventListener("click", e => {
+    const b = e.target.closest("[data-goto]"); if (!b) return;
+    const st = $("#story"), total = st.offsetHeight - innerHeight;
+    const target = st.offsetTop + total * (+b.dataset.goto / 4.6);
+    window.scrollTo({ top: target, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+let curPanel = 0;
+function setStory(p) { // p: 0..4.6
+  const panel = p < .45 ? 0 : p > 4.3 ? 5 : clamp(Math.round(p), 1, 4);
+  if (panel !== curPanel) {
+    curPanel = panel;
+    $$(".panel-x").forEach(el => { el.hidden = +el.dataset.panel !== panel; });
+  }
+  $$("#rail button").forEach((b, i) => {
+    const f = clamp(p - i + 1, 0, 1);
+    b.style.setProperty("--f", i === 0 ? 1 : f);
+    b.classList.toggle("on", (panel === 5 ? 4 : panel) === i);
+  });
+}
+
+/* ================= 3D room ================= */
+let room3d = null;
+function initRoom() {
+  const canvas = $("#room");
+  if (!window.THREE) { $("#view").style.background = "linear-gradient(160deg,#d6d5d0,#c2c1bb)"; return; }
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch { return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.autoUpdate = false;
+
+  const scene = new THREE.Scene();
+  const W = 5, Dp = 4.2, Hh = 2.8, T = .18; // room width, depth, height, wall thickness
+  const cam = new THREE.OrthographicCamera(-5, 5, 5, -5, .1, 100);
+  const g = new THREE.Group(); scene.add(g);
+  const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .9, ...o });
+  const box = (w, h, d, m, x, y, z, parent = g) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); b.position.set(x, y, z); b.castShadow = b.receiveShadow = true; parent.add(b); return b; };
+
+  // lights: soft sky, sunlight through the window, a warm lamp at the end
+  const hemi = new THREE.HemisphereLight(0xf2f1ec, 0x8a877f, .75); scene.add(hemi);
+  const sun = new THREE.DirectionalLight(0xfff1df, 1.6);
+  sun.position.set(3.5, 6, -8); sun.target.position.set(.5, 0, 1); scene.add(sun, sun.target);
+  sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024);
+  Object.assign(sun.shadow.camera, { left: -6, right: 6, top: 6, bottom: -6, near: 1, far: 30 }); sun.shadow.bias = -0.0008;
+  const fill = new THREE.DirectionalLight(0xdfe6ff, .35); fill.position.set(-6, 5, 6); scene.add(fill);
+  const lamp = new THREE.PointLight(0xffb36b, 0, 7, 2); lamp.position.set(-2.1, 1.7, -1.4); scene.add(lamp);
+
+  // shell: floor slab, back wall with a window, left wall
+  const slab = box(W + T, .2, Dp + T, mat(0x55534f), -T / 2, -.1, -T / 2);
+  const wallMat = mat(0x6f6d68), wallMat2 = mat(0x6f6d68);
+  const zb = -Dp / 2 - T / 2, xl = -W / 2 - T / 2;
+  const winX = .9, winW = 1.7, winY0 = .9, winY1 = 2.35;
+  const back = [
+    box(winX - winW / 2 + W / 2, Hh, T, wallMat, (-W / 2 + winX - winW / 2) / 2, Hh / 2, zb),
+    box(W / 2 - winX - winW / 2, Hh, T, wallMat, (W / 2 + winX + winW / 2) / 2, Hh / 2, zb),
+    box(winW, winY0, T, wallMat, winX, winY0 / 2, zb),
+    box(winW, Hh - winY1, T, wallMat, winX, (Hh + winY1) / 2, zb)
+  ];
+  const left = box(T, Hh, Dp + T, wallMat2, xl, Hh / 2, -T / 2);
+  // floor surface on top of the slab (changes from concrete to screed)
+  const floorMat = mat(0x5e5c58);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, Dp), floorMat); floor.rotation.x = -Math.PI / 2; floor.position.y = .002; floor.receiveShadow = true; g.add(floor);
+
+  // stage 0: bags of cement, bare bulb, rubble
+  const s0 = new THREE.Group(); g.add(s0);
+  const bagM = mat(0xbfb7a6);
+  [[-1.6, 1.2, .2], [-1.1, 1.3, -.3], [-1.35, 1.0, .1]].forEach(([x, z, r], i) => { const b = box(.55, .16, .38, bagM, x, .08 + (i === 2 ? .16 : 0), z, s0); b.rotation.y = r; });
+  const bucket = new THREE.Mesh(new THREE.CylinderGeometry(.16, .13, .34, 16), mat(0x2e6fd8, { roughness: .6 })); bucket.position.set(1.6, .17, 1.2); bucket.castShadow = true; s0.add(bucket);
+  const cord = new THREE.Mesh(new THREE.CylinderGeometry(.008, .008, .7, 6), mat(0x222222)); cord.position.set(-.3, Hh - .35, .1); s0.add(cord);
+  const bulbM = new THREE.MeshBasicMaterial({ color: 0xfff1c4, toneMapped: false });
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(.07, 12, 12), bulbM); bulb.position.set(-.3, Hh - .74, .1); s0.add(bulb);
+
+  // stage 1: cables (orange) and pipes
+  const s1 = []; const cabM = mat(0xff5a1f, { roughness: .5, emissive: 0x3a1000 });
+  const cab = (w, h, d, x, y, z, axis) => { const c = box(w, h, d, cabM, x, y, z); c.userData.axis = axis; s1.push(c); return c; };
+  cab(W - .4, .035, .035, .1, 2.45, zb + T / 2 + .03, "x");
+  cab(.035, 2.05, .035, -1.6, 1.35, zb + T / 2 + .03, "y");
+  cab(.035, 1.9, .035, 1.95, 1.45, zb + T / 2 + .03, "y");
+  cab(.035, .035, Dp - .5, xl + T / 2 + .03, 2.45, 0, "z");
+  cab(.035, 2.1, .035, xl + T / 2 + .03, 1.4, .9, "y");
+  const boxM = mat(0xf2f2ef);
+  [[-1.6, .35, zb + T / 2 + .05], [1.95, .5, zb + T / 2 + .05], [xl + T / 2 + .05, .35, .9]].forEach(([x, y, z]) => { const b = box(.12, .12, .05, boxM, x, y, z); if (x < -2.5) b.rotation.y = Math.PI / 2; b.userData.axis = "s"; s1.push(b); });
+  const pipeR = mat(0xd8452b, { roughness: .5 }), pipeB = mat(0x2e6fd8, { roughness: .5 });
+  [[pipeR, -2.4], [pipeB, -2.25]].forEach(([m, x]) => { const pp = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, Dp - .6, 10), m); pp.rotation.x = Math.PI / 2; pp.position.set(x, .05, 0); pp.castShadow = true; pp.userData.axis = "z"; g.add(pp); s1.push(pp); });
+
+  // stage 2: window frame and glass
+  const frameM = mat(0xf4f4f2, { roughness: .6 });
+  const frame = new THREE.Group(); g.add(frame);
+  box(winW, .07, .12, frameM, winX, winY0 + .035, zb, frame); box(winW, .07, .12, frameM, winX, winY1 - .035, zb, frame);
+  box(.07, winY1 - winY0, .12, frameM, winX - winW / 2 + .035, (winY0 + winY1) / 2, zb, frame); box(.07, winY1 - winY0, .12, frameM, winX + winW / 2 - .035, (winY0 + winY1) / 2, zb, frame);
+  box(.05, winY1 - winY0, .1, frameM, winX, (winY0 + winY1) / 2, zb, frame);
+  const sill = box(winW + .2, .04, .3, frameM, winX, winY0 - .02, zb + .2, frame);
+  const glass = new THREE.Mesh(new THREE.PlaneGeometry(winW - .1, winY1 - winY0 - .1), new THREE.MeshBasicMaterial({ color: 0xcfe4f2, transparent: true, opacity: .22 })); glass.position.set(winX, (winY0 + winY1) / 2, zb); frame.add(glass);
+
+  // stage 3: wooden floor planks laid row by row, skirting, accent wall
+  const plankGeo = new THREE.BoxGeometry(.24, .03, Dp - .04);
+  const planks = new THREE.InstancedMesh(plankGeo, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .55 }), Math.floor(W / .25));
+  planks.receiveShadow = true; g.add(planks);
+  const wood = [0xb98a5e, 0xc29467, 0xae8055, 0xb68759, 0xc7996b].map(c => new THREE.Color(c));
+  for (let i = 0; i < planks.count; i++) planks.setColorAt(i, wood[(i * 7) % wood.length]);
+  const skirtM = mat(0xf4f4f2, { roughness: .6 });
+  const skirts = [box(W, .08, .02, skirtM, 0, .04, zb + T / 2 + .01), box(.02, .08, Dp, skirtM, xl + T / 2 + .01, .04, 0)];
+  const plates = [[-1.6, .35, zb + T / 2 + .015], [1.95, .5, zb + T / 2 + .015], [xl + T / 2 + .015, .35, .9]].map(([x, y, z]) => { const b = box(.1, .1, .015, mat(0xffffff, { roughness: .4 }), x, y, z); if (x < -2.5) b.rotation.y = Math.PI / 2; return b; });
+  const pendant = new THREE.Group(); g.add(pendant);
+  const shade = new THREE.Mesh(new THREE.ConeGeometry(.28, .26, 24, 1, true), new THREE.MeshStandardMaterial({ color: 0x17181a, roughness: .5, side: THREE.DoubleSide })); shade.position.set(.4, Hh - .62, .2); pendant.add(shade);
+  const pcord = new THREE.Mesh(new THREE.CylinderGeometry(.006, .006, .5, 6), mat(0x17181a)); pcord.position.set(.4, Hh - .25, .2); pendant.add(pcord);
+  const pbulb = new THREE.Mesh(new THREE.SphereGeometry(.06, 12, 12), new THREE.MeshBasicMaterial({ color: 0xffd9a0, toneMapped: false })); pbulb.position.set(.4, Hh - .72, .2); pendant.add(pbulb);
+
+  // stage 4: furniture drops in
+  const s4 = [];
+  const piece = (grp, delay) => { grp.userData.delay = delay; grp.userData.baseY = grp.position.y; g.add(grp); s4.push(grp); return grp; };
+  const rug = new THREE.Group(); const rugM = new THREE.Mesh(new THREE.BoxGeometry(2.6, .015, 1.8), mat(0xd9d4c7)); rugM.receiveShadow = true; rug.add(rugM); rug.position.set(-.3, .04, .5); piece(rug, 0);
+  const sofa = new THREE.Group(); const fab = mat(0x4f5d58, { roughness: .95 });
+  box(2.3, .38, .9, fab, 0, .29, 0, sofa); box(2.3, .55, .22, fab, 0, .6, -.34, sofa); box(.2, .5, .9, fab, -1.15, .45, 0, sofa); box(.2, .5, .9, fab, 1.15, .45, 0, sofa);
+  [-.55, .55].forEach(x => box(1.0, .14, .7, mat(0x5d6b66, { roughness: 1 }), x, .55, .05, sofa));
+  [[-1.1, -.35], [1.1, -.35], [-1.1, .35], [1.1, .35]].forEach(([x, z]) => box(.06, .1, .06, mat(0x2a2a2a), x, .05, z, sofa));
+  sofa.position.set(-.3, 0, -1.45); piece(sofa, .05);
+  const table = new THREE.Group(); const oak = mat(0xb07d4f, { roughness: .6 });
+  const top = new THREE.Mesh(new THREE.CylinderGeometry(.42, .42, .05, 32), oak); top.position.y = .42; top.castShadow = true; table.add(top);
+  const leg = new THREE.Mesh(new THREE.CylinderGeometry(.05, .08, .4, 12), mat(0x17181a)); leg.position.y = .2; leg.castShadow = true; table.add(leg);
+  const mug = new THREE.Mesh(new THREE.CylinderGeometry(.05, .045, .1, 12), mat(0xff5a1f, { roughness: .5 })); mug.position.set(.12, .5, .05); table.add(mug);
+  table.position.set(-.2, 0, .45); piece(table, .2);
+  const shelf = new THREE.Group(); const shelfM = mat(0x17181a, { roughness: .6 });
+  [.5, 1.1, 1.7].forEach(y => box(.32, .04, 1.4, shelfM, 0, y, 0, shelf));
+  box(.03, 1.8, .03, shelfM, .14, .9, -.68, shelf); box(.03, 1.8, .03, shelfM, .14, .9, .68, shelf);
+  const bookCols = [0xff5a1f, 0xe4e3df, 0x4f5d58, 0x2e6fd8, 0xd9c7a6, 0x17181a];
+  let bz = -.6; for (let i = 0; i < 9; i++) { const h = .2 + ((i * 37) % 10) / 60, w = .05 + ((i * 13) % 3) / 50; box(.2, h, w, mat(bookCols[i % bookCols.length], { roughness: .8 }), .02, 1.12 + h / 2, bz, shelf); bz += w + .015; if (i === 4) bz += .25; }
+  [[.52, -.3], [.52, .2]].forEach(([y, z]) => box(.22, .2, .3, mat(0xc9c3b4), .02, y + .12, z, shelf));
+  shelf.position.set(xl + T / 2 + .17, 0, .7); piece(shelf, .3);
+  const plant = new THREE.Group();
+  const pot = new THREE.Mesh(new THREE.CylinderGeometry(.18, .14, .36, 16), mat(0xe4e3df, { roughness: .7 })); pot.position.y = .18; pot.castShadow = true; plant.add(pot);
+  const leaves = new THREE.Mesh(new THREE.IcosahedronGeometry(.36, 1), mat(0x3f6b4f, { flatShading: true })); leaves.position.y = .7; leaves.scale.set(1, 1.3, 1); leaves.castShadow = true; plant.add(leaves);
+  plant.position.set(2.05, 0, -1.55); piece(plant, .4);
+  const flamp = new THREE.Group();
+  const fpole = new THREE.Mesh(new THREE.CylinderGeometry(.015, .015, 1.5, 8), mat(0x17181a)); fpole.position.y = .75; flamp.add(fpole);
+  const fbase = new THREE.Mesh(new THREE.CylinderGeometry(.15, .15, .03, 20), mat(0x17181a)); fbase.position.y = .015; flamp.add(fbase);
+  const fshade = new THREE.Mesh(new THREE.CylinderGeometry(.14, .2, .26, 20, 1, true), new THREE.MeshStandardMaterial({ color: 0xf3e6d0, roughness: .8, side: THREE.DoubleSide, emissive: 0xffb36b, emissiveIntensity: 0 })); fshade.position.y = 1.55; flamp.add(fshade);
+  flamp.position.set(-2.1, 0, -1.4); piece(flamp, .5);
+  const art = new THREE.Group();
+  box(.9, .62, .03, mat(0x17181a), 0, 0, 0, art);
+  box(.8, .52, .01, mat(0xff5a1f, { roughness: .9 }), 0, 0, .02, art);
+  box(.36, .52, .012, mat(0xe4e3df, { roughness: .9 }), .2, 0, .025, art);
+  art.position.set(-.3, 1.65, zb + T / 2 + .03); piece(art, .55);
+
+  // dimension lines (blueprint vernacular), visible on the early stages
+  const dimM = new THREE.LineBasicMaterial({ color: 0xff5a1f });
+  const dimG = new THREE.Group(); scene.add(dimG);
+  const line = (a, b) => { const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a), new THREE.Vector3(...b)]); dimG.add(new THREE.Line(geo, dimM)); };
+  const zf = Dp / 2 + .45, xr = W / 2 + .45;
+  line([-W / 2, 0, zf], [W / 2, 0, zf]); line([-W / 2, 0, zf - .15], [-W / 2, 0, zf + .15]); line([W / 2, 0, zf - .15], [W / 2, 0, zf + .15]);
+  line([xr, 0, -Dp / 2], [xr, 0, Dp / 2]); line([xr - .15, 0, -Dp / 2], [xr + .15, 0, -Dp / 2]); line([xr - .15, 0, Dp / 2], [xr + .15, 0, Dp / 2]);
+  line([xl - .4, 0, Dp / 2], [xl - .4, Hh, Dp / 2]); line([xl - .55, Hh, Dp / 2], [xl - .25, Hh, Dp / 2]);
+  const labels = [["5 000", [0, 0, zf]], ["4 200", [xr, 0, 0]], ["2 800", [xl - .4, Hh / 2, Dp / 2]]].map(([t, pos]) => {
+    const el = document.createElement("div"); el.className = "dim"; el.textContent = t; $("#view").appendChild(el); return { el, v: new THREE.Vector3(...pos) };
+  });
+
+  // colours for each stage
+  const C0 = new THREE.Color(0x6f6d68), CPL = new THREE.Color(0xc4c0b6), CPAINT = new THREE.Color(0xf0efeb), CACC = new THREE.Color(0x56635d);
+  const F0 = new THREE.Color(0x5e5c58), FSCREED = new THREE.Color(0xa8a49c);
+  const tmp = new THREE.Color();
+
+  // camera: orthographic three-quarter view with a little pointer parallax
+  let yaw = .78, pitch = .56, tYaw = .78, zoom = 1;
+  const target = new THREE.Vector3(.1, 1.05, 0);
+  function placeCam() {
+    const R = 20;
+    cam.position.set(target.x + R * Math.sin(yaw) * Math.cos(pitch), target.y + R * Math.sin(pitch), target.z + R * Math.cos(yaw) * Math.cos(pitch));
+    cam.lookAt(target);
+  }
+  function resize() {
+    const r = canvas.getBoundingClientRect(); if (!r.width) return;
+    renderer.setSize(r.width, r.height, false);
+    const a = r.width / r.height, span = a > 1 ? 4.0 : 4.0 / Math.max(a, .62) * .84;
+    const off = a < 1.25 ? -.32 : 0; cam.left = -span * a + off; cam.right = span * a + off; cam.top = span; cam.bottom = -span; cam.zoom = zoom; cam.updateProjectionMatrix();
+    dirty = true; kick();
+  }
+
+  let p = 0, shownP = -1, dirty = true, raf = 0, visible = true;
+  function apply(pp) {
+    // walls: concrete → plaster → paint (+ accent on the left wall)
+    const plaster = smooth(1.45, 1.95, pp), paint = smooth(2.4, 2.9, pp);
+    tmp.copy(C0).lerp(CPL, plaster).lerp(CPAINT, paint); wallMat.color.copy(tmp); wallMat.roughness = .95 - .35 * paint;
+    tmp.copy(C0).lerp(CPL, plaster).lerp(CACC, paint); wallMat2.color.copy(tmp);
+    tmp.copy(F0).lerp(FSCREED, smooth(1.5, 2.0, pp)); floorMat.color.copy(tmp);
+    // stage 0 props leave
+    const gone = smooth(1.1, 1.5, pp);
+    s0.visible = gone < 1; s0.children.forEach(c => { c.scale.setScalar(Math.max(.001, 1 - gone)); });
+    bulbM.color.setHex(gone < .5 ? 0xfff1c4 : 0x888888);
+    // stage 1: cables run out along their axis, then hide in the walls
+    const run = smooth(.4, .95, pp), hide = smooth(1.55, 1.85, pp);
+    s1.forEach((c, i) => { const k = clamp(run * 1.3 - i * .04, 0, 1) * (1 - hide); const ax = c.userData.axis; c.visible = k > .001;
+      c.scale.set(ax === "x" ? k : ax === "s" ? k : 1, ax === "y" ? k : ax === "s" ? k : 1, ax === "z" ? k : ax === "s" ? k : 1); });
+    // stage 2: window
+    const win = smooth(1.6, 2.05, pp); frame.visible = win > .001; frame.scale.setScalar(.6 + .4 * win); frame.position.z = (1 - win) * .4;
+    // stage 3: planks row by row, skirting, sockets, pendant
+    const lay = smooth(2.35, 2.95, pp);
+    for (let i = 0; i < planks.count; i++) {
+      const k = clamp(lay * (planks.count + 6) / 6 - i / 6, 0, 1);
+      m4.makeScale(1, 1, Math.max(.001, k)); m4.setPosition(-W / 2 + .125 + i * .25, .017, -Dp / 2 + .02 + (Dp - .04) * k / 2 - 0);
+      planks.setMatrixAt(i, m4);
+    }
+    planks.instanceMatrix.needsUpdate = true; planks.visible = lay > .001;
+    const fin = smooth(2.75, 3.05, pp);
+    skirts.forEach(s => { s.visible = fin > .001; s.scale.set(1, fin || .001, 1); });
+    plates.forEach(s => { s.visible = fin > .001; s.scale.setScalar(fin || .001); });
+    pendant.visible = fin > .001; pendant.position.y = (1 - fin) * .8;
+    // stage 4: furniture drops in with a little settle
+    const furn = clamp((pp - 3.35) / .85, 0, 1);
+    s4.forEach(o => { const k = clamp((furn - o.userData.delay) / .45, 0, 1); const e = k < 1 ? 1 - Math.pow(1 - k, 3) : 1;
+      o.visible = k > 0; o.position.y = o.userData.baseY + (1 - e) * 1.6; o.scale.setScalar(.92 + .08 * e); });
+    const glow = smooth(3.9, 4.4, pp); lamp.intensity = 2.2 * glow; fshade.material.emissiveIntensity = .9 * glow;
+    hemi.intensity = .75 + .15 * paint; sun.intensity = 1.6 + .3 * win;
+    // dimensions fade once the room is finished
+    const dimO = 1 - smooth(2.4, 2.8, pp); dimG.visible = dimO > .02; labels.forEach(l => l.el.style.opacity = dimO);
+    renderer.shadowMap.needsUpdate = true;
+  }
+  const m4 = new THREE.Matrix4();
+  function placeLabels() {
+    const r = canvas.getBoundingClientRect(), vr = $("#view").getBoundingClientRect();
+    labels.forEach(l => { const v = l.v.clone().project(cam); l.el.style.left = (v.x + 1) / 2 * r.width + (r.left - vr.left) + "px"; l.el.style.top = (1 - v.y) / 2 * r.height + (r.top - vr.top) + "px"; });
+  }
+  // scroll progress is read once per frame while the story is on screen (no scroll listeners)
+  const story = $("#story");
+  function readProgress() {
+    const r = story.getBoundingClientRect();
+    const total = r.height - innerHeight;
+    return clamp(-r.top / total, 0, 1) * 4.6;
+  }
+  function kick() { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(loop); }
+  new IntersectionObserver(([en]) => { visible = en.isIntersecting; kick(); }).observe(story);
+  document.addEventListener("visibilitychange", kick);
+  canvas.addEventListener("pointermove", e => { if (e.pointerType !== "mouse") return; const r = canvas.getBoundingClientRect(); tYaw = .78 + ((e.clientX - r.left) / r.width - .5) * .22; kick(); });
+  canvas.addEventListener("pointerleave", () => { tYaw = .78; kick(); });
+  let lastT = performance.now();
+  function loop(now) {
+    raf = 0; if (!visible || document.hidden) return;
+    const dt = Math.min(50, now - lastT) / 16.67; lastT = now;
+    const goal = readProgress();
+    p += (goal - p) * (reduceMotion ? 1 : 1 - Math.pow(.82, dt));
+    if (Math.abs(goal - p) < .0005) p = goal;
+    let moving = Math.abs(goal - p) > .0005;
+    const dy = tYaw - yaw; if (Math.abs(dy) > .0004) { yaw += dy * (1 - Math.pow(.9, dt)); moving = true; dirty = true; }
+    if (Math.abs(p - shownP) > .0002) { apply(p); setStory(p); shownP = p; dirty = true; }
+    if (dirty) { placeCam(); renderer.render(scene, cam); placeLabels(); dirty = false; }
+    raf = requestAnimationFrame(loop); // stays alive while the section is visible so scrolling is picked up each frame
+  }
+  new ResizeObserver(resize).observe(canvas);
+  resize(); placeCam(); apply(0); setStory(0); kick();
+  room3d = { kick };
+}
+
+/* ================= ADMIN ================= */
+const ST = Object.fromEntries(FUNNEL.map(f => [f.k, f.t]));
+const fmtDT = ts => { const d = new Date(ts); return `${d.getDate()} ${["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"][d.getMonth()]}, ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
+let view = "home";
+function renderAdmin() {
+  $$("#anav a").forEach(a => a.classList.toggle("on", a.dataset.v === view));
+  const n = db.leads.filter(l => l.status === "new").length, b = $("#badge"); b.hidden = !n; b.textContent = n;
+  ({ home: vHome, funnel: vFunnel, projects: vProjects, prices: vPrices }[view] || vHome)($("#page"));
+}
+function vHome(page) {
+  const L = db.leads, won = L.filter(l => l.status === "won"), withCalc = L.filter(l => l.calc);
+  const avg = withCalc.length ? withCalc.reduce((s, l) => s + l.calc.total, 0) / withCalc.length : 0;
+  const pipe = L.filter(l => ["estimate", "measure"].includes(l.status) && l.calc).reduce((s, l) => s + l.calc.total, 0);
+  const counts = FUNNEL.filter(f => f.k !== "lost").map(f => ({ ...f, n: L.filter(l => FUNNEL.findIndex(x => x.k === l.status) >= FUNNEL.findIndex(x => x.k === f.k) && l.status !== "lost").length }));
+  const max = Math.max(1, ...counts.map(c => c.n));
+  page.innerHTML = `<div class="ptitle"><h1>Сводка</h1><a class="btn btn-dark btn-sm" href="#/admin/funnel"><i class="ph ph-kanban"></i>Открыть воронку</a></div>
+    <div class="kpis">
+      <div class="kpi hi"><span>Новые заявки</span><b>${L.filter(l => l.status === "new").length}</b></div>
+      <div class="kpi"><span>Средняя смета</span><b>${mln(avg)}</b></div>
+      <div class="kpi"><span>В работе у менеджера</span><b>${mln(pipe)}</b></div>
+      <div class="kpi"><span>Объектов на ремонте</span><b>${db.projects.length}</b></div>
+    </div>
+    <div class="two">
+      <div class="box"><h2>Последние заявки <a href="#/admin/funnel">Вся воронка</a></h2>${[...L].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6).map(leadRow).join("")}</div>
+      <div class="box"><h2>Воронка за месяц</h2><div class="funnel">${counts.map(c => `<div><span>${c.t}</span><i style="--w:${c.n / max * 100}%"></i><span>${c.n}</span></div>`).join("")}</div>
+        <p style="color:var(--muted);font-size:14px;margin-top:14px">Конверсия заявки в договор: <b style="color:var(--ink)">${Math.round(won.length / Math.max(1, L.length) * 100)}%</b></p></div>
+    </div>`;
+}
+function leadRow(l) {
+  return `<button type="button" class="lrow" data-lead="${l.id}"><span class="grow"><b>${esc(l.name)} · ${esc(l.source.toLowerCase())}</b><small>${fmtDT(l.createdAt)} · ${esc(l.address || "")}${l.calc ? ` · ${mln(l.calc.total)}` : ""}</small></span><span class="lst ${l.status}">${ST[l.status]}</span></button>`;
+}
+function vFunnel(page) {
+  page.innerHTML = `<div class="ptitle"><h1>Воронка заявок</h1><span style="color:var(--muted);font-size:14.5px">Перетащите карточку в другую колонку или откройте её</span></div>
+    <div class="board">${FUNNEL.map(f => { const list = db.leads.filter(l => l.status === f.k).sort((a, b) => b.createdAt - a.createdAt);
+      return `<div class="col" data-col="${f.k}"><h3>${f.t}<span>${list.length}</span></h3>${list.map(l => `<button type="button" class="card" draggable="true" data-lead="${l.id}"><b>${esc(l.name)}</b><span class="sum">${l.calc ? mln(l.calc.total) : "без расчёта"}</span><small>${esc(l.address || "")}</small><small>${fmtDT(l.createdAt)} · ${esc(l.source)}</small></button>`).join("")}</div>`; }).join("")}</div>`;
+  // drag and drop between columns
+  let dragId = null;
+  $$(".card", page).forEach(c => {
+    c.addEventListener("dragstart", e => { dragId = +c.dataset.lead; c.classList.add("dragging"); e.dataTransfer.effectAllowed = "move"; });
+    c.addEventListener("dragend", () => c.classList.remove("dragging"));
+  });
+  $$(".col", page).forEach(col => {
+    col.addEventListener("dragover", e => { e.preventDefault(); col.classList.add("over"); });
+    col.addEventListener("dragleave", () => col.classList.remove("over"));
+    col.addEventListener("drop", e => { e.preventDefault(); col.classList.remove("over"); const l = db.leads.find(x => x.id === dragId); if (l && l.status !== col.dataset.col) { l.status = col.dataset.col; commit(); toast(`${l.name}: ${ST[l.status]}`); } });
+  });
+}
+function vProjects(page) {
+  page.innerHTML = `<div class="ptitle"><h1>Объекты в работе</h1><span style="color:var(--muted);font-size:14.5px">Нажмите на этап, чтобы отметить прогресс</span></div>
+    <div class="proj">${db.projects.map(p => { const days = Math.floor((Date.now() - p.start) / 864e5);
+      return `<div class="pr"><div><h3>${esc(p.name)}</h3><small>${esc(p.client)} · ${esc(p.foreman)} · ${mln(p.budget)}</small></div>
+        <div class="steps5">${PSTAGES.map((s, i) => `<button type="button" class="${i < p.stage ? "d1" : ""} ${i === p.stage ? "cur" : ""}" data-pid="${p.id}" data-st="${i}">${s}</button>`).join("")}</div>
+        <div class="days"><b>${days} из ${p.plan}</b>дней</div></div>`; }).join("")}</div>`;
+}
+function vPrices(page) {
+  const P = db.prices;
+  page.innerHTML = `<div class="ptitle"><h1>Цены калькулятора</h1></div><p style="color:var(--muted);margin:-8px 0 18px">Меняйте цены здесь, и калькулятор и таблица пакетов на сайте сразу считают по новым.</p>
+    <div class="box pe">${P.levels.map(l => `<div class="row"><div><b>${esc(l.t)}</b><small>за м², работы и материалы</small></div><input inputmode="numeric" data-lv="${l.k}" value="${l.m2}" aria-label="${esc(l.t)}, цена за м²"></div>`).join("")}
+      <div class="row"><div><b>Санузел под ключ</b><small>за один, капитальный уровень</small></div><input inputmode="numeric" data-bath value="${P.bath}" aria-label="Санузел"></div>
+      ${P.opts.map(o => `<div class="row"><div><b>${esc(o.t)}</b><small>${esc(o.per)}</small></div><input inputmode="numeric" data-op="${o.k}" value="${o.price}" aria-label="${esc(o.t)}"></div>`).join("")}</div>`;
+}
+function leadModal(id) {
+  const l = db.leads.find(x => x.id === id); if (!l) return;
+  const c = l.calc, lvl = c ? db.prices.levels.find(x => x.k === c.level) : null;
+  openModal(`<div class="mh"><h3>${esc(l.name)}</h3><button type="button" class="icon-btn" data-close aria-label="Закрыть"><i class="ph ph-x"></i></button></div>
+    <p style="color:var(--ink-2)">${esc(l.source)} · ${fmtDT(l.createdAt)}<br>${esc(l.phone)}${l.address ? `<br>${esc(l.address)}` : ""}</p>
+    ${c ? `<div class="snap">${c.type === "new" ? "Новостройка" : "Вторичка"} · ${c.area} м² · ${c.rooms}-комн. · с/у ${c.baths}<br>Уровень: ${esc(lvl ? lvl.t : c.level)}${c.opts && c.opts.length ? `<br>Опции: ${c.opts.map(k => (db.prices.opts.find(o => o.k === k) || {}).t).filter(Boolean).join(", ")}` : ""}<br>Итого: ${money(c.total)} · ~${c.days} дней</div>` : `<p style="color:var(--muted)">Клиент записался на замер без расчёта.</p>`}
+    <div><div style="font-size:13.5px;color:var(--muted);margin-bottom:8px">Этап</div><div class="chips">${FUNNEL.map(f => `<button type="button" class="chip" data-setst="${f.k}" data-id="${l.id}" aria-pressed="${l.status === f.k}">${f.t}</button>`).join("")}</div></div>
+    <a class="btn btn-primary btn-sm" style="justify-self:start" href="https://wa.me/${l.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Здравствуйте, ${l.name}! Это «Сызба», ремонт квартир. ${c ? `Отправляем смету на ${c.area} м²: ${money(c.total)}.` : "Когда удобно приехать на замер?"}`)}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i>Написать в WhatsApp</a>`);
+}
+$("#admin").addEventListener("click", e => {
+  const el = e.target.closest("[data-lead],[data-pid]"); if (!el) return;
+  if (el.dataset.lead) return leadModal(+el.dataset.lead);
+  if (el.dataset.pid) { const p = db.projects.find(x => x.id === +el.dataset.pid); p.stage = +el.dataset.st; commit(); toast(`${p.name.split(",")[0]}: ${PSTAGES[p.stage]}`); }
+});
+$("#modal").addEventListener("click", e => {
+  const b = e.target.closest("[data-setst]"); if (!b) return;
+  const l = db.leads.find(x => x.id === +b.dataset.id); l.status = b.dataset.setst; commit(); leadModal(l.id);
+});
+$("#admin").addEventListener("change", e => {
+  const v = parseInt(String(e.target.value).replace(/\D/g, ""), 10); if (!(v >= 0)) return;
+  const P = db.prices;
+  if (e.target.dataset.lv) P.levels.find(l => l.k === e.target.dataset.lv).m2 = v;
+  else if (e.target.dataset.bath !== undefined) P.bath = v;
+  else if (e.target.dataset.op) P.opts.find(o => o.k === e.target.dataset.op).price = v;
+  else return;
+  save(); toast("Цена сохранена");
+});
+$("#resetDemo").onclick = () => { if (confirm("Вернуть демо к исходному виду? Ваши заявки и правки удалятся.")) { db = seed(); save(); render(); toast("Демо-данные сброшены"); } };
+
+/* ================= routing ================= */
+function renderSite() { renderCalc(); renderWorks(); renderPackages(); }
+function render() { if (document.body.classList.contains("is-admin")) renderAdmin(); else renderSite(); }
+function route() {
+  closeModal();
+  if (location.hash.startsWith("#/admin")) {
+    view = location.hash.slice(2).split("?")[0].split("/")[1] || "home";
+    document.body.classList.add("is-admin"); document.title = "Админка | Сызба"; window.scrollTo(0, 0);
+  } else {
+    const was = document.body.classList.contains("is-admin");
+    document.body.classList.remove("is-admin"); document.title = "Сызба | Ремонт квартир под ключ в Атырау";
+    if (was) { window.scrollTo(0, 0); room3d && room3d.kick(); }
+  }
+  render();
+}
+window.addEventListener("hashchange", route);
+buildStory();
+renderMeasureForm();
+route();
+initRoom();
+})();
+</script>
+</body>
+</html>
